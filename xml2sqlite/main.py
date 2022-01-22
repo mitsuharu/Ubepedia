@@ -15,6 +15,7 @@ def main():
 
     ube_civic_facility.insertDB(db)
     ube_cultural_property.insertDB(db)
+    ube_sculpture.insertDB(db)
 
     db.close()
 
