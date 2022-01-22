@@ -19,7 +19,7 @@ def insertDB(db: sqlite3.Connection):
 
     # フィールド作成用SQL文
     create_sql = """
-        CREATE TABLE CivicFacility (
+        CREATE TABLE civic_facility (
             id integer,
             name text,
             category text,
@@ -41,7 +41,7 @@ def insertDB(db: sqlite3.Connection):
             disabled_toilet text,
             reservation text,
             homepage text,
-            image text,
+            depiction text,
             description text
         )
     """
@@ -50,61 +50,37 @@ def insertDB(db: sqlite3.Connection):
     records = []
 
     for child in root.iter('ube_civic_facility'):
-        child_id: int = child.get("id")
-        name: str = xml.findText(child, "label")
-        category: str = xml.findText(child, "category")
-        latitude = xml.findFloat(child, "latitude")
-        longlatitude = xml.findFloat(child, "longlatitude")
-        postal_code: str = xml.findText(child, "postalCode")
-        address: str = xml.findText(child, "address")
-        phone: str = xml.findText(child, "phone")
-        fax: str = xml.findText(child, "fax")
-        email: str = xml.findText(child, "email")
-        start_time: str = xml.findText(child, "startTime")
-        end_time: str = xml.findText(child, "endTime")
-        time_notes: str = xml.findText(child, "timeNotes")
-        week_closure_day: str = xml.findText(child, "weekClosureday")
-        closure_day: str = xml.findText(child, "closureday")
-        closure_day_notes: str = xml.findText(child, "closuredayNotes")
-        parking: str = xml.findText(child, "parking")
-        parking_fee: str = xml.findText(child, "parkingFee")
-        disabled_toilet: str = xml.findText(child, "disabledToilet")
-        reservation: str = xml.findText(child, "reservation")
-        homepage: str = xml.findText(child, "homepage")
-        image: str = xml.findText(child, "depiction")
-        description: str = xml.findText(child, "depiction")
-
-        records.append((child_id,
-                        name,
-                        category,
-                        latitude,
-                        longlatitude,
-                        postal_code,
-                        address,
-                        phone,
-                        fax,
-                        email,
-                        start_time,
-                        end_time,
-                        time_notes,
-                        week_closure_day,
-                        closure_day,
-                        closure_day_notes,
-                        parking,
-                        parking_fee,
-                        disabled_toilet,
-                        reservation,
-                        homepage,
-                        image,
-                        description
+        records.append((child.get("id"),
+                        xml.find_text(child, "label"),
+                        xml.find_text(child, "category"),
+                        xml.find_float(child, "latitude"),
+                        xml.find_float(child, "longlatitude"),
+                        xml.find_text(child, "postalCode"),
+                        xml.find_text(child, "address"),
+                        xml.find_text(child, "phone"),
+                        xml.find_text(child, "fax"),
+                        xml.find_text(child, "email"),
+                        xml.find_text(child, "startTime"),
+                        xml.find_text(child, "endTime"),
+                        xml.find_text(child, "timeNotes"),
+                        xml.find_text(child, "weekClosureday"),
+                        xml.find_text(child, "closureday"),
+                        xml.find_text(child, "closuredayNotes"),
+                        xml.find_text(child, "parking"),
+                        xml.find_text(child, "parkingFee"),
+                        xml.find_text(child, "disabledToilet"),
+                        xml.find_text(child, "reservation"),
+                        xml.find_text(child, "homepage"),
+                        xml.find_text(child, "depiction"),
+                        xml.find_text(child, "depiction")
                         ))
 
     sql = """
-        INSERT INTO CivicFacility
+        INSERT INTO civic_facility
          (id, name, category, latitude, longlatitude, postal_code, address,
          phone, fax, email, start_time, end_time, time_notes, week_closure_day,
          closure_day, closure_day_notes, parking, parking_fee, disabled_toilet,
-         reservation, homepage, image, description) 
+         reservation, homepage, depiction, description) 
          VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     """
     db.executemany(sql, records)
