@@ -14,6 +14,7 @@ def main():
     db: sqlite3.Connection = sqlite3.connect(db_file)
 
     ube_civic_facility.insertDB(db)
+    ube_cultural_property.insertDB(db)
 
     db.close()
 
