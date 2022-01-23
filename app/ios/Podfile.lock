@@ -19,6 +19,8 @@ PODS:
   - ExpoModulesCore (0.6.4):
     - React-Core
     - ReactCommon/turbomodule/core
+  - EXSQLite (10.1.0):
+    - ExpoModulesCore
   - FBLazyVector (0.66.4)
   - FBReactNativeSpec (0.66.4):
     - RCT-Folly (= 2021.06.28.00-v2)
@@ -376,6 +378,7 @@ DEPENDENCIES:
   - EXKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - Expo (from `../node_modules/expo/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core/ios`)
+  - EXSQLite (from `../node_modules/expo-sqlite/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - Flipper (= 0.99.0)
@@ -469,6 +472,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo/ios"
   ExpoModulesCore:
     :path: "../node_modules/expo-modules-core/ios"
+  EXSQLite:
+    :path: "../node_modules/expo-sqlite/ios"
   FBLazyVector:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
   FBReactNativeSpec:
@@ -544,6 +549,7 @@ SPEC CHECKSUMS:
   EXKeepAwake: b571c2ad8323b2fced6e907766e2549f75119471
   Expo: 337c72b7e9314e93023af79c875930db8e008275
   ExpoModulesCore: 64abda7af7cf659d2fa092934e29c6f4ea7e849f
+  EXSQLite: 5b16cc6b280d3c024b0b1d76829dd2161a26acbe
   FBLazyVector: e5569e42a1c79ca00521846c223173a57aca1fe1
   FBReactNativeSpec: fe08c1cd7e2e205718d77ad14b34957cce949b58
   Flipper: 30e8eeeed6abdc98edaf32af0cda2f198be4b733
@@ -589,6 +595,6 @@ SPEC CHECKSUMS:
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: fb390048a77859002d7f0936c5f43beb211d681f
+PODFILE CHECKSUM: 047cd944c67f6909680b9381077242a5a183dc9c
 
 COCOAPODS: 1.11.2
