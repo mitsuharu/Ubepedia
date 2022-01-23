@@ -5,6 +5,8 @@
  * @format
  */
 
+ const defaultAssetExts = require("metro-config/src/defaults/defaults").assetExts;
+
 module.exports = {
   transformer: {
     getTransformOptions: async () => ({
@@ -14,4 +16,13 @@ module.exports = {
       },
     }),
   },
+
+  // https://stackoverflow.com/questions/55622372/expo-sqlite-use-existing-database
+  resolver: {
+    assetExts: [
+        ...defaultAssetExts,
+        "db", 
+        "sqlite"
+    ]
+  }
 };

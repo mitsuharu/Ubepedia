@@ -6,6 +6,7 @@ module.exports = {
       alias: {
         "@": "./src",
         "@images": "./images",
+        "@assets": "./assets",
       },
       extensions: [
         ".js",
