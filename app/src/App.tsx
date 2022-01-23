@@ -5,6 +5,7 @@ import { initializeRedux } from '@/redux'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import Routes from './routes'
 import { GlobalToast } from '@/components/GlobalToast'
+import { UbeDataProvider } from './database/ube'
 
 const App = () => {
   const { persistor, store } = initializeRedux()
@@ -13,8 +14,10 @@ const App = () => {
     <SafeAreaProvider>
       <ReduxProvider store={store}>
         <PersistProvider loading={null} persistor={persistor}>
-          <Routes />
-          <GlobalToast />
+          <UbeDataProvider>
+            <Routes />
+            <GlobalToast />
+          </UbeDataProvider>
         </PersistProvider>
       </ReduxProvider>
     </SafeAreaProvider>
