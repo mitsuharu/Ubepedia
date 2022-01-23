@@ -17,7 +17,7 @@ const Routes: React.FC = () => {
   )
 }
 
-export default Routes
+export { Routes }
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
