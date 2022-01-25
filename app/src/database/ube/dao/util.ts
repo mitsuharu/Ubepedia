@@ -1,5 +1,9 @@
 import * as SQLite from 'expo-sqlite'
 
+export type WhereQuery = {
+  keyword?: string
+}
+
 export const execute = (
   database: SQLite.Database,
   sqlStatement: string,

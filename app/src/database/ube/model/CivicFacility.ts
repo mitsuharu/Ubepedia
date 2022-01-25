@@ -3,7 +3,7 @@ import { numberValue, stringValue } from './util'
 export class CivicFacility {
   static table = 'civic_facility'
 
-  id: string
+  id: number
   name: string
   category: string
   latitude: number
@@ -28,7 +28,7 @@ export class CivicFacility {
   description: string
 
   constructor(obj: any) {
-    this.id = stringValue(obj, 'id')
+    this.id = numberValue(obj, 'id')
     this.name = stringValue(obj, 'name')
     this.category = stringValue(obj, 'category')
     this.latitude = numberValue(obj, 'latitude')
