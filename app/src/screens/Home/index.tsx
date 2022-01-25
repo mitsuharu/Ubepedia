@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { Text, TextStyle, useColorScheme, View, ViewStyle } from 'react-native'
 import { styleType } from '@/utils/styles'
 import { makeStyles } from 'react-native-swag-styles'
 import { COLOR } from '@/CONSTANTS/COLOR'
 import { useNavigation } from '@react-navigation/native'
+import { useUbeData } from '@/database/ube'
 
 type Props = {}
 type ComponentProps = Props & {
@@ -24,6 +25,15 @@ const Component: React.FC<ComponentProps> = ({ onPress }) => {
 
 const Container: React.FC<Props> = (props) => {
   const navigation = useNavigation()
+
+  const { civicFacilityList } = useUbeData()
+
+  useEffect(() => {
+    if (civicFacilityList.length > 0) {
+      const [{ name }] = civicFacilityList
+      console.log(`civicFacility name: ${name}`)
+    }
+  }, [civicFacilityList])
 
   const onPress = useCallback(() => {
     navigation.navigate('Detail')

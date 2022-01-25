@@ -10,6 +10,12 @@ import * as FileSystem from 'expo-file-system'
 import { Asset } from 'expo-asset'
 import { useDispatch } from 'react-redux'
 import { enqueueToast } from '@/redux/modules/toast/actions'
+import { fetchCivicFacility } from './dao/CivicFacility'
+import { fetchCulturalProperty } from './dao/CulturalProperty'
+import { fetchSculpture } from './dao/Sculpture'
+import { CivicFacility } from './model/CivicFacility'
+import { CulturalProperty } from './model/CulturalProperty'
+import { Sculpture } from './model/Sculpture'
 
 export let ubeData: SQLite.Database | undefined
 
@@ -72,35 +78,60 @@ export const UbeDataProvider: React.FC<Props> = ({ children }) => {
   )
 }
 
-/**
- * 聴き放題の価格を取得する。
- */
-export const useUbeData = (): SQLite.Database | undefined => {
+type UbeData = {
+  civicFacilityList: CivicFacility[]
+  culturalPropertyList: CulturalProperty[]
+  sculptureList: Sculpture[]
+}
+
+export const useUbeData = (): UbeData => {
   const { database } = useContext(UbeDataStateContext)
 
-  // database.transaction(
-  //   (tx) => {
-  //     console.log(`tx ${tx}`)
-  //     tx.executeSql(
-  //       'SELECT * FROM civic_facility',
-  //       undefined,
-  //       (_, resultSet) => {
-  //         console.log(`executeSql success, resultSet: ${resultSet}`)
-  //       },
-  //       () => {
-  //         console.log('executeSql error')
-  //         return true
-  //       },
-  //     )
-  //   },
-  // () => {
-  //   console.log('tx success')
-  // },
-  // () => {
-  //   console.log('tx error')
-  //   return true
-  // },
-  // )
+  const [civicFacilityList, setCivicFacilityList] = useState<CivicFacility[]>(
+    [],
+  )
+  const [culturalPropertyList, setCulturalPropertyList] = useState<
+    CulturalProperty[]
+  >([])
+  const [sculptureList, setSculptureList] = useState<Sculpture[]>([])
 
-  return database
+  const updateCivicFacility = useCallback(async () => {
+    if (database) {
+      const results = await fetchCivicFacility(database)
+      setCivicFacilityList(results)
+    } else {
+      setCivicFacilityList([])
+    }
+  }, [database])
+
+  const updateCulturalPropertyList = useCallback(async () => {
+    if (database) {
+      const results = await fetchCulturalProperty(database)
+      setCulturalPropertyList(results)
+    } else {
+      setCulturalPropertyList([])
+    }
+  }, [database])
+
+  const updateSculpture = useCallback(async () => {
+    if (database) {
+      const results = await fetchSculpture(database)
+      setSculptureList(results)
+    } else {
+      setSculptureList([])
+    }
+  }, [database])
+
+  useEffect(() => {
+    updateCivicFacility()
+    updateCulturalPropertyList()
+    updateSculpture()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [database])
+
+  return {
+    civicFacilityList,
+    culturalPropertyList,
+    sculptureList,
+  }
 }
