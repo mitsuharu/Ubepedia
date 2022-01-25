@@ -4,6 +4,7 @@ import { styleType } from '@/utils/styles'
 import { makeStyles } from 'react-native-swag-styles'
 import { COLOR } from '@/CONSTANTS/COLOR'
 import { useNavigation } from '@react-navigation/native'
+import { useUbeData } from '@/database/ube'
 
 type Props = {}
 type ComponentProps = Props & {
@@ -24,6 +25,8 @@ const Component: React.FC<ComponentProps> = ({ onPress }) => {
 
 const Container: React.FC<Props> = (props) => {
   const navigation = useNavigation()
+
+  const aaaa = useUbeData()
 
   const onPress = useCallback(() => {
     navigation.navigate('Detail')

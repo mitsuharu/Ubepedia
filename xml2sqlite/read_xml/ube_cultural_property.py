@@ -23,7 +23,7 @@ def insertDB(db: sqlite3.Connection):
             id integer,
             name text,
             latitude real,
-            longlatitude real,
+            longitude real,
             description text,
             category text,
             sub_category text,
@@ -55,7 +55,7 @@ def insertDB(db: sqlite3.Connection):
 
     sql = """
         INSERT INTO cultural_property
-         (id, name, latitude, longlatitude, description,
+         (id, name, latitude, longitude, description,
          category, sub_category, designated_date,
          administrator, place, production_age, depiction)
          VALUES (?,?,?,?,?,?,?,?,?,?,?,?)

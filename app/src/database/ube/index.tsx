@@ -10,6 +10,7 @@ import * as FileSystem from 'expo-file-system'
 import { Asset } from 'expo-asset'
 import { useDispatch } from 'react-redux'
 import { enqueueToast } from '@/redux/modules/toast/actions'
+import { fetchCivicFacility } from './dao/CivicFacility'
 
 export let ubeData: SQLite.Database | undefined
 
@@ -78,29 +79,10 @@ export const UbeDataProvider: React.FC<Props> = ({ children }) => {
 export const useUbeData = (): SQLite.Database | undefined => {
   const { database } = useContext(UbeDataStateContext)
 
-  // database.transaction(
-  //   (tx) => {
-  //     console.log(`tx ${tx}`)
-  //     tx.executeSql(
-  //       'SELECT * FROM civic_facility',
-  //       undefined,
-  //       (_, resultSet) => {
-  //         console.log(`executeSql success, resultSet: ${resultSet}`)
-  //       },
-  //       () => {
-  //         console.log('executeSql error')
-  //         return true
-  //       },
-  //     )
-  //   },
-  // () => {
-  //   console.log('tx success')
-  // },
-  // () => {
-  //   console.log('tx error')
-  //   return true
-  // },
-  // )
+  // 仮
+  if (database) {
+    fetchCivicFacility(database)
+  }
 
   return database
 }
