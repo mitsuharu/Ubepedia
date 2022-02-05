@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
   separator: styleType<ViewStyle>({
     width: '100%',
     height: StyleSheet.hairlineWidth,
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
   }),
   hasPaddingLeft: styleType<ViewStyle>({
     height: StyleSheet.hairlineWidth,

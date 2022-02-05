@@ -12,6 +12,7 @@ import {
 } from 'react-native'
 import { makeStyles } from 'react-native-swag-styles'
 import Icon from 'react-native-vector-icons/Entypo'
+import { Spacer } from '@/components/Spacer'
 
 type Props = {
   isVisible: boolean
@@ -23,7 +24,8 @@ export const NoImageView: React.FC<Props> = ({ style, isVisible }) => {
   return isVisible ? (
     <View style={[styles.container, style]}>
       <Icon style={styles.icon} name="emoji-sad" size={30} color="gray" />
-      <Text>画像の読込に失敗しました</Text>
+      <Spacer height={4} />
+      <Text style={styles.text}>画像の読込に失敗しました</Text>
     </View>
   ) : null
 }
@@ -39,10 +41,8 @@ const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
   }),
   icon: styleType<TextStyle>({
     color: COLOR(colorScheme).TEXT.SECONDARY,
-    marginBottom: 4,
   }),
   text: styleType<TextStyle>({
-    fontSize: 16,
     color: COLOR(colorScheme).TEXT.SECONDARY,
   }),
 }))

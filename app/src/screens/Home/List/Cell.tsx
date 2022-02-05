@@ -54,6 +54,8 @@ const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
   }),
   text: styleType<TextStyle>({
     flexShrink: 1,
+    color: COLOR(colorScheme).TEXT.PRIMARY,
+    fontWeight: '500',
   }),
   image: styleType<ImageStyle>({
     width: 100,

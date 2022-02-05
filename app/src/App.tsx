@@ -6,6 +6,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { Routes } from './routes'
 import { GlobalToast } from '@/components/GlobalToast'
 import { UbeDataProvider } from './database/ube'
+import { enableFreeze } from 'react-native-screens'
+
+// https://github.com/software-mansion/react-freeze#quick-start-with-react-navigation-react-native-
+enableFreeze(true)
 
 const App = () => {
   const { persistor, store } = initializeRedux()
