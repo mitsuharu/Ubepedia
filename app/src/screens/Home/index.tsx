@@ -95,8 +95,7 @@ const Container: React.FC<Props> = (props) => {
 
   const onPress = useCallback(
     (item: UbeDataType) => {
-      console.log(item.name)
-      navigation.navigate('Detail')
+      navigation.navigate('Detail', { item })
     },
     [navigation],
   )
@@ -105,6 +104,14 @@ const Container: React.FC<Props> = (props) => {
     updateSections()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ubeData])
+
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerSearchBarOptions: {
+  //       // search bar options
+  //     },
+  //   })
+  // }, [navigation])
 
   return <Component {...props} sections={sections} onPress={onPress} />
 }
