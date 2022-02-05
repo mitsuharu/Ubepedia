@@ -1,12 +1,5 @@
 import React, { useLayoutEffect } from 'react'
-import {
-  ScrollView,
-  Text,
-  TextStyle,
-  useColorScheme,
-  View,
-  ViewStyle,
-} from 'react-native'
+import { ScrollView, TextStyle, useColorScheme, ViewStyle } from 'react-native'
 import { styleType } from '@/utils/styles'
 import { makeStyles } from 'react-native-swag-styles'
 import { COLOR } from '@/CONSTANTS/COLOR'

@@ -1,16 +1,40 @@
 import { styleType } from '@/utils/styles'
-import React, { useState, useCallback, useMemo } from 'react'
-import { View, StyleSheet, ViewStyle } from 'react-native'
-import FastImage, { FastImageProps, OnLoadEvent } from 'react-native-fast-image'
+import React, { useState, useCallback, useMemo, useEffect } from 'react'
+import { StyleSheet, ViewStyle } from 'react-native'
+import FastImage, {
+  FastImageProps,
+  OnLoadEvent,
+  Source,
+} from 'react-native-fast-image'
 import { LoadingView } from './LoadingView'
 import { NoImageView } from './NoImageView'
+import { Button } from '@/components/Button'
+import ImageViewing from 'react-native-image-viewing'
 
-type Props = {} & FastImageProps
+type Props = {
+  canImageModal?: boolean
+} & FastImageProps
 
+/**
+ * FastImage の props の Source か型判定する
+ */
+const isSource = (arg: any | undefined | null): arg is Source =>
+  !!arg && arg.uri !== undefined
+
+/**
+ * FastImage の機能強化版
+ * - ローディング画像とエラー画像を追加した
+ * - 画像をモーダル表示する
+ *
+ * @param canImageModal 画像をモーダル表示したい場合は true を設定する
+ */
 export const CustomFastImage = (props: Props) => {
-  const { style, onLoad, onError } = props
+  const { canImageModal, style, source, onLoad, onError } = props
+
   const [isLoading, setLoading] = useState(true)
   const [isErrored, setIsErrored] = useState(false)
+  const [canPress, setCanPress] = useState(false)
+  const [visibleModal, setVisibleModal] = useState(false)
 
   const onCustomLoad = useCallback(
     (event: OnLoadEvent) => {
@@ -38,12 +62,39 @@ export const CustomFastImage = (props: Props) => {
     return undefined
   }, [style])
 
+  const onPress = useCallback(() => {
+    setVisibleModal(true)
+  }, [])
+
+  const onRequestClose = useCallback(() => {
+    setVisibleModal(false)
+  }, [])
+
+  useEffect(() => {
+    setCanPress(!!canImageModal && !isErrored && !isLoading)
+  }, [canImageModal, isErrored, isLoading])
+
+  const imageUrl = useMemo(
+    () => (isSource(source) ? source.uri : undefined),
+    [source],
+  )
+
   return (
-    <View style={viewSizeStyle}>
-      <FastImage {...props} onLoad={onCustomLoad} onError={onCustomError} />
-      <LoadingView style={styles.image} isVisible={isLoading} />
-      <NoImageView style={styles.image} isVisible={isErrored} />
-    </View>
+    <>
+      <Button style={viewSizeStyle} onPress={canPress ? onPress : undefined}>
+        <FastImage {...props} onLoad={onCustomLoad} onError={onCustomError} />
+        <LoadingView style={styles.image} isVisible={isLoading} />
+        <NoImageView style={styles.image} isVisible={isErrored} />
+      </Button>
+      {!!imageUrl && canImageModal && (
+        <ImageViewing
+          visible={visibleModal}
+          imageIndex={0}
+          images={[{ uri: imageUrl }]}
+          onRequestClose={onRequestClose}
+        />
+      )}
+    </>
   )
 }
 

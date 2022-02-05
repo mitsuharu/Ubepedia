@@ -1,6 +1,5 @@
 import React from 'react'
 import { Text, TextStyle, useColorScheme, View, ViewStyle } from 'react-native'
-import { contentInset } from '@/components/List/util'
 import { COLOR } from '@/CONSTANTS/COLOR'
 import { SectionSeparator } from './Separator'
 import { makeStyles } from 'react-native-swag-styles'
