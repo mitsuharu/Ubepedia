@@ -5,6 +5,8 @@ import { makeStyles } from 'react-native-swag-styles'
 import { COLOR } from '@/CONSTANTS/COLOR'
 import { Button } from '@/components/Button'
 import { ItemType } from './types'
+import FastImage, { ImageStyle } from 'react-native-fast-image'
+import { CustomFastImage } from '@/components/CustomFastImage'
 
 type Props = {
   item: ItemType
@@ -15,11 +17,16 @@ type ComponentProps = Props & {
   imageUrl: string | undefined
 }
 
-const Component: React.FC<ComponentProps> = ({ title, onPress }) => {
+const Component: React.FC<ComponentProps> = ({ title, imageUrl, onPress }) => {
   const styles = useStyles()
 
   return (
     <Button style={styles.container} onPress={onPress}>
+      <CustomFastImage
+        source={{ uri: imageUrl }}
+        resizeMode={FastImage.resizeMode.contain}
+        style={styles.image}
+      />
       <Text style={styles.text}>{title}</Text>
     </Button>
   )
@@ -40,8 +47,13 @@ const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
     backgroundColor: COLOR(colorScheme).BACKGROUND.PRIMARY,
     paddingVertical: 8,
     paddingHorizontal: 16,
+    flexDirection: 'row',
   }),
   text: styleType<TextStyle>({
     // textAlign: 'center',
+  }),
+  image: styleType<ImageStyle>({
+    width: 100,
+    height: 100,
   }),
 }))
