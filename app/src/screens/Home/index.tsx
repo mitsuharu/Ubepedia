@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from 'react'
 import {
   SectionList,
   SectionListData,
@@ -18,6 +24,7 @@ import { ubeDataKeys, ubeDataName, UbeDataType } from '@/database/ube/type'
 import { match } from 'ts-pattern'
 import { ItemSeparator } from '@/components/List/Separator'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { SearchButton } from '@/components/Button/SearchButton'
 
 type Props = {}
 type ComponentProps = Props & {
@@ -105,13 +112,13 @@ const Container: React.FC<Props> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ubeData])
 
-  // useEffect(() => {
-  //   navigation.setOptions({
-  //     headerSearchBarOptions: {
-  //       // search bar options
-  //     },
-  //   })
-  // }, [navigation])
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'ubepedia',
+      headerRight: () => <SearchButton />,
+      hideWhenScrolling: true,
+    })
+  }, [navigation])
 
   return <Component {...props} sections={sections} onPress={onPress} />
 }

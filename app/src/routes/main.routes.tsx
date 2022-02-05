@@ -4,14 +4,21 @@ import { MainParams } from './main.params'
 import { Home } from '@/screens/Home'
 import { Detail } from '@/screens/Detail'
 import { MainName } from './main.constraint'
+import { Search } from '@/screens/Search'
 
 const Stack = createNativeStackNavigator<MainParams>()
 
 const Routes: React.FC = () => {
   return (
-    <Stack.Navigator initialRouteName={MainName.Home}>
+    <Stack.Navigator
+      initialRouteName={MainName.Home}
+      screenOptions={{
+        headerBackTitleVisible: false,
+      }}
+    >
       <Stack.Screen name={MainName.Home} component={Home} />
       <Stack.Screen name={MainName.Detail} component={Detail} />
+      <Stack.Screen name={MainName.Search} component={Search} />
     </Stack.Navigator>
   )
 }

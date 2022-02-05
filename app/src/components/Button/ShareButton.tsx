@@ -58,7 +58,7 @@ const Container: React.FC<Props> = (props) => {
         ],
       })
     } catch (error: any) {
-      console.warn(`ShareButton#doShare error: ${error}`)
+      console.warn(`ShareButton#onPress`, error)
       dispatch(enqueueToast({ message: 'シェアに失敗しました' }))
     }
   }, [title, url, dispatch])
