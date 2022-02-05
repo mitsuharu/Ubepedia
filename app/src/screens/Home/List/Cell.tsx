@@ -7,6 +7,7 @@ import { Button } from '@/components/Button'
 import { ItemType } from './types'
 import FastImage, { ImageStyle } from 'react-native-fast-image'
 import { CustomFastImage } from '@/components/CustomFastImage'
+import { Spacer } from '@/components/Spacer'
 
 type Props = {
   item: ItemType
@@ -27,6 +28,7 @@ const Component: React.FC<ComponentProps> = ({ title, imageUrl, onPress }) => {
         resizeMode={FastImage.resizeMode.contain}
         style={styles.image}
       />
+      <Spacer width={10} />
       <Text style={styles.text}>{title}</Text>
     </Button>
   )
@@ -48,9 +50,10 @@ const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
     paddingVertical: 8,
     paddingHorizontal: 16,
     flexDirection: 'row',
+    alignItems: 'center',
   }),
   text: styleType<TextStyle>({
-    // textAlign: 'center',
+    flexShrink: 1,
   }),
   image: styleType<ImageStyle>({
     width: 100,

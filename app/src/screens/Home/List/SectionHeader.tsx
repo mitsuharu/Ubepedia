@@ -33,6 +33,6 @@ const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
   }),
   text: styleType<TextStyle>({
     fontWeight: '500',
-    color: COLOR(colorScheme).TEXT.PRIMARY,
+    color: COLOR(colorScheme).TEXT.SECONDARY,
   }),
 }))

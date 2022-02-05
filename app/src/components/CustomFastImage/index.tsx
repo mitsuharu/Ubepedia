@@ -1,5 +1,5 @@
 import { styleType } from '@/utils/styles'
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useMemo } from 'react'
 import { View, StyleSheet, ViewStyle } from 'react-native'
 import FastImage, { FastImageProps, OnLoadEvent } from 'react-native-fast-image'
 import { LoadingView } from './LoadingView'
@@ -8,7 +8,7 @@ import { NoImageView } from './NoImageView'
 type Props = {} & FastImageProps
 
 export const CustomFastImage = (props: Props) => {
-  const { onLoad, onError } = props
+  const { style, onLoad, onError } = props
   const [isLoading, setLoading] = useState(true)
   const [isErrored, setIsErrored] = useState(false)
 
@@ -26,8 +26,20 @@ export const CustomFastImage = (props: Props) => {
     onError?.()
   }, [onError])
 
+  const viewSizeStyle = useMemo(() => {
+    if (style) {
+      const { width, height } = StyleSheet.flatten(style)
+      return styleType<ViewStyle>({
+        width,
+        height,
+        backgroundColor: 'transparent',
+      })
+    }
+    return undefined
+  }, [style])
+
   return (
-    <View>
+    <View style={viewSizeStyle}>
       <FastImage {...props} onLoad={onCustomLoad} onError={onCustomError} />
       <LoadingView style={styles.image} isVisible={isLoading} />
       <NoImageView style={styles.image} isVisible={isErrored} />
