@@ -1,62 +1,59 @@
 import React from 'react'
-import { Text, TextStyle, useColorScheme, ViewStyle } from 'react-native'
+import { Text, TextStyle, useColorScheme, View, ViewStyle } from 'react-native'
 import { styleType } from '@/utils/styles'
 import { makeStyles } from 'react-native-swag-styles'
 import { COLOR } from '@/CONSTANTS/COLOR'
-import { Button } from '@/components/Button'
+import { UbeDataType } from '@/database/ube/type'
 import FastImage, { ImageStyle } from 'react-native-fast-image'
 import { CustomFastImage } from '@/components/CustomFastImage'
 import { Spacer } from '@/components/Spacer'
-import { UbeDataType } from '@/database/ube/type'
 
 type Props = {
   item: UbeDataType
-  onPress: () => void
 }
 type ComponentProps = Props & {
-  title: string
+  name: string
   imageUrl: string | undefined
 }
 
-const Component: React.FC<ComponentProps> = ({ title, imageUrl, onPress }) => {
+const Component: React.FC<ComponentProps> = ({ name, imageUrl }) => {
   const styles = useStyles()
 
   return (
-    <Button style={styles.container} onPress={onPress}>
+    <View style={styles.container}>
       <CustomFastImage
         source={{ uri: imageUrl }}
         resizeMode={FastImage.resizeMode.contain}
         style={styles.image}
+        canImageModal={true}
       />
-      <Spacer width={10} />
-      <Text style={styles.text}>{title}</Text>
-    </Button>
+      <Spacer height={8} />
+      <Text style={styles.text}>{name}</Text>
+    </View>
   )
 }
 
 const Container: React.FC<Props> = (props) => {
-  const {
-    item: { name, imageUrl },
-  } = props
+  const { item } = props
+  const { name, imageUrl } = item
 
-  return <Component {...props} title={name} imageUrl={imageUrl} />
+  return <Component {...props} name={name} imageUrl={imageUrl} />
 }
 
-export { Container as Cell }
+export { Container as HeaderSection }
 
 const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
   container: styleType<ViewStyle>({
+    padding: 16,
     backgroundColor: COLOR(colorScheme).BACKGROUND.PRIMARY,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-  }),
-  text: styleType<TextStyle>({
-    flexShrink: 1,
   }),
   image: styleType<ImageStyle>({
-    width: 100,
-    height: 100,
+    width: '100%',
+    height: 200,
+  }),
+  text: styleType<TextStyle>({
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 32,
   }),
 }))

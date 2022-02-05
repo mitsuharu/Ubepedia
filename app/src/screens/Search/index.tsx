@@ -25,6 +25,7 @@ const Container: React.FC<Props> = (props) => {
     navigation.setOptions({
       title: '検索',
       headerSearchBarOptions: {
+        hideWhenScrolling: true,
         // search bar options
       },
     })
