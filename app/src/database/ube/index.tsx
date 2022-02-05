@@ -10,7 +10,14 @@ import * as FileSystem from 'expo-file-system'
 import { Asset } from 'expo-asset'
 import { useDispatch } from 'react-redux'
 import { enqueueToast } from '@/redux/modules/toast/actions'
+import { INIT_UBE_DATA, makeListData, UbeData } from './type'
+import { fetchCivicFacility } from './dao/CivicFacility'
+import { fetchCulturalProperty } from './dao/CulturalProperty'
+import { fetchSculpture } from './dao/Sculpture'
 
+/**
+ * saga などで直接触りたい時用（なければ廃止予定）
+ */
 export let ubeData: SQLite.Database | undefined
 
 const databaseName = 'ube.db'
@@ -72,35 +79,34 @@ export const UbeDataProvider: React.FC<Props> = ({ children }) => {
   )
 }
 
-/**
- * 聴き放題の価格を取得する。
- */
-export const useUbeData = (): SQLite.Database | undefined => {
+export const useUbeData = (): UbeData => {
   const { database } = useContext(UbeDataStateContext)
+  const [results, setResults] = useState<UbeData>(INIT_UBE_DATA)
 
-  // database.transaction(
-  //   (tx) => {
-  //     console.log(`tx ${tx}`)
-  //     tx.executeSql(
-  //       'SELECT * FROM civic_facility',
-  //       undefined,
-  //       (_, resultSet) => {
-  //         console.log(`executeSql success, resultSet: ${resultSet}`)
-  //       },
-  //       () => {
-  //         console.log('executeSql error')
-  //         return true
-  //       },
-  //     )
-  //   },
-  // () => {
-  //   console.log('tx success')
-  // },
-  // () => {
-  //   console.log('tx error')
-  //   return true
-  // },
-  // )
+  const update = useCallback(async () => {
+    try {
+      if (database) {
+        const civicFacilityItems = await fetchCivicFacility(database)
+        const culturalPropertyItems = await fetchCulturalProperty(database)
+        const sculptureItems = await fetchSculpture(database)
 
-  return database
+        const nextUbeData: UbeData = {
+          civicFacility: makeListData(civicFacilityItems),
+          culturalProperty: makeListData(culturalPropertyItems),
+          sculpture: makeListData(sculptureItems),
+        }
+
+        setResults(nextUbeData)
+      }
+    } catch (e: any) {
+      console.warn(`useUbeData#update`, e)
+    }
+  }, [database])
+
+  useEffect(() => {
+    update()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [database])
+
+  return results
 }

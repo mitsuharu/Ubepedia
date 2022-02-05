@@ -24,7 +24,7 @@ def insertDB(db: sqlite3.Connection):
             name text,
             category text,
             latitude real,
-            longlatitude real,
+            longitude real,
             postal_code text,
             address text,
             phone text,
@@ -77,7 +77,7 @@ def insertDB(db: sqlite3.Connection):
 
     sql = """
         INSERT INTO civic_facility
-         (id, name, category, latitude, longlatitude, postal_code, address,
+         (id, name, category, latitude, longitude, postal_code, address,
          phone, fax, email, start_time, end_time, time_notes, week_closure_day,
          closure_day, closure_day_notes, parking, parking_fee, disabled_toilet,
          reservation, homepage, depiction, description) 
