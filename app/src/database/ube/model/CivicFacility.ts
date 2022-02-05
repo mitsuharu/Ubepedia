@@ -1,38 +1,93 @@
-import { numberValue, stringValue } from './util'
+import { BaseModel } from './BaseModel'
+import { stringValue } from './util'
 
-export class CivicFacility {
+export class CivicFacility extends BaseModel {
   static table = 'civic_facility'
 
-  id: number
-  name: string
+  /**
+   * 施設区分
+   */
   category: string
-  latitude: number
-  longitude: number
+
+  /**
+   * 郵便番号
+   */
   postalCode: string
+
+  /**
+   * 住所
+   */
   address: string
+
+  /**
+   * 電話番号
+   */
   phone: string
-  fax: string
-  email: string
+
+  /**
+   * FAX番号
+   */
+  fax: string | undefined
+
+  /**
+   * メールアドレス
+   */
+  email: string | undefined
+
+  /**
+   * 開館時刻
+   */
   startTime: string
+
+  /**
+   * 閉館時刻
+   */
   endTime: string
+
+  /**
+   * 利用時間注意
+   */
   timeNotes: string
+
+  /**
+   * 休日（曜日）
+   */
   weekClosureDay: string
+
+  /**
+   * 休日
+   */
   closureDay: string
-  closureDayNotes: string
+
+  /**
+   * 休日注意
+   */
+  closureDayNotes: string | undefined
+
+  /**
+   * 駐車場
+   */
   parking: string
+
+  /**
+   * 駐車料
+   */
   parkingFee: string
+
+  /**
+   * 障害者用トイレ
+   */
   disabledToilet: string
-  reservation: string
-  homepage: string
-  depiction: string
-  description: string
+
+  /**
+   * 施設予約
+   */
+  reservation: string | undefined
 
   constructor(obj: any) {
-    this.id = numberValue(obj, 'id')
-    this.name = stringValue(obj, 'name')
+    super(obj)
+
     this.category = stringValue(obj, 'category')
-    this.latitude = numberValue(obj, 'latitude')
-    this.longitude = numberValue(obj, 'longitude')
     this.postalCode = stringValue(obj, 'postal_code')
     this.address = stringValue(obj, 'address')
     this.phone = stringValue(obj, 'phone')
@@ -48,8 +103,5 @@ export class CivicFacility {
     this.parkingFee = stringValue(obj, 'parking_fee')
     this.disabledToilet = stringValue(obj, 'disabled_toilet')
     this.reservation = stringValue(obj, 'reservation')
-    this.homepage = stringValue(obj, 'homepage')
-    this.depiction = stringValue(obj, 'depiction')
-    this.description = stringValue(obj, 'description')
   }
 }

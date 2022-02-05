@@ -36,10 +36,10 @@ const Component: React.FC<ComponentProps> = ({ title, imageUrl, onPress }) => {
 
 const Container: React.FC<Props> = (props) => {
   const {
-    item: { name, depiction },
+    item: { name, imageUrl },
   } = props
 
-  return <Component {...props} title={name} imageUrl={depiction} />
+  return <Component {...props} title={name} imageUrl={imageUrl} />
 }
 
 export { Container as Cell }

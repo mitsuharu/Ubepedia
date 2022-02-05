@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useMemo } from 'react'
+import React, { useLayoutEffect } from 'react'
 import { Text, TextStyle, useColorScheme, View, ViewStyle } from 'react-native'
 import { styleType } from '@/utils/styles'
 import { makeStyles } from 'react-native-swag-styles'
@@ -6,9 +6,6 @@ import { COLOR } from '@/CONSTANTS/COLOR'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { MainParams } from '@/routes/main.params'
 import { ShareButton } from '@/components/Button/ShareButton'
-import { CivicFacility } from '@/database/ube/model/CivicFacility'
-import { Sculpture } from '@/database/ube/model/Sculpture'
-import { convertUbeData } from '@/database/ube/util/convertUbeData'
 
 type ParamsProps = RouteProp<MainParams, 'Detail'>
 
@@ -32,17 +29,17 @@ const Container: React.FC<Props> = (props) => {
   const navigation = useNavigation()
   const route = useRoute<ParamsProps>()
   const { item } = route.params
-  const { title, url, imageUrl } = convertUbeData(item)
+  const { name, url, imageUrl } = item
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: title,
-      headerRight: () => <ShareButton title={title} url={url} />,
+      title: name,
+      headerRight: () => <ShareButton title={name} url={url} />,
       hideWhenScrolling: true,
     })
-  }, [navigation, title, url])
+  }, [navigation, name, url])
 
-  return <Component {...props} title={title} imageUrl={imageUrl} />
+  return <Component {...props} title={name} imageUrl={imageUrl} />
 }
 
 export { Container as Detail }
