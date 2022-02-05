@@ -1,14 +1,8 @@
 import { styleType } from '@/utils/styles'
 import React, { memo } from 'react'
-import { Insets, StyleSheet, View, ViewStyle } from 'react-native'
+import { StyleSheet, View, ViewStyle } from 'react-native'
 import { makeStyles } from 'react-native-swag-styles'
-
-const borderInset: Required<Insets> = {
-  top: 0,
-  bottom: 0,
-  left: 16,
-  right: 0,
-}
+import { borderInset } from './util'
 
 type Props = {}
 type ComponentProps = Props & {
@@ -38,7 +32,7 @@ const useStyles = makeStyles(() => ({
   separator: styleType<ViewStyle>({
     width: '100%',
     height: StyleSheet.hairlineWidth,
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
   }),
   hasPaddingLeft: styleType<ViewStyle>({
     height: StyleSheet.hairlineWidth,

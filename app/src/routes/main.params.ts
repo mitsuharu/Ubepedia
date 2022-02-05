@@ -1,4 +1,7 @@
+import { UbeDataType } from '@/database/ube/type'
+
 export type MainParams = {
   Home: undefined
-  Detail: undefined
+  Detail: { item: UbeDataType }
+  Search: undefined
 }

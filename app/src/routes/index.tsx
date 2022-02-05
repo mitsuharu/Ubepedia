@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
 import { useColorScheme } from 'react-native'
 import { MainParams } from './main.params'
-import { MainRoutes } from './main.routes'
+import { RootRoutes } from './root.routes'
 import { NavigationTheme } from './theme'
 
 /**
@@ -12,7 +12,7 @@ const Routes: React.FC = () => {
   const colorScheme = useColorScheme()
   return (
     <NavigationContainer theme={NavigationTheme(colorScheme)}>
-      <MainRoutes />
+      <RootRoutes />
     </NavigationContainer>
   )
 }

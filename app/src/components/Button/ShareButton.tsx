@@ -3,8 +3,8 @@ import {
   Platform,
   Share,
   ShareContent,
-  Text,
   TextStyle,
+  useColorScheme,
   ViewStyle,
 } from 'react-native'
 import { styleType } from '@/utils/styles'
@@ -12,10 +12,12 @@ import { useDispatch } from 'react-redux'
 import { enqueueToast } from '@/redux/modules/toast/actions'
 import { Button } from './index'
 import { makeStyles } from 'react-native-swag-styles'
+import Icon from 'react-native-vector-icons/Entypo'
+import { COLOR } from '@/CONSTANTS/COLOR'
 
 type Props = {
   title: string
-  url: string
+  url: string | undefined
 }
 type ComponentProps = Props & {
   onPress: () => void
@@ -23,9 +25,10 @@ type ComponentProps = Props & {
 
 const Component: React.FC<ComponentProps> = ({ onPress }) => {
   const styles = useStyles()
+  const iconName = Platform.OS === 'ios' ? 'share-alternative' : 'share'
   return (
     <Button style={styles.container} onPress={onPress}>
-      <Text style={styles.text}>share</Text>
+      <Icon style={styles.icon} name={iconName} size={20} />
     </Button>
   )
 }
@@ -35,11 +38,14 @@ const Container: React.FC<Props> = (props) => {
   const dispatch = useDispatch()
 
   const onPress = useCallback(async () => {
-    const content: ShareContent =
-      Platform.OS === 'ios'
-        ? { title: title, url: url }
-        : { message: `${title} ${url}` }
+    if (!url) {
+      return
+    }
     try {
+      const content: ShareContent =
+        Platform.OS === 'ios'
+          ? { title: title, url: url }
+          : { message: `${title} ${url}` }
       await Share.share(content, {
         excludedActivityTypes: [
           'com.apple.UIKit.activity.SaveToCameraRoll',
@@ -52,27 +58,23 @@ const Container: React.FC<Props> = (props) => {
         ],
       })
     } catch (error: any) {
-      console.warn(`ShareButton#doShare error: ${error}`)
+      console.warn(`ShareButton#onPress`, error)
       dispatch(enqueueToast({ message: 'シェアに失敗しました' }))
     }
   }, [title, url, dispatch])
 
-  return <Component {...props} onPress={onPress} />
+  return url ? <Component {...props} onPress={onPress} /> : null
 }
 
 export { Container as ShareButton }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
   container: styleType<ViewStyle>({
     alignItems: 'center',
     justifyContent: 'center',
     height: 44,
   }),
-  text: styleType<TextStyle>({
-    borderColor: 'black',
-    borderRadius: 8,
-    borderWidth: 1,
-    padding: 2,
-    color: 'black',
+  icon: styleType<TextStyle>({
+    color: COLOR(colorScheme).TEXT.SECONDARY,
   }),
 }))
