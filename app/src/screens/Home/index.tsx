@@ -18,8 +18,8 @@ import { makeStyles } from 'react-native-swag-styles'
 import { COLOR } from '@/CONSTANTS/COLOR'
 import { useNavigation } from '@react-navigation/native'
 import { useUbeData } from '@/database/ube'
-import { Cell } from './List/Cell'
-import { SectionHeader } from './List/SectionHeader'
+import { HomeCell } from './List/HomeCell'
+import { HomeSectionHeader } from './List/HomeSectionHeader'
 import { ubeDataKeys, ubeDataName, UbeDataType } from '@/database/ube/type'
 import { match } from 'ts-pattern'
 import { ItemSeparator } from '@/components/List'
@@ -42,12 +42,12 @@ const Component: React.FC<ComponentProps> = ({ sections, onPress }) => {
   )
 
   const renderItem: SectionListRenderItem<UbeDataType> = useCallback(
-    ({ item }) => <Cell item={item} onPress={() => onPress(item)} />,
+    ({ item }) => <HomeCell item={item} onPress={() => onPress(item)} />,
     [onPress],
   )
 
   const renderSectionHeader = useCallback(
-    ({ section: { title } }) => <SectionHeader title={title} />,
+    ({ section: { title } }) => <HomeSectionHeader title={title} />,
     [],
   )
 

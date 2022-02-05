@@ -23,7 +23,7 @@ const Container: React.FC<Props> = (props) => {
   return <Component {...props} />
 }
 
-export { Container as SectionHeader }
+export { Container as HomeSectionHeader }
 
 const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
   container: styleType<ViewStyle>({

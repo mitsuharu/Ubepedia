@@ -13,7 +13,7 @@ const Component: React.FC<Props> = ({ title }) => {
   return (
     <>
       <SectionSeparator />
-      <View style={styles.view}>
+      <View style={styles.container}>
         <Text style={styles.text}>{title}</Text>
       </View>
       <SectionSeparator />
@@ -26,15 +26,13 @@ const Container: React.FC<Props> = (props) => <Component {...props} />
 export { Container as SectionHeader }
 
 const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
-  view: styleType<ViewStyle>({
-    height: 32,
-    justifyContent: 'flex-end',
-    paddingLeft: contentInset.left,
-    paddingRight: contentInset.right,
+  container: styleType<ViewStyle>({
+    backgroundColor: COLOR(colorScheme).BACKGROUND.SECONDARY,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
   }),
   text: styleType<TextStyle>({
+    fontWeight: '500',
     color: COLOR(colorScheme).TEXT.SECONDARY,
-    fontSize: 11,
-    lineHeight: 26,
   }),
 }))

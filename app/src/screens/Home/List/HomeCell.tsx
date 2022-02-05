@@ -42,7 +42,7 @@ const Container: React.FC<Props> = (props) => {
   return <Component {...props} title={name} imageUrl={imageUrl} />
 }
 
-export { Container as Cell }
+export { Container as HomeCell }
 
 const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
   container: styleType<ViewStyle>({
