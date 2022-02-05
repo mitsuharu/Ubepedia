@@ -1,4 +1,4 @@
 export type RootParams = {
-  Main: undefined
-  Setting: undefined
+  MainRoute: undefined
+  SettingRoute: undefined
 }

@@ -1,6 +1,6 @@
 export const RootName = {
-  Main: 'Main',
-  Setting: 'Setting',
+  MainRoute: 'MainRoute',
+  SettingRoute: 'SettingRoute',
 } as const
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
