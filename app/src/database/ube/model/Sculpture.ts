@@ -1,32 +1,73 @@
-import { numberValue, stringValue } from './util'
+import { BaseModel } from './BaseModel'
+import { stringValue } from './util'
 
-export class Sculpture {
+export class Sculpture extends BaseModel {
   static table = 'sculpture'
 
-  id: number
-  name: string
+  /**
+   * 彫刻名よみがな
+   */
   ruby: string
-  latitude: number
-  longitude: number
+
+  /**
+   * 作家名
+   */
   author: string
+
+  /**
+   * 作家名よみがな
+   */
   authorRuby: string
+
+  /**
+   * 制作年
+   */
   year: string
+
+  /**
+   * 設置場所
+   */
   place: string
+
+  /**
+   * 素材
+   */
   material: string
+
+  /**
+   * サイズ
+   */
   size: string
-  weight: string
+
+  /**
+   * 重量
+   */
+  weight: string | undefined
+
+  /**
+   * 出展
+   */
   exhibit: string
+
+  /**
+   * 所蔵者
+   */
   owner: string
-  acquisitionMethod: string
-  homepage: string
-  depiction: string
+
+  /**
+   * 取得方法
+   */
+  acquisitionMethod: string | undefined
+
+  /**
+   * 備考
+   */
+  remarks: string | undefined
 
   constructor(obj: any) {
-    this.id = numberValue(obj, 'id')
-    this.name = stringValue(obj, 'name')
+    super(obj)
+
     this.ruby = stringValue(obj, 'ruby')
-    this.latitude = numberValue(obj, 'latitude')
-    this.longitude = numberValue(obj, 'longitude')
     this.author = stringValue(obj, 'author')
     this.authorRuby = stringValue(obj, 'author_ruby')
     this.year = stringValue(obj, 'year')
@@ -37,7 +78,6 @@ export class Sculpture {
     this.exhibit = stringValue(obj, 'exhibit')
     this.owner = stringValue(obj, 'owner')
     this.acquisitionMethod = stringValue(obj, 'acquisition_method')
-    this.homepage = stringValue(obj, 'homepage')
-    this.depiction = stringValue(obj, 'depiction')
+    this.remarks = stringValue(obj, 'remarks')
   }
 }

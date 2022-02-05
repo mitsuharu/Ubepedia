@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from 'react'
 import {
   SectionList,
   SectionListData,
@@ -12,29 +18,30 @@ import { makeStyles } from 'react-native-swag-styles'
 import { COLOR } from '@/CONSTANTS/COLOR'
 import { useNavigation } from '@react-navigation/native'
 import { useUbeData } from '@/database/ube'
-import { ItemType } from './List/types'
 import { Cell } from './List/Cell'
 import { SectionHeader } from './List/SectionHeader'
-import { ubeDataKeys, ubeDataName } from '@/database/ube/type'
+import { ubeDataKeys, ubeDataName, UbeDataType } from '@/database/ube/type'
 import { match } from 'ts-pattern'
 import { ItemSeparator } from '@/components/List/Separator'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { SearchButton } from '@/components/Button/SearchButton'
+import { SettingButton } from '@/components/Button/SettingButton'
 
 type Props = {}
 type ComponentProps = Props & {
-  sections: SectionListData<ItemType>[]
-  onPress: (item: ItemType) => void
+  sections: SectionListData<UbeDataType>[]
+  onPress: (item: UbeDataType) => void
 }
 
 const Component: React.FC<ComponentProps> = ({ sections, onPress }) => {
   const styles = useStyles()
 
   const keyExtractor = useCallback(
-    (item: ItemType): string => item.id.toString() + item.name.toString(),
+    (item: UbeDataType): string => item.id.toString() + item.name.toString(),
     [],
   )
 
-  const renderItem: SectionListRenderItem<ItemType> = useCallback(
+  const renderItem: SectionListRenderItem<UbeDataType> = useCallback(
     ({ item }) => <Cell item={item} onPress={() => onPress(item)} />,
     [onPress],
   )
@@ -67,46 +74,53 @@ const Container: React.FC<Props> = (props) => {
 
   const ubeData = useUbeData()
 
-  const [sections, setSections] = useState<SectionListData<ItemType>[]>([])
+  const [sections, setSections] = useState<SectionListData<UbeDataType>[]>([])
 
   const updateSections = useCallback(() => {
-    const nextSections = ubeDataKeys.map<SectionListData<ItemType>>((key) => {
-      const { civicFacility, culturalProperty, sculpture } = ubeData
-      const data = match(key)
-        .with('civicFacility', () => civicFacility.items)
-        .with('culturalProperty', () => culturalProperty.items)
-        .with('sculpture', () => sculpture.items)
-        .otherwise(() => [])
+    const nextSections = ubeDataKeys.map<SectionListData<UbeDataType>>(
+      (key) => {
+        const { civicFacility, culturalProperty, sculpture } = ubeData
+        const data = match(key)
+          .with('civicFacility', () => civicFacility.items)
+          .with('culturalProperty', () => culturalProperty.items)
+          .with('sculpture', () => sculpture.items)
+          .otherwise(() => [])
 
-      const total = match(key)
-        .with('civicFacility', () => civicFacility.total)
-        .with('culturalProperty', () => culturalProperty.total)
-        .with('sculpture', () => sculpture.total)
-        .otherwise(() => 0)
+        const total = match(key)
+          .with('civicFacility', () => civicFacility.total)
+          .with('culturalProperty', () => culturalProperty.total)
+          .with('sculpture', () => sculpture.total)
+          .otherwise(() => 0)
 
-      return {
-        title: ubeDataName(key) + ` (${total})`,
-        data: data,
-      }
-    })
+        return {
+          title: ubeDataName(key) + ` (${total})`,
+          data: data,
+        }
+      },
+    )
     setSections(nextSections)
   }, [ubeData])
 
   const onPress = useCallback(
-    (item: ItemType) => {
-      console.log(item.name)
-      navigation.navigate('Detail')
+    (item: UbeDataType) => {
+      navigation.navigate('Detail', { item })
     },
     [navigation],
   )
 
   useEffect(() => {
-    console.log(
-      `Home#useEffect ubeData ${ubeData.civicFacility.items.length}, ${ubeData.culturalProperty.items.length}, ${ubeData.sculpture.items.length}`,
-    )
     updateSections()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ubeData])
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'ubepedia',
+      headerLeft: () => <SettingButton />,
+      headerRight: () => <SearchButton />,
+      hideWhenScrolling: true,
+    })
+  }, [navigation])
 
   return <Component {...props} sections={sections} onPress={onPress} />
 }

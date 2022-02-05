@@ -3,46 +3,34 @@ import { Text, TextStyle, useColorScheme, View, ViewStyle } from 'react-native'
 import { styleType } from '@/utils/styles'
 import { makeStyles } from 'react-native-swag-styles'
 import { COLOR } from '@/CONSTANTS/COLOR'
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
-import { MainParams } from '@/routes/main.params'
-import { ShareButton } from '@/components/Button/ShareButton'
-
-type ParamsProps = RouteProp<MainParams, 'Detail'>
+import { useNavigation } from '@react-navigation/native'
 
 type Props = {}
-type ComponentProps = Props & {
-  title: string
-  imageUrl: string | undefined
-}
+type ComponentProps = Props & {}
 
-const Component: React.FC<ComponentProps> = ({ title }) => {
+const Component: React.FC<ComponentProps> = () => {
   const styles = useStyles()
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{title}</Text>
+      <Text style={styles.text}>Search</Text>
     </View>
   )
 }
 
 const Container: React.FC<Props> = (props) => {
   const navigation = useNavigation()
-  const route = useRoute<ParamsProps>()
-  const { item } = route.params
-  const { name, url, imageUrl } = item
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: name,
-      headerRight: () => <ShareButton title={name} url={url} />,
-      hideWhenScrolling: true,
+      title: '設定',
     })
-  }, [navigation, name, url])
+  }, [navigation])
 
-  return <Component {...props} title={name} imageUrl={imageUrl} />
+  return <Component {...props} />
 }
 
-export { Container as Detail }
+export { Container as Setting }
 
 const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
   container: styleType<ViewStyle>({
