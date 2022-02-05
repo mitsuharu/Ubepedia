@@ -10,13 +10,14 @@ import * as FileSystem from 'expo-file-system'
 import { Asset } from 'expo-asset'
 import { useDispatch } from 'react-redux'
 import { enqueueToast } from '@/redux/modules/toast/actions'
+import { INIT_UBE_DATA, makeListData, UbeData } from './type'
 import { fetchCivicFacility } from './dao/CivicFacility'
 import { fetchCulturalProperty } from './dao/CulturalProperty'
 import { fetchSculpture } from './dao/Sculpture'
-import { CivicFacility } from './model/CivicFacility'
-import { CulturalProperty } from './model/CulturalProperty'
-import { Sculpture } from './model/Sculpture'
 
+/**
+ * saga などで直接触りたい時用（なければ廃止予定）
+ */
 export let ubeData: SQLite.Database | undefined
 
 const databaseName = 'ube.db'
@@ -78,60 +79,34 @@ export const UbeDataProvider: React.FC<Props> = ({ children }) => {
   )
 }
 
-type UbeData = {
-  civicFacilityList: CivicFacility[]
-  culturalPropertyList: CulturalProperty[]
-  sculptureList: Sculpture[]
-}
-
 export const useUbeData = (): UbeData => {
   const { database } = useContext(UbeDataStateContext)
+  const [results, setResults] = useState<UbeData>(INIT_UBE_DATA)
 
-  const [civicFacilityList, setCivicFacilityList] = useState<CivicFacility[]>(
-    [],
-  )
-  const [culturalPropertyList, setCulturalPropertyList] = useState<
-    CulturalProperty[]
-  >([])
-  const [sculptureList, setSculptureList] = useState<Sculpture[]>([])
+  const update = useCallback(async () => {
+    try {
+      if (database) {
+        const civicFacilityItems = await fetchCivicFacility(database)
+        const culturalPropertyItems = await fetchCulturalProperty(database)
+        const sculptureItems = await fetchSculpture(database)
 
-  const updateCivicFacility = useCallback(async () => {
-    if (database) {
-      const results = await fetchCivicFacility(database)
-      setCivicFacilityList(results)
-    } else {
-      setCivicFacilityList([])
-    }
-  }, [database])
+        const nextUbeData: UbeData = {
+          civicFacility: makeListData(civicFacilityItems),
+          culturalProperty: makeListData(culturalPropertyItems),
+          sculpture: makeListData(sculptureItems),
+        }
 
-  const updateCulturalPropertyList = useCallback(async () => {
-    if (database) {
-      const results = await fetchCulturalProperty(database)
-      setCulturalPropertyList(results)
-    } else {
-      setCulturalPropertyList([])
-    }
-  }, [database])
-
-  const updateSculpture = useCallback(async () => {
-    if (database) {
-      const results = await fetchSculpture(database)
-      setSculptureList(results)
-    } else {
-      setSculptureList([])
+        setResults(nextUbeData)
+      }
+    } catch (e: any) {
+      console.warn(`useUbeData#update`, e)
     }
   }, [database])
 
   useEffect(() => {
-    updateCivicFacility()
-    updateCulturalPropertyList()
-    updateSculpture()
+    update()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [database])
 
-  return {
-    civicFacilityList,
-    culturalPropertyList,
-    sculptureList,
-  }
+  return results
 }
