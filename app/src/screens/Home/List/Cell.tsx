@@ -4,13 +4,13 @@ import { styleType } from '@/utils/styles'
 import { makeStyles } from 'react-native-swag-styles'
 import { COLOR } from '@/CONSTANTS/COLOR'
 import { Button } from '@/components/Button'
-import { ItemType } from './types'
 import FastImage, { ImageStyle } from 'react-native-fast-image'
 import { CustomFastImage } from '@/components/CustomFastImage'
 import { Spacer } from '@/components/Spacer'
+import { UbeDataType } from '@/database/ube/type'
 
 type Props = {
-  item: ItemType
+  item: UbeDataType
   onPress: () => void
 }
 type ComponentProps = Props & {

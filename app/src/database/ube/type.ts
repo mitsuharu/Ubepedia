@@ -3,17 +3,22 @@ import { CulturalProperty } from './model/CulturalProperty'
 import { Sculpture } from './model/Sculpture'
 import { match } from 'ts-pattern'
 
-export type ListData<T> = {
+export type UbeDataType = CivicFacility | CulturalProperty | Sculpture
+
+export type ListData<T extends UbeDataType> = {
   items: T[]
   total: number
 }
 
-export const makeListData = <T>(items: T[]): ListData<T> => ({
+export const makeListData = <T extends UbeDataType>(
+  items: T[],
+): ListData<T> => ({
   items: items,
   total: items.length,
 })
 
-export const makeInitListData = <T>(): ListData<T> => makeListData([] as T[])
+export const makeInitListData = <T extends UbeDataType>(): ListData<T> =>
+  makeListData([] as T[])
 
 export type UbeData = {
   civicFacility: ListData<CivicFacility>
