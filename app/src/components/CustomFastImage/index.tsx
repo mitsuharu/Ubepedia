@@ -2,25 +2,13 @@ import { styleType } from '@/utils/styles'
 import React, { useState, useCallback } from 'react'
 import { View, StyleSheet, ViewStyle } from 'react-native'
 import FastImage, { FastImageProps, OnLoadEvent } from 'react-native-fast-image'
+import { LoadingView } from './LoadingView'
+import { NoImageView } from './NoImageView'
 
-type Props = {
-  renderPlaceholder?: (() => React.ReactElement) | React.ReactElement
-  renderErrorImage?: (() => React.ReactElement) | React.ReactElement
-} & FastImageProps
-
-const render = (
-  arg?: (() => React.ReactElement) | React.ReactElement,
-): React.ReactElement => {
-  if (!arg) {
-    return <></>
-  }
-  return (
-    <View style={styles.image}>{typeof arg === 'function' ? arg() : arg}</View>
-  )
-}
+type Props = {} & FastImageProps
 
 export const CustomFastImage = (props: Props) => {
-  const { renderPlaceholder, renderErrorImage, onLoad, onError } = props
+  const { onLoad, onError } = props
   const [isLoading, setLoading] = useState(true)
   const [isErrored, setIsErrored] = useState(false)
 
@@ -41,8 +29,8 @@ export const CustomFastImage = (props: Props) => {
   return (
     <View>
       <FastImage {...props} onLoad={onCustomLoad} onError={onCustomError} />
-      {isLoading && render(renderPlaceholder)}
-      {isErrored && render(renderErrorImage)}
+      <LoadingView style={styles.image} isVisible={isLoading} />
+      <NoImageView style={styles.image} isVisible={isErrored} />
     </View>
   )
 }
