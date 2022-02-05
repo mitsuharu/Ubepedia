@@ -25,6 +25,7 @@ import { match } from 'ts-pattern'
 import { ItemSeparator } from '@/components/List/Separator'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SearchButton } from '@/components/Button/SearchButton'
+import { SettingButton } from '@/components/Button/SettingButton'
 
 type Props = {}
 type ComponentProps = Props & {
@@ -115,6 +116,7 @@ const Container: React.FC<Props> = (props) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: 'ubepedia',
+      headerLeft: () => <SettingButton />,
       headerRight: () => <SearchButton />,
       hideWhenScrolling: true,
     })
