@@ -8,6 +8,7 @@ import { MainParams } from '@/routes/main.params'
 import { ShareButton } from '@/components/Button/ShareButton'
 import { CivicFacility } from '@/database/ube/model/CivicFacility'
 import { Sculpture } from '@/database/ube/model/Sculpture'
+import { convertUbeData } from '@/database/ube/util/convertUbeData'
 
 type ParamsProps = RouteProp<MainParams, 'Detail'>
 
@@ -31,27 +32,17 @@ const Container: React.FC<Props> = (props) => {
   const navigation = useNavigation()
   const route = useRoute<ParamsProps>()
   const { item } = route.params
-  const { name, depiction } = item
-
-  const url = useMemo(() => {
-    if (item instanceof CivicFacility || item instanceof Sculpture) {
-      return item.homepage
-    } else {
-      return undefined
-    }
-  }, [item])
+  const { title, url, imageUrl } = convertUbeData(item)
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: name,
-      headerRight: () => {
-        return <ShareButton title={name} url={url} />
-      },
+      title: title,
+      headerRight: () => <ShareButton title={title} url={url} />,
       hideWhenScrolling: true,
     })
-  }, [name, navigation, url])
+  }, [navigation, title, url])
 
-  return <Component {...props} title={name} imageUrl={depiction} />
+  return <Component {...props} title={title} imageUrl={imageUrl} />
 }
 
 export { Container as Detail }
