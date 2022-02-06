@@ -1,10 +1,13 @@
 import React from 'react'
 import { SectionHeader } from './SectionHeader'
 import { CellGroup } from './CellGroup'
+import { StyleProp, ViewStyle } from 'react-native'
+import { SectionSeparator } from './Separator'
 
 type Props = {
   title?: string
   children?: React.ReactNode
+  sectionStyle?: StyleProp<ViewStyle>
 }
 
 /**
@@ -18,11 +21,13 @@ type Props = {
  * 　...
  * </Section>
  */
-const Component: React.FC<Props> = ({ title, children }) => {
+const Component: React.FC<Props> = ({ title, children, sectionStyle }) => {
   return (
     <>
-      <SectionHeader title={title} />
+      <SectionHeader title={title} style={sectionStyle} />
+      <SectionSeparator />
       <CellGroup>{children}</CellGroup>
+      <SectionSeparator />
     </>
   )
 }

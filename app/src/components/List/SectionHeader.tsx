@@ -1,22 +1,24 @@
 import React from 'react'
-import { Text, TextStyle, useColorScheme, View, ViewStyle } from 'react-native'
+import {
+  StyleProp,
+  Text,
+  TextStyle,
+  useColorScheme,
+  View,
+  ViewStyle,
+} from 'react-native'
 import { COLOR } from '@/CONSTANTS/COLOR'
-import { SectionSeparator } from './Separator'
 import { makeStyles } from 'react-native-swag-styles'
 import { styleType } from '@/utils/styles'
 
-type Props = { title?: string }
+type Props = { title?: string; style?: StyleProp<ViewStyle> }
 
-const Component: React.FC<Props> = ({ title }) => {
+const Component: React.FC<Props> = ({ title, style }) => {
   const styles = useStyles()
   return (
-    <>
-      <SectionSeparator />
-      <View style={styles.container}>
-        <Text style={styles.text}>{title}</Text>
-      </View>
-      <SectionSeparator />
-    </>
+    <View style={[styles.container, style]}>
+      <Text style={styles.text}>{title}</Text>
+    </View>
   )
 }
 

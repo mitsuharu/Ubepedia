@@ -2,7 +2,6 @@ import React from 'react'
 import { Text, TextStyle, useColorScheme, View, ViewStyle } from 'react-native'
 import { styleType } from '@/utils/styles'
 import { makeStyles } from 'react-native-swag-styles'
-import { COLOR } from '@/CONSTANTS/COLOR'
 import { UbeDataType } from '@/database/ube/type'
 import FastImage, { ImageStyle } from 'react-native-fast-image'
 import { CustomFastImage } from '@/components/CustomFastImage'
@@ -40,12 +39,12 @@ const Container: React.FC<Props> = (props) => {
   return <Component {...props} name={name} imageUrl={imageUrl} />
 }
 
-export { Container as HeaderSection }
+export { Container as DetailHeaderComponent }
 
 const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
   container: styleType<ViewStyle>({
     padding: 16,
-    backgroundColor: COLOR(colorScheme).BACKGROUND.PRIMARY,
+    backgroundColor: 'transparent',
   }),
   image: styleType<ImageStyle>({
     width: '100%',
