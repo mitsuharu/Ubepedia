@@ -59,7 +59,7 @@ const Component: React.FC<Props> = ({
   const accessoryView = useMemo(
     () =>
       match(accessory)
-        .with('disclosure', () => <Icon style={style} name="right" size={20} />)
+        .with('disclosure', () => <Icon style={style} name="right" size={16} />)
         .otherwise(() => null),
     [accessory, style],
   )

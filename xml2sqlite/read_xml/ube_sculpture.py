@@ -36,7 +36,8 @@ def insertDB(db: sqlite3.Connection):
             owner text,
             acquisition_method text,
             homepage text,
-            depiction text
+            depiction text,
+            remarks text
         )
     """
     db.execute(create_sql)
@@ -60,7 +61,8 @@ def insertDB(db: sqlite3.Connection):
                         xml.find_text(child, "owner"),
                         xml.find_text(child, "acquisition_method"),
                         xml.find_text(child, "homepage"),
-                        xml.find_text(child, "depiction")
+                        xml.find_text(child, "depiction"),
+                        xml.find_text(child, "remarks")
                         ))
 
     sql = """
@@ -81,8 +83,9 @@ def insertDB(db: sqlite3.Connection):
             owner,
             acquisition_method,
             homepage,
-            depiction)
-         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            depiction,
+            remarks)
+         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     """
     db.executemany(sql, records)
 

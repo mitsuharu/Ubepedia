@@ -6,10 +6,17 @@ import { COLOR } from '@/CONSTANTS/COLOR'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { MainParams } from '@/routes/main.params'
 import { ShareButton } from '@/components/Button/ShareButton'
-import { isCivicFacility, UbeDataType } from '@/database/ube/type'
+import {
+  isCivicFacility,
+  isCulturalProperty,
+  isSculpture,
+  UbeDataType,
+} from '@/database/ube/type'
 import { DetailHeaderComponent } from './Cells/DetailHeaderComponent'
 import { CivicFacilitySections } from './Cells/CivicFacilitySections'
 import { DetailFooterComponent } from './Cells/DetailFooterComponent'
+import { CulturalPropertySections } from './Cells/CulturalPropertySections'
+import { SculptureSections } from './Cells/SculptureSections'
 
 type ParamsProps = RouteProp<MainParams, 'Detail'>
 
@@ -25,7 +32,9 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
     <ScrollView style={styles.scrollView}>
       <DetailHeaderComponent item={item} />
       {isCivicFacility(item) && <CivicFacilitySections item={item} />}
-      <DetailFooterComponent />
+      {isCulturalProperty(item) && <CulturalPropertySections item={item} />}
+      {isSculpture(item) && <SculptureSections item={item} />}
+      <DetailFooterComponent item={item} />
     </ScrollView>
   )
 }
