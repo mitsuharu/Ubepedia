@@ -21,7 +21,7 @@ type AccessoryType = undefined | 'disclosure'
 
 type ContentProps = { title?: string; children?: ReactNode }
 
-export type CellProps = ContentProps & {
+export type Props = ContentProps & {
   subtitle?: string
   description?: string
   onPress?: () => void
@@ -34,7 +34,6 @@ export type CellProps = ContentProps & {
   /**
    * 右端に表示するアイコン。
    * - 'disclosure' の場合、「>」
-   * - 'openWeb' の場合、「□」
    */
   accessory?: AccessoryType
 
@@ -43,7 +42,7 @@ export type CellProps = ContentProps & {
   subtitleStyle?: StyleProp<TextStyle>
 }
 
-const Component: React.FC<CellProps> = ({
+const Component: React.FC<Props> = ({
   title,
   children,
   subtitle,
@@ -60,7 +59,7 @@ const Component: React.FC<CellProps> = ({
   const accessoryView = useMemo(
     () =>
       match(accessory)
-        .with('disclosure', () => <Icon style={style} name="right" size={20} />)
+        .with('disclosure', () => <Icon style={style} name="right" size={16} />)
         .otherwise(() => null),
     [accessory, style],
   )

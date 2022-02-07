@@ -37,7 +37,7 @@ export class Sculpture extends BaseModel {
   /**
    * サイズ
    */
-  size: string
+  size: string | undefined
 
   /**
    * 重量
@@ -47,7 +47,7 @@ export class Sculpture extends BaseModel {
   /**
    * 出展
    */
-  exhibit: string
+  exhibit: string | undefined
 
   /**
    * 所蔵者

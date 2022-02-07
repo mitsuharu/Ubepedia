@@ -1,14 +1,22 @@
 import React, { useLayoutEffect } from 'react'
-import { ScrollView, TextStyle, useColorScheme, ViewStyle } from 'react-native'
+import { ScrollView, useColorScheme, ViewStyle } from 'react-native'
 import { styleType } from '@/utils/styles'
 import { makeStyles } from 'react-native-swag-styles'
 import { COLOR } from '@/CONSTANTS/COLOR'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { MainParams } from '@/routes/main.params'
 import { ShareButton } from '@/components/Button/ShareButton'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { UbeDataType } from '@/database/ube/type'
-import { HeaderSection } from './Cells/HeaderSection'
+import {
+  isCivicFacility,
+  isCulturalProperty,
+  isSculpture,
+  UbeDataType,
+} from '@/database/ube/type'
+import { DetailHeaderComponent } from './Cells/DetailHeaderComponent'
+import { CivicFacilitySections } from './Cells/CivicFacilitySections'
+import { DetailFooterComponent } from './Cells/DetailFooterComponent'
+import { CulturalPropertySections } from './Cells/CulturalPropertySections'
+import { SculptureSections } from './Cells/SculptureSections'
 
 type ParamsProps = RouteProp<MainParams, 'Detail'>
 
@@ -21,11 +29,13 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
   const styles = useStyles()
 
   return (
-    <SafeAreaView style={styles.safeArea} edges={['bottom']}>
-      <ScrollView style={styles.scrollView}>
-        <HeaderSection item={item} />
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView style={styles.scrollView}>
+      <DetailHeaderComponent item={item} />
+      {isCivicFacility(item) && <CivicFacilitySections item={item} />}
+      {isCulturalProperty(item) && <CulturalPropertySections item={item} />}
+      {isSculpture(item) && <SculptureSections item={item} />}
+      <DetailFooterComponent item={item} />
+    </ScrollView>
   )
 }
 
@@ -56,14 +66,5 @@ const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
   scrollView: styleType<ViewStyle>({
     flex: 1,
     backgroundColor: COLOR(colorScheme).BACKGROUND.PRIMARY,
-  }),
-  container: styleType<ViewStyle>({
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: COLOR(colorScheme).BACKGROUND.PRIMARY,
-  }),
-  text: styleType<TextStyle>({
-    textAlign: 'center',
   }),
 }))

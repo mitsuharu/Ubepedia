@@ -1,8 +1,6 @@
 import React, { useCallback } from 'react'
 import { TextStyle, useColorScheme, ViewStyle } from 'react-native'
 import { styleType } from '@/utils/styles'
-import { useDispatch } from 'react-redux'
-import { enqueueToast } from '@/redux/modules/toast/actions'
 import { Button } from './index'
 import { makeStyles } from 'react-native-swag-styles'
 import Icon from 'react-native-vector-icons/Fontisto'
@@ -24,17 +22,11 @@ const Component: React.FC<ComponentProps> = ({ onPress }) => {
 }
 
 const Container: React.FC<Props> = (props) => {
-  const dispatch = useDispatch()
   const navigation = useNavigation()
 
   const onPress = useCallback(async () => {
-    try {
-      navigation.navigate('Search')
-    } catch (error: any) {
-      console.warn(`SearchButton#onPress`, error)
-      dispatch(enqueueToast({ message: '失敗しました' }))
-    }
-  }, [navigation, dispatch])
+    navigation.navigate('Search')
+  }, [navigation])
 
   return <Component {...props} onPress={onPress} />
 }

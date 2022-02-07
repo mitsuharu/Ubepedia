@@ -43,7 +43,7 @@ def insertDB(db: sqlite3.Connection):
                         xml.find_text(child, "label"),
                         xml.find_float(child, "latitude"),
                         xml.find_float(child, "longlatitude"),
-                        xml.find_text(child, "depiction"),
+                        xml.find_text(child, "description"),
                         xml.find_text(child, "category"),
                         xml.find_text(child, "sub_category"),
                         xml.find_text(child, "designated_date"),

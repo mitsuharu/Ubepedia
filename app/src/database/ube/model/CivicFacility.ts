@@ -47,12 +47,12 @@ export class CivicFacility extends BaseModel {
   /**
    * 利用時間注意
    */
-  timeNotes: string
+  timeNotes: string | undefined
 
   /**
    * 休日（曜日）
    */
-  weekClosureDay: string
+  weekClosureDay: string | undefined
 
   /**
    * 休日

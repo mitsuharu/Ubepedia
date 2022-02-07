@@ -5,6 +5,17 @@ import { match } from 'ts-pattern'
 
 export type UbeDataType = CivicFacility | CulturalProperty | Sculpture
 
+export const isCivicFacility = (
+  arg: any | null | undefined,
+): arg is CivicFacility => !!arg && arg instanceof CivicFacility
+
+export const isCulturalProperty = (
+  arg: any | null | undefined,
+): arg is CulturalProperty => !!arg && arg instanceof CulturalProperty
+
+export const isSculpture = (arg: any | null | undefined): arg is Sculpture =>
+  !!arg && arg instanceof Sculpture
+
 export type ListData<T extends UbeDataType> = {
   items: T[]
   total: number

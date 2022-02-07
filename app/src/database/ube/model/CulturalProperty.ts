@@ -12,17 +12,17 @@ export class CulturalProperty extends BaseModel {
   /**
    * 文化財区分（副）
    */
-  subCategory: string
+  subCategory: string | undefined
 
   /**
    * 登録・指定年月日
    */
-  designatedDate: string
+  designatedDate: string | undefined
 
   /**
    * 所有者・管理者・保存団体
    */
-  administrator: string
+  administrator: string | undefined
 
   /**
    * 所在地
@@ -32,7 +32,7 @@ export class CulturalProperty extends BaseModel {
   /**
    * 制作年代等
    */
-  productionAge: string
+  productionAge: string | undefined
 
   constructor(obj: any) {
     super(obj)

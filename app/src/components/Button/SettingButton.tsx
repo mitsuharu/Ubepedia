@@ -1,14 +1,12 @@
 import React, { useCallback } from 'react'
 import { TextStyle, useColorScheme, ViewStyle } from 'react-native'
 import { styleType } from '@/utils/styles'
-import { useDispatch } from 'react-redux'
-import { enqueueToast } from '@/redux/modules/toast/actions'
 import { Button } from './index'
 import { makeStyles } from 'react-native-swag-styles'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { COLOR } from '@/CONSTANTS/COLOR'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { SettingParams } from '@/routes/setting.params'
+import { RootParams } from '@/routes/root.params'
 
 type Props = {}
 type ComponentProps = Props & {
@@ -25,17 +23,11 @@ const Component: React.FC<ComponentProps> = ({ onPress }) => {
 }
 
 const Container: React.FC<Props> = (props) => {
-  const dispatch = useDispatch()
-  const navigation = useNavigation<NavigationProp<SettingParams>>()
+  const navigation = useNavigation<NavigationProp<RootParams>>()
 
   const onPress = useCallback(async () => {
-    try {
-      navigation.navigate('Setting')
-    } catch (error: any) {
-      console.warn(`SearchButton#onPress`, error)
-      dispatch(enqueueToast({ message: '失敗しました' }))
-    }
-  }, [navigation, dispatch])
+    navigation.navigate('SettingRoute')
+  }, [navigation])
 
   return <Component {...props} onPress={onPress} />
 }
