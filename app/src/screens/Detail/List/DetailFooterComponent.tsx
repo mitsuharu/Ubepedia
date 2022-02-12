@@ -1,25 +1,27 @@
 import { Section } from '@/components/List'
 import { Cell } from '@/components/List/Cell'
 import { UbeDataType } from '@/database/ube/type'
+import { openWeb } from '@/redux/modules/inAppWebBrowser/actions'
 import React, { useCallback } from 'react'
 import { Falsy } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useDispatch } from 'react-redux'
 
 type Props = {
   item: UbeDataType
 }
 type ComponentProps = Props & {
-  onPress: (() => void) | Falsy
+  onPressOpenWeb: (() => void) | Falsy
 }
 
-const Component: React.FC<ComponentProps> = ({ onPress }) => {
+const Component: React.FC<ComponentProps> = ({ onPressOpenWeb }) => {
   return (
     <SafeAreaView edges={['bottom']}>
-      {!!onPress && (
+      {!!onPressOpenWeb && (
         <Section>
           <Cell
             title="ホームページを開く"
-            onPress={onPress}
+            onPress={onPressOpenWeb}
             accessory="disclosure"
           />
         </Section>
@@ -33,12 +35,16 @@ const Container: React.FC<Props> = (props) => {
     item: { url },
   } = props
 
-  const onPress = useCallback(() => {
+  const dispatch = useDispatch()
+
+  const onPressOpenWeb = useCallback(() => {
     if (url) {
+      dispatch(openWeb(url))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url])
 
-  return <Component {...props} onPress={!!url && onPress} />
+  return <Component {...props} onPressOpenWeb={!!url && onPressOpenWeb} />
 }
 
 export { Container as DetailFooterComponent }

@@ -1,6 +1,6 @@
 import { Section, Cell } from '@/components/List'
-import { toggleOnLongPressCopyToClipboard } from '@/redux/modules/userSetting/actions'
-import { selectOnLongPressCopyToClipboard } from '@/redux/modules/userSetting/selectors'
+import { toggleCanCopyToClipboardOnLongPress } from '@/redux/modules/userSetting/actions'
+import { selectCanCopyToClipboardOnLongPress } from '@/redux/modules/userSetting/selectors'
 import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -29,10 +29,10 @@ const Component: React.FC<ComponentProps> = ({
 
 const Container: React.FC<Props> = (props) => {
   const dispatch = useDispatch()
-  const canCopyToClipboard = useSelector(selectOnLongPressCopyToClipboard)
+  const canCopyToClipboard = useSelector(selectCanCopyToClipboardOnLongPress)
 
   const toggleSwitch = useCallback(() => {
-    dispatch(toggleOnLongPressCopyToClipboard())
+    dispatch(toggleCanCopyToClipboardOnLongPress())
   }, [dispatch])
 
   return (

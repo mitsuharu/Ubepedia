@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react'
 import { Cell, Props as ButtonProps } from '@/components/List/Cell'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectOnLongPressCopyToClipboard } from '@/redux/modules/userSetting/selectors'
+import { selectCanCopyToClipboardOnLongPress } from '@/redux/modules/userSetting/selectors'
 import { copyToClipboard } from '@/redux/modules/clipboard/actions'
 
 type Props = Omit<ButtonProps, 'onLongPress'>
@@ -9,7 +9,7 @@ type Props = Omit<ButtonProps, 'onLongPress'>
 export const DetailCell: React.FC<Props> = (props) => {
   const dispatch = useDispatch()
   const canCopyToClipboard: boolean = useSelector(
-    selectOnLongPressCopyToClipboard,
+    selectCanCopyToClipboardOnLongPress,
   )
 
   const copy = useCallback(() => {

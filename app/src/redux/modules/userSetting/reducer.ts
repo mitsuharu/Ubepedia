@@ -2,19 +2,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { persistReducer } from 'redux-persist'
 import { reducerWithInitialState } from 'typescript-fsa-reducers'
 import {
-  assignOnLongPressCopyToClipboard,
-  toggleOnLongPressCopyToClipboard,
+  assignCanCopyToClipboardOnLongPress,
+  toggleCanCopyToClipboardOnLongPress,
 } from './actions'
 import { initialState } from './state'
 
 const baseReducer = reducerWithInitialState(initialState)
-  .case(assignOnLongPressCopyToClipboard, (state, value) => ({
+  .case(assignCanCopyToClipboardOnLongPress, (state, value) => ({
     ...state,
-    onLongPressCopyToClipboard: value,
+    canCopyToClipboardOnLongPress: value,
   }))
-  .case(toggleOnLongPressCopyToClipboard, (state) => ({
+  .case(toggleCanCopyToClipboardOnLongPress, (state) => ({
     ...state,
-    onLongPressCopyToClipboard: !state.onLongPressCopyToClipboard,
+    onLongPressCopyToClipboard: !state.canCopyToClipboardOnLongPress,
   }))
   .build()
 

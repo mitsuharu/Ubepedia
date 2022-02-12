@@ -21,6 +21,8 @@ PODS:
     - ReactCommon/turbomodule/core
   - EXSQLite (10.1.1):
     - ExpoModulesCore
+  - EXWebBrowser (10.1.1):
+    - ExpoModulesCore
   - FBLazyVector (0.67.2)
   - FBReactNativeSpec (0.67.2):
     - RCT-Folly (= 2021.06.28.00-v2)
@@ -402,6 +404,7 @@ DEPENDENCIES:
   - Expo (from `../node_modules/expo/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core/ios`)
   - EXSQLite (from `../node_modules/expo-sqlite/ios`)
+  - EXWebBrowser (from `../node_modules/expo-web-browser/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - Flipper (= 0.99.0)
@@ -504,6 +507,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-modules-core/ios"
   EXSQLite:
     :path: "../node_modules/expo-sqlite/ios"
+  EXWebBrowser:
+    :path: "../node_modules/expo-web-browser/ios"
   FBLazyVector:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
   FBReactNativeSpec:
@@ -586,6 +591,7 @@ SPEC CHECKSUMS:
   Expo: 534e51e607aba8229293297da5585f4b26f50fa1
   ExpoModulesCore: 32c0ccb47f477d330ee93db72505380adf0de09a
   EXSQLite: 908e34753a9dcfbef6a0f3a543ad32a5a6ced452
+  EXWebBrowser: f1573262c5de753987ed526c630076eda130804d
   FBLazyVector: 244195e30d63d7f564c55da4410b9a24e8fbceaa
   FBReactNativeSpec: c94002c1d93da3658f4d5119c6994d19961e3d52
   Flipper: 30e8eeeed6abdc98edaf32af0cda2f198be4b733
