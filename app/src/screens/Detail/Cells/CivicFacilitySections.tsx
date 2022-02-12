@@ -27,25 +27,37 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
           <Cell title={item.timeNotes} subtitle="利用時間注意" />
         )}
       </Section>
-      <Section title="休日">
-        {!!item.weekClosureDay && (
-          <Cell title={item.weekClosureDay} subtitle="休日（曜日）" />
-        )}
-        <Cell title={item.closureDay} subtitle="休日" />
-        {!!item.closureDayNotes && (
-          <Cell title={item.closureDayNotes} subtitle="休日注意" />
-        )}
-      </Section>
-      <Section title="駐車場">
-        <Cell title={item.parking} subtitle="駐車場" />
-        <Cell title={item.parkingFee} subtitle="駐車料" />
-      </Section>
-      <Section title="その他">
-        <Cell title={item.disabledToilet} subtitle="障害者用トイレ" />
-        {!!item.reservation && (
-          <Cell title={item.reservation} subtitle="施設予約" />
-        )}
-      </Section>
+      {item.enableClosures() && (
+        <Section title="休日">
+          {!!item.weekClosureDay && (
+            <Cell title={item.weekClosureDay} subtitle="休日（曜日）" />
+          )}
+          {!!item.closureDay && (
+            <Cell title={item.closureDay} subtitle="休日" />
+          )}
+          {!!item.closureDayNotes && (
+            <Cell title={item.closureDayNotes} subtitle="休日注意" />
+          )}
+        </Section>
+      )}
+      {!!item.enableParkings() && (
+        <Section title="駐車場">
+          <Cell title={item.parking} subtitle="駐車場" />
+          {!!item.parkingFee && (
+            <Cell title={item.parkingFee} subtitle="駐車料" />
+          )}
+        </Section>
+      )}
+      {item.enableOthers() && (
+        <Section title="その他">
+          {!!item.disabledToilet && (
+            <Cell title={item.disabledToilet} subtitle="障害者用トイレ" />
+          )}
+          {!!item.reservation && (
+            <Cell title={item.reservation} subtitle="施設予約" />
+          )}
+        </Section>
+      )}
     </>
   )
 }
