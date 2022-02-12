@@ -15,7 +15,7 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
         {!!item.postalCode && (
           <DetailCell title={item.postalCode} subtitle="郵便番号" />
         )}
-        <DetailCell title={item.address} subtitle="住所" />
+        <DetailCell title={item.address} subtitle="住所" navigateMap={item} />
         {!!item.phone && <DetailCell title={item.phone} subtitle="電話番号" />}
         {!!item.fax && <DetailCell title={item.fax} subtitle="FAX番号" />}
         {!!item.email && (

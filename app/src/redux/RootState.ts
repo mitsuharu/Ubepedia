@@ -1,9 +1,13 @@
 import { ToastState } from '@/redux/modules/toast/state'
 import { UserSettingState } from './modules/userSetting/state'
+import { reducer as networkReducer } from 'react-native-offline'
 
 export interface RootState {
   toast: ToastState
   userSetting: UserSettingState
+
+  // react-native-offline
+  network: ReturnType<typeof networkReducer>
 }
 
 // typescript definition
