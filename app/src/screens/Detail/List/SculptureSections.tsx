@@ -1,6 +1,6 @@
 import React from 'react'
 import { Section } from '@/components/List'
-import { Cell } from '@/components/List/Cell'
+import { DetailCell } from './DetailCell'
 import { Sculpture } from '@/database/ube/model/Sculpture'
 
 type Props = {
@@ -13,24 +13,26 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
     <>
       {(!!item.exhibit || !!item.remarks) && (
         <Section title="詳細">
-          {!!item.exhibit && <Cell title={item.exhibit} />}
-          {!!item.remarks && <Cell title={item.remarks} subtitle="備考" />}
+          {!!item.exhibit && <DetailCell title={item.exhibit} />}
+          {!!item.remarks && (
+            <DetailCell title={item.remarks} subtitle="備考" />
+          )}
         </Section>
       )}
       <Section title="所在地">
-        <Cell title={item.place} subtitle="住所" />
+        <DetailCell title={item.place} subtitle="住所" />
       </Section>
       <Section title="情報">
-        <Cell title={item.author} subtitle="作家名" />
-        <Cell
+        <DetailCell title={item.author} subtitle="作家名" />
+        <DetailCell
           title={item.owner}
           subtitle="所蔵者"
           description={item.acquisitionMethod}
         />
-        <Cell title={item.year} subtitle="制作年" />
-        <Cell title={item.material} subtitle="素材" />
-        {!!item.size && <Cell title={item.size} subtitle="サイズ" />}
-        {!!item.weight && <Cell title={item.weight} subtitle="重量" />}
+        <DetailCell title={item.year} subtitle="制作年" />
+        <DetailCell title={item.material} subtitle="素材" />
+        {!!item.size && <DetailCell title={item.size} subtitle="サイズ" />}
+        {!!item.weight && <DetailCell title={item.weight} subtitle="重量" />}
       </Section>
     </>
   )

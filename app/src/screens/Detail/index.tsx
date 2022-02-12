@@ -12,11 +12,11 @@ import {
   isSculpture,
   UbeDataType,
 } from '@/database/ube/type'
-import { DetailHeaderComponent } from './Cells/DetailHeaderComponent'
-import { CivicFacilitySections } from './Cells/CivicFacilitySections'
-import { DetailFooterComponent } from './Cells/DetailFooterComponent'
-import { CulturalPropertySections } from './Cells/CulturalPropertySections'
-import { SculptureSections } from './Cells/SculptureSections'
+import { DetailHeaderComponent } from './List/DetailHeaderComponent'
+import { CivicFacilitySections } from './List/CivicFacilitySections'
+import { DetailFooterComponent } from './List/DetailFooterComponent'
+import { CulturalPropertySections } from './List/CulturalPropertySections'
+import { SculptureSections } from './List/SculptureSections'
 
 type ParamsProps = RouteProp<MainParams, 'Detail'>
 

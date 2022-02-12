@@ -57,7 +57,7 @@ export class CivicFacility extends BaseModel {
   /**
    * 休日
    */
-  closureDay: string
+  closureDay: string | undefined
 
   /**
    * 休日注意
@@ -67,12 +67,12 @@ export class CivicFacility extends BaseModel {
   /**
    * 駐車場
    */
-  parking: string
+  parking: string | undefined
 
   /**
    * 駐車料
    */
-  parkingFee: string
+  parkingFee: string | undefined
 
   /**
    * 障害者用トイレ
@@ -103,5 +103,28 @@ export class CivicFacility extends BaseModel {
     this.parkingFee = stringValue(obj, 'parking_fee')
     this.disabledToilet = stringValue(obj, 'disabled_toilet')
     this.reservation = stringValue(obj, 'reservation')
+  }
+
+  /**
+   * 休日情報の有無を確認する
+   */
+  enableClosures() {
+    return !!this.weekClosureDay || !!this.closureDay || !!this.closureDayNotes
+  }
+
+  /**
+   * 駐車場の有無を確認する
+   */
+  enableParkings() {
+    return !!this.parking || !!this.parkingFee
+  }
+
+  /**
+   * その他情報の有無を確認する
+   * - 障害者用トイレ
+   * - 施設予約
+   */
+  enableOthers() {
+    return !!this.disabledToilet || !!this.reservation
   }
 }

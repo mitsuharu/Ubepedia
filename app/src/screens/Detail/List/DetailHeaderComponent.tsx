@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, TextStyle, useColorScheme, View, ViewStyle } from 'react-native'
+import { Text, TextStyle, View, ViewStyle } from 'react-native'
 import { styleType } from '@/utils/styles'
 import { makeStyles } from 'react-native-swag-styles'
 import { UbeDataType } from '@/database/ube/type'
@@ -41,7 +41,7 @@ const Container: React.FC<Props> = (props) => {
 
 export { Container as DetailHeaderComponent }
 
-const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
+const useStyles = makeStyles(() => ({
   container: styleType<ViewStyle>({
     padding: 16,
     backgroundColor: 'transparent',

@@ -1,7 +1,9 @@
 import { ToastState } from '@/redux/modules/toast/state'
+import { UserSettingState } from './modules/userSetting/state'
 
 export interface RootState {
   toast: ToastState
+  userSetting: UserSettingState
 }
 
 // typescript definition
