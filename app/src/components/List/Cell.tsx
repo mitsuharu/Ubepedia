@@ -1,6 +1,7 @@
-import React, { ReactNode, useMemo } from 'react'
+import React, { ReactNode } from 'react'
 import {
   StyleProp,
+  Switch,
   Text,
   TextStyle,
   useColorScheme,
@@ -17,30 +18,46 @@ import { makeStyles } from 'react-native-swag-styles'
 import { styleType } from '@/utils/styles'
 
 const AccessorySize: Size = { width: 20, height: 20 }
-type AccessoryType = undefined | 'disclosure'
+type AccessoryType = undefined | 'disclosure' | 'switch'
 
 type ContentProps = { title?: string; children?: ReactNode }
+type AccessoryProps = { accessory?: AccessoryType } & Partial<{
+  switchValue: boolean
+  onSwitchValueChange: (value: boolean) => void
+}>
 
-export type Props = ContentProps & {
-  subtitle?: string
-  description?: string
-  onPress?: () => void
+export type Props = ContentProps &
+  AccessoryProps & {
+    subtitle?: string
+    description?: string
+    onPress?: () => void
+    onLongPress?: () => void
 
-  /**
-   * titleとsubtitleを横に並べるならtrue。デフォルトはfalse。
-   */
-  isRowDirection?: boolean
+    /**
+     * titleとsubtitleを横に並べるならtrue。デフォルトはfalse。
+     */
+    isRowDirection?: boolean
 
-  /**
-   * 右端に表示するアイコン。
-   * - 'disclosure' の場合、「>」
-   */
-  accessory?: AccessoryType
+    style?: StyleProp<ViewStyle>
+    titleStyle?: StyleProp<TextStyle>
+    subtitleStyle?: StyleProp<TextStyle>
+  }
 
-  style?: StyleProp<ViewStyle>
-  titleStyle?: StyleProp<TextStyle>
-  subtitleStyle?: StyleProp<TextStyle>
-}
+const AccessoryView: React.FC<AccessoryProps> = ({
+  accessory,
+  switchValue,
+  onSwitchValueChange,
+}) =>
+  match(accessory)
+    .with('disclosure', () => <Icon name="right" size={16} />)
+    .with('switch', () => (
+      <Switch
+        ios_backgroundColor="#3e3e3e"
+        value={switchValue}
+        onValueChange={onSwitchValueChange}
+      />
+    ))
+    .otherwise(() => null)
 
 const Component: React.FC<Props> = ({
   title,
@@ -48,24 +65,23 @@ const Component: React.FC<Props> = ({
   subtitle,
   description,
   onPress,
+  onLongPress,
   style,
   titleStyle,
   subtitleStyle,
   isRowDirection,
   accessory,
+  switchValue,
+  onSwitchValueChange,
 }) => {
   const styles = useStyles()
 
-  const accessoryView = useMemo(
-    () =>
-      match(accessory)
-        .with('disclosure', () => <Icon style={style} name="right" size={16} />)
-        .otherwise(() => null),
-    [accessory, style],
-  )
-
   return (
-    <Button style={[styles.container, style]} onPress={onPress}>
+    <Button
+      style={[styles.container, style]}
+      onPress={onPress}
+      onLongPress={onLongPress}
+    >
       {!!children && children}
       <View style={styles.row}>
         {!!title && (
@@ -81,7 +97,7 @@ const Component: React.FC<Props> = ({
             )}
           </View>
         )}
-        {accessoryView}
+        <AccessoryView {...{ accessory, switchValue, onSwitchValueChange }} />
       </View>
     </Button>
   )

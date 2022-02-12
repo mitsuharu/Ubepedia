@@ -1,6 +1,6 @@
 import React from 'react'
 import { Section } from '@/components/List'
-import { Cell } from '@/components/List/Cell'
+import { DetailCell } from './DetailCell'
 import { CivicFacility } from '@/database/ube/model/CivicFacility'
 
 type Props = {
@@ -13,48 +13,50 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
     <>
       <Section title="所在地">
         {!!item.postalCode && (
-          <Cell title={item.postalCode} subtitle="郵便番号" />
+          <DetailCell title={item.postalCode} subtitle="郵便番号" />
         )}
-        <Cell title={item.address} subtitle="住所" />
-        {!!item.phone && <Cell title={item.phone} subtitle="電話番号" />}
-        {!!item.fax && <Cell title={item.fax} subtitle="FAX番号" />}
-        {!!item.email && <Cell title={item.email} subtitle="メールアドレス" />}
+        <DetailCell title={item.address} subtitle="住所" />
+        {!!item.phone && <DetailCell title={item.phone} subtitle="電話番号" />}
+        {!!item.fax && <DetailCell title={item.fax} subtitle="FAX番号" />}
+        {!!item.email && (
+          <DetailCell title={item.email} subtitle="メールアドレス" />
+        )}
       </Section>
       <Section title="業務時間">
-        <Cell title={item.startTime} subtitle="開館時刻" />
-        <Cell title={item.endTime} subtitle="閉館時刻" />
+        <DetailCell title={item.startTime} subtitle="開館時刻" />
+        <DetailCell title={item.endTime} subtitle="閉館時刻" />
         {!!item.timeNotes && (
-          <Cell title={item.timeNotes} subtitle="利用時間注意" />
+          <DetailCell title={item.timeNotes} subtitle="利用時間注意" />
         )}
       </Section>
       {item.enableClosures() && (
         <Section title="休日">
           {!!item.weekClosureDay && (
-            <Cell title={item.weekClosureDay} subtitle="休日（曜日）" />
+            <DetailCell title={item.weekClosureDay} subtitle="休日（曜日）" />
           )}
           {!!item.closureDay && (
-            <Cell title={item.closureDay} subtitle="休日" />
+            <DetailCell title={item.closureDay} subtitle="休日" />
           )}
           {!!item.closureDayNotes && (
-            <Cell title={item.closureDayNotes} subtitle="休日注意" />
+            <DetailCell title={item.closureDayNotes} subtitle="休日注意" />
           )}
         </Section>
       )}
       {!!item.enableParkings() && (
         <Section title="駐車場">
-          <Cell title={item.parking} subtitle="駐車場" />
+          <DetailCell title={item.parking} subtitle="駐車場" />
           {!!item.parkingFee && (
-            <Cell title={item.parkingFee} subtitle="駐車料" />
+            <DetailCell title={item.parkingFee} subtitle="駐車料" />
           )}
         </Section>
       )}
       {item.enableOthers() && (
         <Section title="その他">
           {!!item.disabledToilet && (
-            <Cell title={item.disabledToilet} subtitle="障害者用トイレ" />
+            <DetailCell title={item.disabledToilet} subtitle="障害者用トイレ" />
           )}
           {!!item.reservation && (
-            <Cell title={item.reservation} subtitle="施設予約" />
+            <DetailCell title={item.reservation} subtitle="施設予約" />
           )}
         </Section>
       )}

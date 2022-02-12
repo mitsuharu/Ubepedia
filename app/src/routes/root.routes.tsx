@@ -16,12 +16,19 @@ const Routes: React.FC = () => {
         headerBackTitleVisible: false,
       }}
     >
-      <Stack.Screen name={RootName.MainRoute} component={MainRoutes} />
+      <Stack.Screen
+        name={RootName.MainRoute}
+        component={MainRoutes}
+        options={{
+          headerTitleAlign: 'center',
+        }}
+      />
       <Stack.Screen
         name={RootName.SettingRoute}
         component={SettingRoutes}
         options={{
           presentation: 'modal',
+          headerTitleAlign: 'center',
         }}
       />
     </Stack.Navigator>
