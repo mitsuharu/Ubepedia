@@ -6,6 +6,7 @@ import { COLOR } from '@/CONSTANTS/COLOR'
 import { useNavigation } from '@react-navigation/native'
 import { SettingFooterComponent } from './List/SettingFooterComponent'
 import { UserSettingSection } from './List/UserSettingSection'
+import { CloseButton } from '@/components/Button/CloseButton'
 
 type Props = {}
 type ComponentProps = Props & {}
@@ -27,6 +28,7 @@ const Container: React.FC<Props> = (props) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       title: '設定',
+      headerLeft: () => <CloseButton />,
     })
   }, [navigation])
 
