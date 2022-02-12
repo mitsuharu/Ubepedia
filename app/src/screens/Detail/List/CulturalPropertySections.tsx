@@ -17,7 +17,7 @@ const Component: React.FC<ComponentProps> = ({ item }) => {
         </Section>
       )}
       <Section title="所在地">
-        <DetailCell title={item.place} subtitle="住所" />
+        <DetailCell title={item.place} subtitle="住所" navigateMap={item} />
       </Section>
       <Section title="情報">
         <DetailCell title={item.category} subtitle="文化財区分" />
