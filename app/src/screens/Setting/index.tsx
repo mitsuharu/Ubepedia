@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 import { SettingFooterComponent } from './List/SettingFooterComponent'
 import { UserSettingSection } from './List/UserSettingSection'
 import { CloseButton } from '@/components/Button/CloseButton'
+import { SelectMainTypeSection } from './List/SelectMainTypeSection'
 
 type Props = {}
 type ComponentProps = Props & {}
@@ -16,6 +17,7 @@ const Component: React.FC<ComponentProps> = () => {
 
   return (
     <ScrollView style={styles.scrollView}>
+      <SelectMainTypeSection />
       <UserSettingSection />
       <SettingFooterComponent />
     </ScrollView>

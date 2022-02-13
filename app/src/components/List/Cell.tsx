@@ -18,10 +18,12 @@ import { makeStyles } from 'react-native-swag-styles'
 import { styleType } from '@/utils/styles'
 
 const AccessorySize: Size = { width: 20, height: 20 }
-type AccessoryType = undefined | 'disclosure' | 'switch'
+type AccessoryType = undefined | 'disclosure' | 'check' | 'switch'
 
-type ContentProps = { title?: string; children?: ReactNode }
-type AccessoryProps = { accessory?: AccessoryType } & Partial<{
+type ContentProps = Partial<{ title: string; children: ReactNode }>
+type AccessoryProps = Partial<{
+  accessory: AccessoryType
+  accessoryStyle: StyleProp<TextStyle>
   switchValue: boolean
   onSwitchValueChange: (value: boolean) => void
 }>
@@ -45,11 +47,15 @@ export type Props = ContentProps &
 
 const AccessoryView: React.FC<AccessoryProps> = ({
   accessory,
+  accessoryStyle,
   switchValue,
   onSwitchValueChange,
 }) =>
   match(accessory)
-    .with('disclosure', () => <Icon name="right" size={16} />)
+    .with('disclosure', () => (
+      <Icon name="right" size={16} style={accessoryStyle} />
+    ))
+    .with('check', () => <Icon name="check" size={16} style={accessoryStyle} />)
     .with('switch', () => (
       <Switch
         ios_backgroundColor="#3e3e3e"
