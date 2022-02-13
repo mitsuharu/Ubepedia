@@ -18,7 +18,7 @@ import { makeStyles } from 'react-native-swag-styles'
 import { styleType } from '@/utils/styles'
 
 const AccessorySize: Size = { width: 20, height: 20 }
-type AccessoryType = undefined | 'disclosure' | 'check' | 'switch'
+type AccessoryType = undefined | 'disclosure' | 'link' | 'check' | 'switch'
 
 type ContentProps = Partial<{ title: string; children: ReactNode }>
 type AccessoryProps = Partial<{
@@ -56,6 +56,7 @@ const AccessoryView: React.FC<AccessoryProps> = ({
       <Icon name="right" size={16} style={accessoryStyle} />
     ))
     .with('check', () => <Icon name="check" size={16} style={accessoryStyle} />)
+    .with('link', () => <Icon name="link" size={16} style={accessoryStyle} />)
     .with('switch', () => (
       <Switch
         ios_backgroundColor="#3e3e3e"

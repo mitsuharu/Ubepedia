@@ -21,7 +21,7 @@ export const DetailCell: React.FC<Props> = (props) => {
 
   const navigateMap = useCallback(() => {
     if (item) {
-      navigation.navigate('Map', { items: [item] })
+      navigation.navigate('Map', { item: item })
     }
   }, [navigation, item])
 

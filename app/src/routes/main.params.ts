@@ -4,5 +4,5 @@ export type MainParams = {
   Home: undefined
   Detail: { item: UbeDataType }
   Search: undefined
-  Map: { items: UbeDataType[] }
+  Map: { item: UbeDataType }
 }
