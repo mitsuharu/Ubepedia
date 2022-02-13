@@ -1,12 +1,24 @@
 import * as SQLite from 'expo-sqlite'
 import { Sculpture } from '@/database/ube/model/Sculpture'
 import { execute } from '../util'
+import { nonFalsy } from '@/utils/arrays'
 
-export const fetchSculpture = async (
-  database: SQLite.Database,
-): Promise<Sculpture[]> => {
+type Props = {
+  database: SQLite.Database
+  keyword: string | null
+}
+
+export const fetchSculpture = async ({
+  database,
+  keyword,
+}: Props): Promise<Sculpture[]> => {
   try {
-    const sqlStatement = `SELECT * FROM ${Sculpture.table}`
+    const selectFrom = `SELECT * FROM ${Sculpture.table}`
+    const wheres = [keyword && `name like '%${keyword}%'`].filter(nonFalsy)
+
+    const sqlStatement =
+      selectFrom + (wheres.length > 0 ? ` WHERE ${wheres.join(`AND`)}` : '')
+
     const { _array }: SQLite.SQLResultSetRowList = await execute(
       database,
       sqlStatement,

@@ -1,12 +1,29 @@
 import * as SQLite from 'expo-sqlite'
 import { CivicFacility } from '@/database/ube/model/CivicFacility'
 import { execute } from '../util'
+import { nonFalsy } from '@/utils/arrays'
 
-export const fetchCivicFacility = async (
-  database: SQLite.Database,
-): Promise<CivicFacility[]> => {
+type Props = {
+  database: SQLite.Database
+  keyword: string | null
+  hasDisabledToilet: boolean
+}
+
+export const fetchCivicFacility = async ({
+  database,
+  keyword,
+  hasDisabledToilet,
+}: Props): Promise<CivicFacility[]> => {
   try {
-    const sqlStatement = `SELECT * FROM ${CivicFacility.table}`
+    const selectFrom = `SELECT * FROM ${CivicFacility.table}`
+    const wheres = [
+      keyword && `name like '%${keyword}%'`,
+      !!hasDisabledToilet && `disabled_toilet like '%有%'`,
+    ].filter(nonFalsy)
+
+    const sqlStatement =
+      selectFrom + (wheres.length > 0 ? ` WHERE ${wheres.join(`AND`)}` : '')
+
     const { _array }: SQLite.SQLResultSetRowList = await execute(
       database,
       sqlStatement,
