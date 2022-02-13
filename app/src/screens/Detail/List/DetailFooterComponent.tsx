@@ -22,7 +22,7 @@ const Component: React.FC<ComponentProps> = ({ onPressOpenWeb }) => {
           <Cell
             title="ホームページを開く"
             onPress={onPressOpenWeb}
-            accessory="disclosure"
+            accessory="link"
           />
         </Section>
       )}

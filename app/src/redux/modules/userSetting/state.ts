@@ -1,4 +1,11 @@
+export type MainType = 'list' | 'map'
+
 export type UserSettingState = {
+  /**
+   * Main画面の表示タイプ
+   */
+  mainType: MainType
+
   /**
    * 長押しでテキストのコピーを行う
    */
@@ -6,5 +13,6 @@ export type UserSettingState = {
 }
 
 export const initialState: Readonly<UserSettingState> = {
-  canCopyToClipboardOnLongPress: true,
+  mainType: 'list',
+  canCopyToClipboardOnLongPress: false,
 }

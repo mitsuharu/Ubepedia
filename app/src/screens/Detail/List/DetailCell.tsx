@@ -1,12 +1,14 @@
 import React, { useCallback, useMemo } from 'react'
-import { Cell, Props as ButtonProps } from '@/components/List/Cell'
+import { Cell, Props as CellProps } from '@/components/List/Cell'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectCanCopyToClipboardOnLongPress } from '@/redux/modules/userSetting/selectors'
 import { copyToClipboard } from '@/redux/modules/clipboard/actions'
 import { useNavigation } from '@react-navigation/native'
 import { UbeDataType } from '@/database/ube/type'
+import { isValidHttpUrl } from '@/utils/strings'
+import { openWeb as dispatchOpenWeb } from '@/redux/modules/inAppWebBrowser/actions'
 
-type Props = Omit<ButtonProps, 'onLongPress'> & {
+type Props = Omit<CellProps, 'onLongPress'> & {
   navigateMap?: UbeDataType
 }
 
@@ -19,9 +21,15 @@ export const DetailCell: React.FC<Props> = (props) => {
     selectCanCopyToClipboardOnLongPress,
   )
 
+  const openWeb = useCallback(() => {
+    if (!!title && isValidHttpUrl(title)) {
+      dispatch(dispatchOpenWeb(title))
+    }
+  }, [dispatch, title])
+
   const navigateMap = useCallback(() => {
     if (item) {
-      navigation.navigate('Map', { items: [item] })
+      navigation.navigate('Map', { item: item })
     }
   }, [navigation, item])
 
@@ -31,10 +39,18 @@ export const DetailCell: React.FC<Props> = (props) => {
     }
   }, [dispatch, title])
 
-  const onPress = useMemo(
-    () => (item ? navigateMap : undefined),
-    [item, navigateMap],
-  )
+  const { onPress, accessory } = useMemo((): Pick<
+    CellProps,
+    'onPress' | 'accessory'
+  > => {
+    if (item) {
+      return { onPress: navigateMap, accessory: 'disclosure' }
+    }
+    if (!!title && isValidHttpUrl(title)) {
+      return { onPress: openWeb, accessory: 'link' }
+    }
+    return { onPress: undefined, accessory: undefined }
+  }, [item, navigateMap, openWeb, title])
 
   const onLongPress = useMemo(
     () => (canCopyToClipboard ? copy : undefined),
@@ -46,7 +62,7 @@ export const DetailCell: React.FC<Props> = (props) => {
       {...props}
       onPress={onPress}
       onLongPress={onLongPress}
-      accessory={onPress ? 'disclosure' : undefined}
+      accessory={accessory}
     />
   )
 }

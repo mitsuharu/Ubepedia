@@ -29,7 +29,7 @@ const baseReducer = reducerWithInitialState(initialState)
 
 const reducer = persistReducer(
   {
-    key: 'hogehoge/toast',
+    key: 'ubepedia/toast',
     blacklist: undefined,
     whitelist: [],
     storage: AsyncStorage,
