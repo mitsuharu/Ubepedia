@@ -42,10 +42,7 @@ const Container: React.FC<Props> = (props) => {
   const dispatch = useDispatch()
   const isConnected = useSelector(selectIsConnected)
   const mapViewRef = useRef<MapView>(null)
-
   const initialRegionRef = useRef<Region>(makeInitRegion(items))
-
-  // makeInitRegion
 
   useEffect(() => {
     if (!isConnected) {
