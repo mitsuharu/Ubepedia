@@ -57,3 +57,20 @@ export const ubeDataName = (key: UbeDataKey) =>
     .with('culturalProperty', () => '文化財')
     .with('sculpture', () => '彫刻')
     .exhaustive()
+
+export type Filters = {
+  keyword: string | null
+
+  categories: Set<UbeDataKey> | null
+
+  /**
+   * 障害者用トイレの有無
+   */
+  hasDisabledToilet: boolean
+}
+
+export const INIT_FILTERS: Filters = {
+  keyword: null,
+  categories: null,
+  hasDisabledToilet: false,
+}

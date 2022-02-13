@@ -10,13 +10,19 @@ import * as FileSystem from 'expo-file-system'
 import { Asset } from 'expo-asset'
 import { useDispatch } from 'react-redux'
 import { enqueueToast } from '@/redux/modules/toast/actions'
-import { INIT_UBE_DATA, makeListData, UbeData } from './type'
+import {
+  Filters,
+  INIT_FILTERS,
+  INIT_UBE_DATA,
+  makeListData,
+  UbeData,
+} from './type'
 import { fetchCivicFacility } from './dao/CivicFacility'
 import { fetchCulturalProperty } from './dao/CulturalProperty'
 import { fetchSculpture } from './dao/Sculpture'
 
 /**
- * saga などで直接触りたい時用（なければ廃止予定）
+ * saga などで直接触りたい時用（なければ廃止）
  */
 export let ubeData: SQLite.Database | undefined
 
@@ -40,6 +46,8 @@ const openUbeData = async () => {
 
 type UbeDataState = {
   database: SQLite.Database | undefined
+  filters: Filters
+  setFilters: (value: Filters) => void
 }
 
 const UbeDataStateContext = createContext<UbeDataState>({} as UbeDataState)
@@ -51,6 +59,7 @@ type Props = {
 export const UbeDataProvider: React.FC<Props> = ({ children }) => {
   const dispatch = useDispatch()
   const [database, setDatabase] = useState<SQLite.Database>()
+  const [filters, setFilters] = useState<Filters>(INIT_FILTERS)
 
   const updateDatabase = useCallback(async () => {
     try {
@@ -72,6 +81,8 @@ export const UbeDataProvider: React.FC<Props> = ({ children }) => {
     <UbeDataStateContext.Provider
       value={{
         database,
+        filters,
+        setFilters,
       }}
     >
       {children}
@@ -79,16 +90,42 @@ export const UbeDataProvider: React.FC<Props> = ({ children }) => {
   )
 }
 
+export const useUbeFilters = () => {
+  const { filters, setFilters } = useContext(UbeDataStateContext)
+  return { filters, setFilters }
+}
+
 export const useUbeData = (): UbeData => {
-  const { database } = useContext(UbeDataStateContext)
+  const {
+    database,
+    filters: { keyword, categories, hasDisabledToilet },
+  } = useContext(UbeDataStateContext)
   const [results, setResults] = useState<UbeData>(INIT_UBE_DATA)
 
   const update = useCallback(async () => {
     try {
       if (database) {
-        const civicFacilityItems = await fetchCivicFacility(database)
-        const culturalPropertyItems = await fetchCulturalProperty(database)
-        const sculptureItems = await fetchSculpture(database)
+        const enableCivicFacility = categories?.has('civicFacility') ?? true
+        const enableCulturalProperty =
+          categories?.has('culturalProperty') ?? true
+        const enableSculpture = categories?.has('sculpture') ?? true
+
+        const civicFacilityItems = enableCivicFacility
+          ? await fetchCivicFacility({
+              database,
+              keyword,
+              hasDisabledToilet,
+            })
+          : []
+        const culturalPropertyItems = enableCulturalProperty
+          ? await fetchCulturalProperty({
+              database,
+              keyword,
+            })
+          : []
+        const sculptureItems = enableSculpture
+          ? await fetchSculpture({ database, keyword })
+          : []
 
         const nextUbeData: UbeData = {
           civicFacility: makeListData(civicFacilityItems),
@@ -101,12 +138,12 @@ export const useUbeData = (): UbeData => {
     } catch (e: any) {
       console.warn(`useUbeData#update`, e)
     }
-  }, [database])
+  }, [categories, database, hasDisabledToilet, keyword])
 
   useEffect(() => {
     update()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [database])
+  }, [categories, database, hasDisabledToilet, keyword])
 
   return results
 }

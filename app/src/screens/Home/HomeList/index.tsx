@@ -110,15 +110,6 @@ const Container: React.FC<Props> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ubeData])
 
-  // useLayoutEffect(() => {
-  //   navigation.setOptions({
-  //     title: 'ubepedia',
-  //     headerLeft: () => <SettingButton />,
-  //     headerRight: () => <SearchButton />,
-  //     hideWhenScrolling: true,
-  //   })
-  // }, [navigation])
-
   return <Component {...props} sections={sections} onPress={onPress} />
 }
 
