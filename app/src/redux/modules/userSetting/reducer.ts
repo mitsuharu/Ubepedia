@@ -3,26 +3,31 @@ import { persistReducer } from 'redux-persist'
 import { reducerWithInitialState } from 'typescript-fsa-reducers'
 import {
   assignCanCopyToClipboardOnLongPress,
+  assignMainType,
   toggleCanCopyToClipboardOnLongPress,
 } from './actions'
 import { initialState } from './state'
 
 const baseReducer = reducerWithInitialState(initialState)
+  .case(assignMainType, (state, value) => ({
+    ...state,
+    mainType: value,
+  }))
   .case(assignCanCopyToClipboardOnLongPress, (state, value) => ({
     ...state,
     canCopyToClipboardOnLongPress: value,
   }))
   .case(toggleCanCopyToClipboardOnLongPress, (state) => ({
     ...state,
-    onLongPressCopyToClipboard: !state.canCopyToClipboardOnLongPress,
+    canCopyToClipboardOnLongPress: !state.canCopyToClipboardOnLongPress,
   }))
   .build()
 
 const reducer = persistReducer(
   {
-    key: 'hogehoge/userSetting',
+    key: 'ubepedia/userSetting',
     blacklist: undefined,
-    whitelist: ['assignOnLongPressCopyToClipboard'],
+    whitelist: ['mainType', 'assignOnLongPressCopyToClipboard'],
     storage: AsyncStorage,
   },
   baseReducer,
