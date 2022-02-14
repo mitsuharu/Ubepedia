@@ -1,19 +1,25 @@
 import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
-import { useColorScheme } from 'react-native'
 import { MainParams } from './main.params'
 import { RootRoutes } from './root.routes'
-import { NavigationTheme } from './theme'
+import { Provider as PaperProvider } from 'react-native-paper'
+import { useNavigationTheme } from './theme/useNavigationTheme'
+import { usePaperTheme } from './theme/usePaperTheme'
 
 /**
  * @see https://reactnavigation.org/docs/auth-flow/
+ * @see https://callstack.github.io/react-native-paper/getting-started.html
  */
 const Routes: React.FC = () => {
-  const colorScheme = useColorScheme()
+  const paperTheme = usePaperTheme()
+  const navigationTheme = useNavigationTheme()
+
   return (
-    <NavigationContainer theme={NavigationTheme(colorScheme)}>
-      <RootRoutes />
-    </NavigationContainer>
+    <PaperProvider theme={paperTheme}>
+      <NavigationContainer theme={navigationTheme}>
+        <RootRoutes />
+      </NavigationContainer>
+    </PaperProvider>
   )
 }
 
