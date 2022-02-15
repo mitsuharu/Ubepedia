@@ -4,7 +4,6 @@ import { Provider as ReduxProvider } from 'react-redux'
 import { initializeRedux } from '@/redux'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { Routes } from './routes'
-import { GlobalToast } from '@/components/GlobalToast'
 import { UbeDataProvider } from './database/ube'
 import { enableFreeze } from 'react-native-screens'
 
@@ -20,7 +19,6 @@ const App = () => {
         <PersistProvider loading={null} persistor={persistor}>
           <UbeDataProvider>
             <Routes />
-            <GlobalToast />
           </UbeDataProvider>
         </PersistProvider>
       </ReduxProvider>

@@ -4,7 +4,7 @@ import createSagaMiddleware from 'redux-saga'
 import { RootState } from '@/redux/RootState'
 import { rootSaga } from '@/redux/saga'
 import { Persistor } from 'redux-persist/es/types'
-import { toastReducer, userSettingReducer } from './internal'
+import { snackbarReducer, userSettingReducer } from './internal'
 import { reducer as networkReducer } from 'react-native-offline'
 
 let store: Store
@@ -15,7 +15,7 @@ export function initializeRedux() {
 
   if (store == null || persistor == null) {
     const reducer = combineReducers<RootState>({
-      toast: toastReducer,
+      snackbar: snackbarReducer,
       userSetting: userSettingReducer,
       network: networkReducer,
     })

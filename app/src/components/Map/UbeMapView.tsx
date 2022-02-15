@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectIsConnected } from '@/redux/modules/network/selectors'
 import MapView, { Region } from 'react-native-maps'
 import { UbeDataType } from '@/database/ube/type'
-import { enqueueToast } from '@/redux/modules/toast/actions'
+import { enqueueSnackbar } from '@/redux/modules/snackbar/actions'
 import {
   makeCoordinates,
   FIT_EDGE_PADDING,
@@ -47,7 +47,7 @@ const Container: React.FC<Props> = (props) => {
   useEffect(() => {
     if (!isConnected) {
       dispatch(
-        enqueueToast({
+        enqueueSnackbar({
           message: 'ネットワークに接続できません',
           type: 'error',
         }),
