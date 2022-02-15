@@ -15,6 +15,7 @@ module.exports = {
     ["@babel/plugin-proposal-decorators", {
       "legacy": true
     }],
+    ['react-native-paper/babel'],
   ],
   env: {
     production: {
