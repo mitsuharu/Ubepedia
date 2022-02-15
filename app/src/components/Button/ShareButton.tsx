@@ -9,11 +9,11 @@ import {
 } from 'react-native'
 import { styleType } from '@/utils/styles'
 import { useDispatch } from 'react-redux'
-import { enqueueToast } from '@/redux/modules/toast/actions'
 import { Button } from './index'
 import { makeStyles } from 'react-native-swag-styles'
 import Icon from 'react-native-vector-icons/Entypo'
 import { COLOR } from '@/CONSTANTS/COLOR'
+import { enqueueSnackbar } from '@/redux/modules/snackbar/actions'
 
 type Props = {
   title: string
@@ -59,7 +59,7 @@ const Container: React.FC<Props> = (props) => {
       })
     } catch (error: any) {
       console.warn(`ShareButton#onPress`, error)
-      dispatch(enqueueToast({ message: 'シェアに失敗しました' }))
+      dispatch(enqueueSnackbar({ message: 'シェアに失敗しました' }))
     }
   }, [title, url, dispatch])
 

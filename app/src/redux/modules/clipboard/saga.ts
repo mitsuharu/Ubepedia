@@ -1,7 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects'
 import { copyToClipboard } from './actions'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { enqueueToast } from '@/redux/modules/toast/actions'
+import { enqueueSnackbar } from '@/redux/modules/snackbar/actions'
 
 export function* clipboardSaga() {
   yield takeEvery(copyToClipboard, copyToClipboardSaga)
@@ -14,14 +14,16 @@ function* copyToClipboardSaga({
     Clipboard.setString(text)
     if (showResult) {
       yield put(
-        enqueueToast({ message: `${text} をクリップボードにコピーしました` }),
+        enqueueSnackbar({
+          message: `${text} をクリップボードにコピーしました`,
+        }),
       )
     }
   } catch (e: any) {
     console.warn('copyToClipboardSaga', e)
     if (showResult) {
       yield put(
-        enqueueToast({
+        enqueueSnackbar({
           message: `${text} のクリップボードへのコピーを失敗しました`,
         }),
       )

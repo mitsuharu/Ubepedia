@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { openWeb } from './actions'
 import * as WebBrowser from 'expo-web-browser'
-import { enqueueToast } from '@/redux/modules/toast/actions'
+import { enqueueSnackbar } from '@/redux/modules/snackbar/actions'
 
 export function* inAppBrowserSaga() {
   yield takeEvery(openWeb, openWebSaga)
@@ -13,7 +13,7 @@ function* openWebSaga({ payload }: ReturnType<typeof openWeb>) {
   } catch (e: any) {
     console.warn('openWebSaga', e)
     yield put(
-      enqueueToast({
+      enqueueSnackbar({
         message: `web browser を開くのを失敗しまた`,
       }),
     )

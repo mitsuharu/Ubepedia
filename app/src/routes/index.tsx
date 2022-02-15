@@ -4,6 +4,7 @@ import { MainParams } from './main.params'
 import { RootRoutes } from './root.routes'
 import { Provider as PaperProvider } from 'react-native-paper'
 import { useAppTheme } from './theme/useAppTheme'
+import { GlobalSnackbar } from '@/components/GlobalSnackbar'
 
 /**
  * @see https://reactnavigation.org/docs/auth-flow/
@@ -16,6 +17,7 @@ const Routes: React.FC = () => {
       <NavigationContainer theme={navigationTheme}>
         <RootRoutes />
       </NavigationContainer>
+      <GlobalSnackbar />
     </PaperProvider>
   )
 }

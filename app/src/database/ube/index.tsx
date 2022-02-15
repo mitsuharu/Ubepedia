@@ -9,7 +9,7 @@ import * as SQLite from 'expo-sqlite'
 import * as FileSystem from 'expo-file-system'
 import { Asset } from 'expo-asset'
 import { useDispatch } from 'react-redux'
-import { enqueueToast } from '@/redux/modules/toast/actions'
+import { enqueueSnackbar } from '@/redux/modules/snackbar/actions'
 import {
   Filters,
   INIT_FILTERS,
@@ -67,7 +67,7 @@ export const UbeDataProvider: React.FC<Props> = ({ children }) => {
       setDatabase(db)
     } catch (e: any) {
       console.warn(`UbeDataProvider#updateDatabase`, e)
-      dispatch(enqueueToast({ message: 'データベースの取得に失敗しました' }))
+      dispatch(enqueueSnackbar({ message: 'データベースの取得に失敗しました' }))
     }
   }, [dispatch])
 

@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { persistReducer } from 'redux-persist'
 import { reducerWithInitialState } from 'typescript-fsa-reducers'
-import { enqueueToast, dequeueToast, clearToast } from './actions'
+import { enqueueSnackbar, dequeueSnackbar, clearSnackbar } from './actions'
 import { initialState } from './state'
 import dayjs from 'dayjs'
 
 const baseReducer = reducerWithInitialState(initialState)
-  .case(enqueueToast, (state, { message, type }) => ({
+  .case(enqueueSnackbar, (state, { message, type }) => ({
     ...state,
     itemQueue: [
       ...state.itemQueue,
@@ -17,11 +17,11 @@ const baseReducer = reducerWithInitialState(initialState)
       },
     ],
   }))
-  .case(dequeueToast, (state, { createdAt }) => ({
+  .case(dequeueSnackbar, (state, { createdAt }) => ({
     ...state,
     itemQueue: state.itemQueue.filter((item) => item.createdAt !== createdAt),
   }))
-  .case(clearToast, (state) => ({
+  .case(clearSnackbar, (state) => ({
     ...state,
     itemQueue: [],
   }))
@@ -37,4 +37,4 @@ const reducer = persistReducer(
   baseReducer,
 )
 
-export { reducer as toastReducer }
+export { reducer as snackbarReducer }

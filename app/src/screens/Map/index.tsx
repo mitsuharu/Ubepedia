@@ -3,7 +3,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectIsConnected } from '@/redux/modules/network/selectors'
 import { MainParams } from '@/routes/main.params'
-import { enqueueToast } from '@/redux/modules/toast/actions'
+import { enqueueSnackbar } from '@/redux/modules/snackbar/actions'
 import { OpenMapButton } from '@/components/Button/OpenMapButton'
 import { UbeMapView } from '@/components/Map/UbeMapView'
 import { UbeDataType } from '@/database/ube/type'
@@ -37,7 +37,7 @@ const Container: React.FC<Props> = () => {
   useEffect(() => {
     if (!isConnected) {
       dispatch(
-        enqueueToast({
+        enqueueSnackbar({
           message: 'ネットワークに接続できません',
           type: 'error',
         }),
