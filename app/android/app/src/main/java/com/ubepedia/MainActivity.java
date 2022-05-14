@@ -24,7 +24,9 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected ReactActivityDelegate createReactActivityDelegate() {
-    return new MainActivityDelegate(this, getMainComponentName());
+    return new ReactActivityDelegateWrapper(this,
+      new ReactActivityDelegate(this, getMainComponentName())
+    );
   }
   public static class MainActivityDelegate extends ReactActivityDelegate {
     public MainActivityDelegate(ReactActivity activity, String mainComponentName) {
@@ -38,20 +40,12 @@ public class MainActivity extends ReactActivity {
       return reactRootView;
     }
   }
-
-
+  
   /**
    * https://reactnavigation.org/docs/getting-started/
    */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(null);
-  }
-
-  @Override
-  protected ReactActivityDelegate createReactActivityDelegate() {
-    return new ReactActivityDelegateWrapper(this,
-      new ReactActivityDelegate(this, getMainComponentName())
-    );
   }
 }
