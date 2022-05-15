@@ -17,6 +17,10 @@ buildscript {
 
         // 追加
         kotlinVersion = "1.6.10"
+
+        // react-native-inappbrowser-reborn
+        androidXAnnotation = "1.2.0"
+        androidXBrowser = "1.3.0"
     }
     repositories {
         mavenCentral {
