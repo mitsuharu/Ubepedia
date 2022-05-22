@@ -1,10 +1,10 @@
-import * as SQLite from 'expo-sqlite'
+import SQLite from 'react-native-sqlite-storage'
 import { CivicFacility } from '@/database/ube/model/CivicFacility'
-import { execute } from '../util'
+import { execute, loadDataFromSQLite } from '../util'
 import { nonFalsy } from '@/utils/arrays'
 
 type Props = {
-  database: SQLite.Database
+  database: SQLite.SQLiteDatabase
   keyword: string | null
   hasDisabledToilet: boolean
 }
@@ -24,13 +24,12 @@ export const fetchCivicFacility = async ({
     const sqlStatement =
       selectFrom + (wheres.length > 0 ? ` WHERE ${wheres.join(`AND`)}` : '')
 
-    const { _array }: SQLite.SQLResultSetRowList = await execute(
+    const results: CivicFacility[] = await loadDataFromSQLite<CivicFacility>({
       database,
       sqlStatement,
-    )
-    const results: CivicFacility[] = _array.map<CivicFacility>(
-      (obj) => new CivicFacility(obj),
-    )
+      dataFormatter: (obj) => new CivicFacility(obj),
+    })
+
     return results
   } catch (e: any) {
     console.warn('fetchCivicFacility', e)

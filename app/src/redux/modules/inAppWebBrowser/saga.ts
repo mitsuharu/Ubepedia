@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { openWeb } from './actions'
-import * as WebBrowser from 'expo-web-browser'
 import { enqueueSnackbar } from '@/redux/modules/snackbar/actions'
+import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 
 export function* inAppBrowserSaga() {
   yield takeEvery(openWeb, openWebSaga)
@@ -9,7 +9,7 @@ export function* inAppBrowserSaga() {
 
 function* openWebSaga({ payload }: ReturnType<typeof openWeb>) {
   try {
-    yield call(WebBrowser.openBrowserAsync, payload)
+    yield call(InAppBrowser.open, payload)
   } catch (e: any) {
     console.warn('openWebSaga', e)
     yield put(

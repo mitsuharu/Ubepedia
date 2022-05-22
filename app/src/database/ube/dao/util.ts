@@ -1,13 +1,17 @@
-import * as SQLite from 'expo-sqlite'
+import SQLite from 'react-native-sqlite-storage'
 
-export type WhereQuery = {
-  keyword?: string
+type LoadSQLiteParams<T> = {
+  database: SQLite.SQLiteDatabase
+  sqlStatement: string
+  dataFormatter?: (obj: any) => T
 }
 
-export const execute = (
-  database: SQLite.Database,
-  sqlStatement: string,
-): Promise<SQLite.SQLResultSetRowList> => {
+type ExecuteParam = Pick<LoadSQLiteParams<any>, 'database' | 'sqlStatement'>
+
+const execute = ({
+  database,
+  sqlStatement,
+}: ExecuteParam): Promise<SQLite.ResultSetRowList> => {
   return new Promise((resolve, reject) => {
     database.transaction(
       (tx) => {
@@ -28,4 +32,24 @@ export const execute = (
       },
     )
   })
+}
+
+export const loadDataFromSQLite = async <T>({
+  database,
+  sqlStatement,
+  dataFormatter,
+}: LoadSQLiteParams<T>): Promise<T[]> => {
+  try {
+    const { raw }: SQLite.ResultSetRowList = await execute({
+      database,
+      sqlStatement,
+    })
+    const results: T[] = raw().map<T>((obj: any) =>
+      dataFormatter ? dataFormatter(obj) : (obj as T),
+    )
+    return results
+  } catch (e: any) {
+    console.warn(`loadSQLite`, e)
+    throw e
+  }
 }

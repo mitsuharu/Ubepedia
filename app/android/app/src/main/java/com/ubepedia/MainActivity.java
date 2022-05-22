@@ -1,5 +1,5 @@
 package com.ubepedia;
-import expo.modules.ReactActivityDelegateWrapper;
+
 import com.facebook.react.ReactActivityDelegate;
 
 import android.os.Bundle;
@@ -24,9 +24,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected ReactActivityDelegate createReactActivityDelegate() {
-    return new ReactActivityDelegateWrapper(this,
-      new ReactActivityDelegate(this, getMainComponentName())
-    );
+    return new MainActivityDelegate(this, getMainComponentName());
   }
   public static class MainActivityDelegate extends ReactActivityDelegate {
     public MainActivityDelegate(ReactActivity activity, String mainComponentName) {
