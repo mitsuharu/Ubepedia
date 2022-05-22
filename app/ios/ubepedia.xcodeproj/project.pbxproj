@@ -16,7 +16,6 @@
 		7EF68E3733C33B6898317E18 /* libPods-ubepedia-ubepediaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABFE59519B596E51CEFDCCC0 /* libPods-ubepedia-ubepediaTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9BF7F2ED2839FC7800FD4948 /* ube.db in Resources */ = {isa = PBXBuildFile; fileRef = 9BF7F2EC2839FC7800FD4948 /* ube.db */; };
-		A149B34F724E99BEB14E8012 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC66A812A8B186D3757ADAB /* ExpoModulesProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -456,7 +455,6 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				A149B34F724E99BEB14E8012 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
