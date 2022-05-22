@@ -1,10 +1,10 @@
-import * as SQLite from 'expo-sqlite'
+import SQLite from 'react-native-sqlite-storage'
 import { CulturalProperty } from '@/database/ube/model/CulturalProperty'
-import { execute } from '../util'
+import { loadDataFromSQLite } from '../util'
 import { nonFalsy } from '@/utils/arrays'
 
 type Props = {
-  database: SQLite.Database
+  database: SQLite.SQLiteDatabase
   keyword: string | null
 }
 
@@ -19,13 +19,13 @@ export const fetchCulturalProperty = async ({
     const sqlStatement =
       selectFrom + (wheres.length > 0 ? ` WHERE ${wheres.join(`AND`)}` : '')
 
-    const { _array }: SQLite.SQLResultSetRowList = await execute(
-      database,
-      sqlStatement,
-    )
-    const results: CulturalProperty[] = _array.map<CulturalProperty>(
-      (obj) => new CulturalProperty(obj),
-    )
+    const results: CulturalProperty[] =
+      await loadDataFromSQLite<CulturalProperty>({
+        database,
+        sqlStatement,
+        dataFormatter: (obj) => new CulturalProperty(obj),
+      })
+
     return results
   } catch (e: any) {
     console.warn('fetchCulturalProperty', e)

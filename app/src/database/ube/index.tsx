@@ -5,9 +5,13 @@ import React, {
   useState,
   useCallback,
 } from 'react'
-import * as SQLite from 'expo-sqlite'
-import * as FileSystem from 'expo-file-system'
-import { Asset } from 'expo-asset'
+import {
+  copyFile,
+  exists,
+  DocumentDirectoryPath,
+  MainBundlePath,
+} from 'react-native-fs'
+import SQLite, { openDatabase } from 'react-native-sqlite-storage'
 import { useDispatch } from 'react-redux'
 import { enqueueSnackbar } from '@/redux/modules/snackbar/actions'
 import {
@@ -24,28 +28,43 @@ import { fetchSculpture } from './dao/Sculpture'
 /**
  * saga などで直接触りたい時用（なければ廃止）
  */
-export let ubeData: SQLite.Database | undefined
+export let ubeData: SQLite.SQLiteDatabase | undefined
 
 const databaseName = 'ube.db'
-const databasePath = FileSystem.documentDirectory + 'SQLite/'
 
 /**
  * データベースを開く
  */
-const openUbeData = async () => {
-  // 端末ローカルにデータベースがなければ、アセットデータをコピーする
-  if (!(await FileSystem.getInfoAsync(databasePath + databaseName)).exists) {
-    await FileSystem.makeDirectoryAsync(databasePath, { intermediates: true })
-    const asset = Asset.fromModule(require('@assets/database/ube.db'))
-    await FileSystem.downloadAsync(asset.uri, databasePath + databaseName)
+const openUbeData = async (): Promise<SQLite.SQLiteDatabase> => {
+  const documentDatabasePath = DocumentDirectoryPath + '/' + databaseName
+  const isExistDocumentDatabasePath = await exists(documentDatabasePath)
+  if (isExistDocumentDatabasePath) {
+    // すでにコピー済みの場合は何もしない
+    // 更新する場合は await unlink(documentDatabasePath)
+  } else {
+    const bundleDatabasePath = MainBundlePath + '/' + databaseName
+    await copyFile(bundleDatabasePath, documentDatabasePath)
   }
 
-  ubeData = SQLite.openDatabase(databaseName)
+  ubeData = openDatabase(
+    {
+      name: databaseName,
+      location: 'default',
+      createFromLocation: databaseName,
+    },
+    () => {
+      console.log(`DB ${databaseName} is loaded`)
+    },
+    (error: SQLite.SQLError) => {
+      console.log(`DB ${databaseName} is not loaded. error: ${error.message}`)
+    },
+  )
+
   return ubeData
 }
 
 type UbeDataState = {
-  database: SQLite.Database | undefined
+  database: SQLite.SQLiteDatabase | undefined
   filters: Filters
   setFilters: (value: Filters) => void
 }
@@ -58,7 +77,7 @@ type Props = {
 
 export const UbeDataProvider: React.FC<Props> = ({ children }) => {
   const dispatch = useDispatch()
-  const [database, setDatabase] = useState<SQLite.Database>()
+  const [database, setDatabase] = useState<SQLite.SQLiteDatabase>()
   const [filters, setFilters] = useState<Filters>(INIT_FILTERS)
 
   const updateDatabase = useCallback(async () => {
