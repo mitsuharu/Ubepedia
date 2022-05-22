@@ -1,10 +1,10 @@
-import * as SQLite from 'expo-sqlite'
+import SQLite from 'react-native-sqlite-storage'
 import { Sculpture } from '@/database/ube/model/Sculpture'
-import { execute } from '../util'
+import { loadDataFromSQLite } from '../util'
 import { nonFalsy } from '@/utils/arrays'
 
 type Props = {
-  database: SQLite.Database
+  database: SQLite.SQLiteDatabase
   keyword: string | null
 }
 
@@ -19,13 +19,12 @@ export const fetchSculpture = async ({
     const sqlStatement =
       selectFrom + (wheres.length > 0 ? ` WHERE ${wheres.join(`AND`)}` : '')
 
-    const { _array }: SQLite.SQLResultSetRowList = await execute(
+    const results: Sculpture[] = await loadDataFromSQLite<Sculpture>({
       database,
       sqlStatement,
-    )
-    const results: Sculpture[] = _array.map<Sculpture>(
-      (obj) => new Sculpture(obj),
-    )
+      dataFormatter: (obj) => new Sculpture(obj),
+    })
+
     return results
   } catch (e: any) {
     console.warn('fetchSculpture', e)

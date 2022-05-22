@@ -15,7 +15,7 @@
 		6172F2D35A4C3AA820D92908 /* libPods-ubepedia.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6423831EA8574132BED9D8CC /* libPods-ubepedia.a */; };
 		7EF68E3733C33B6898317E18 /* libPods-ubepedia-ubepediaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABFE59519B596E51CEFDCCC0 /* libPods-ubepedia-ubepediaTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		A149B34F724E99BEB14E8012 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC66A812A8B186D3757ADAB /* ExpoModulesProvider.swift */; };
+		9BF7F2ED2839FC7800FD4948 /* ube.db in Resources */ = {isa = PBXBuildFile; fileRef = 9BF7F2EC2839FC7800FD4948 /* ube.db */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +43,7 @@
 		6423831EA8574132BED9D8CC /* libPods-ubepedia.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ubepedia.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C97AB639B58BBB4B15BBE30 /* Pods-ubepedia-ubepediaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ubepedia-ubepediaTests.debug.xcconfig"; path = "Target Support Files/Pods-ubepedia-ubepediaTests/Pods-ubepedia-ubepediaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ubepedia/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9BF7F2EC2839FC7800FD4948 /* ube.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ube.db; sourceTree = "<group>"; };
 		ABFE59519B596E51CEFDCCC0 /* libPods-ubepedia-ubepediaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ubepedia-ubepediaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0A881CF5CF3F2B244570E2A /* Pods-ubepedia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ubepedia.debug.xcconfig"; path = "Target Support Files/Pods-ubepedia/Pods-ubepedia.debug.xcconfig"; sourceTree = "<group>"; };
 		CAC752703513FEA963688000 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-ubepedia-ubepediaTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
@@ -90,6 +91,7 @@
 		13B07FAE1A68108700A75B9A /* ubepedia */ = {
 			isa = PBXGroup;
 			children = (
+				9BF7F2EB2839FC7800FD4948 /* www */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -156,6 +158,15 @@
 				00E356EE1AD99517003FC87E /* ubepediaTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9BF7F2EB2839FC7800FD4948 /* www */ = {
+			isa = PBXGroup;
+			children = (
+				9BF7F2EC2839FC7800FD4948 /* ube.db */,
+			);
+			name = www;
+			path = ubepedia/www;
 			sourceTree = "<group>";
 		};
 		A3E623CD86919C20B49DB48E /* ExpoModulesProviders */ = {
@@ -273,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				9BF7F2ED2839FC7800FD4948 /* ube.db in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -443,7 +455,6 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				A149B34F724E99BEB14E8012 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
