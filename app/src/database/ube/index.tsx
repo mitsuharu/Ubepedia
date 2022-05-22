@@ -5,12 +5,8 @@ import React, {
   useState,
   useCallback,
 } from 'react'
-import {
-  copyFile,
-  exists,
-  DocumentDirectoryPath,
-  MainBundlePath,
-} from 'react-native-fs'
+import { copyFile, exists, DocumentDirectoryPath } from 'react-native-fs'
+import FileAsset from 'react-native-file-asset'
 import SQLite, { openDatabase } from 'react-native-sqlite-storage'
 import { useDispatch } from 'react-redux'
 import { enqueueSnackbar } from '@/redux/modules/snackbar/actions'
@@ -30,33 +26,33 @@ import { fetchSculpture } from './dao/Sculpture'
  */
 export let ubeData: SQLite.SQLiteDatabase | undefined
 
-const databaseName = 'ube.db'
+const databaseName = 'ube'
+const databaseType = 'db'
+const databaseFile = databaseName + '.' + databaseType
 
 /**
  * データベースを開く
  */
 const openUbeData = async (): Promise<SQLite.SQLiteDatabase> => {
-  const documentDatabasePath = DocumentDirectoryPath + '/' + databaseName
-  const isExistDocumentDatabasePath = await exists(documentDatabasePath)
-  if (isExistDocumentDatabasePath) {
-    // すでにコピー済みの場合は何もしない
-    // 更新する場合は await unlink(documentDatabasePath)
-  } else {
-    const bundleDatabasePath = MainBundlePath + '/' + databaseName
-    await copyFile(bundleDatabasePath, documentDatabasePath)
+  const assetPath = await FileAsset.loadFilePath('ube', 'db')
+
+  const documentPath = DocumentDirectoryPath + '/' + databaseFile
+  const isExistDocumentPath = await exists(documentPath)
+  if (!isExistDocumentPath) {
+    await copyFile(assetPath, documentPath)
   }
 
   ubeData = openDatabase(
     {
-      name: databaseName,
+      name: databaseFile,
       location: 'default',
-      createFromLocation: databaseName,
+      createFromLocation: databaseFile,
     },
     () => {
-      console.log(`DB ${databaseName} is loaded`)
+      console.log(`DB ${databaseFile} is loaded`)
     },
     (error: SQLite.SQLError) => {
-      console.log(`DB ${databaseName} is not loaded. error: ${error.message}`)
+      console.log(`DB ${databaseFile} is not loaded. error: ${error.message}`)
     },
   )
 
