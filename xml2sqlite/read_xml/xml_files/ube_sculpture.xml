@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataroot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://data.bodik.jp/dataset/c79658aa-d682-47db-a49d-481a5a4db7e2/resource/096b26ef-aca5-4761-a044-d64ae4c2f5cc/download/ubesculpture.xsd">
+<dataroot
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://data.bodik.jp/dataset/c79658aa-d682-47db-a49d-481a5a4db7e2/resource/096b26ef-aca5-4761-a044-d64ae4c2f5cc/download/ubesculpture.xsd">
     <ube_sculpture id="450">
         <label>AFFINITY-K</label><!--彫刻名-->
         <ruby>あふぃにてぃー-けい</ruby><!--彫刻名よみがな-->
