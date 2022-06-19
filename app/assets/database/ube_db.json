@@ -3,18 +3,18 @@
     "name" : "文化財",
     "table": "ube_cultural_property",
     "url": "https://data.bodik.jp/dataset/352021_cult_property",
-    "lastUpdatedAt": "2021-09-04 19:34"
+    "lastUpdatedAt": "2022-06-07 11:04"
   },
   {
     "name" : "公共施設",
     "table": "civic_facility",
     "url": "https://data.bodik.jp/dataset/352021_pub_facility",
-    "lastUpdatedAt": "2021-10-07 14:37"
+    "lastUpdatedAt": "2022-06-07 10:55"
   },
   {
     "name" : "彫刻",
     "table": "sculpture",
     "url": "https://data.bodik.jp/dataset/352021_sculp",
-    "lastUpdatedAt": "2021-04-30 15:12"
+    "lastUpdatedAt": "2022-06-07 11:09"
   }
 ]
