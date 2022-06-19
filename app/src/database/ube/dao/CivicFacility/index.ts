@@ -1,6 +1,6 @@
 import SQLite from 'react-native-sqlite-storage'
 import { CivicFacility } from '@/database/ube/model/CivicFacility'
-import { execute, loadDataFromSQLite } from '../util'
+import { loadDataFromSQLite } from '../util'
 import { nonFalsy } from '@/utils/arrays'
 
 type Props = {

@@ -78,6 +78,7 @@ const Component: React.FC<Props> = ({
   subtitleStyle,
   isRowDirection,
   accessory,
+  accessoryStyle,
   switchValue,
   onSwitchValueChange,
 }) => {
@@ -104,7 +105,12 @@ const Component: React.FC<Props> = ({
             )}
           </View>
         )}
-        <AccessoryView {...{ accessory, switchValue, onSwitchValueChange }} />
+        <AccessoryView
+          accessory={accessory}
+          accessoryStyle={[styles.accessoryStyle, accessoryStyle]}
+          switchValue={switchValue}
+          onSwitchValueChange={onSwitchValueChange}
+        />
       </View>
     </Button>
   )
@@ -142,6 +148,9 @@ const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
   }),
   accessory: styleType<ViewStyle>({
     right: 0,
+  }),
+  accessoryStyle: styleType<TextStyle>({
+    color: COLOR(colorScheme).TEXT.SECONDARY,
   }),
   text: styleType<TextStyle>({
     color: COLOR(colorScheme).TEXT.PRIMARY,

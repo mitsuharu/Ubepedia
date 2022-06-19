@@ -1,11 +1,12 @@
 import React from 'react'
-import { Text, TextStyle, View, ViewStyle } from 'react-native'
+import { Text, TextStyle, useColorScheme, View, ViewStyle } from 'react-native'
 import { styleType } from '@/utils/styles'
 import { makeStyles } from 'react-native-swag-styles'
 import { UbeDataType } from '@/database/ube/type'
 import FastImage, { ImageStyle } from 'react-native-fast-image'
 import { CustomFastImage } from '@/components/CustomFastImage'
 import { Spacer } from '@/components/Spacer'
+import { COLOR } from '@/CONSTANTS/COLOR'
 
 type Props = {
   item: UbeDataType
@@ -41,7 +42,7 @@ const Container: React.FC<Props> = (props) => {
 
 export { Container as DetailHeaderComponent }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(useColorScheme, (colorScheme) => ({
   container: styleType<ViewStyle>({
     padding: 16,
     backgroundColor: 'transparent',
@@ -54,5 +55,6 @@ const useStyles = makeStyles(() => ({
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 32,
+    color: COLOR(colorScheme).TEXT.PRIMARY,
   }),
 }))
