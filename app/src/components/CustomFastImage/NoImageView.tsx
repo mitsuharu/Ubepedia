@@ -23,7 +23,8 @@ export const NoImageView: React.FC<Props> = ({ style, isVisible }) => {
   const styles = useStyles()
   return isVisible ? (
     <View style={[styles.container, style]}>
-      <Icon style={styles.icon} name="emoji-sad" size={30} color="gray" />
+      <Text>sad</Text>
+      {/* <Icon style={styles.icon} name="emoji-sad" size={30} color="gray" /> */}
       <Spacer height={4} />
       <Text style={styles.text}>画像の読込に失敗しました</Text>
     </View>

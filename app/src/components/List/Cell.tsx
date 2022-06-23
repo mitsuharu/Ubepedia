@@ -53,10 +53,11 @@ const AccessoryView: React.FC<AccessoryProps> = ({
 }) =>
   match(accessory)
     .with('disclosure', () => (
-      <Icon name="right" size={16} style={accessoryStyle} />
+      <Text>right</Text>
+      // <Icon name="right" size={16} style={accessoryStyle} />
     ))
-    .with('check', () => <Icon name="check" size={16} style={accessoryStyle} />)
-    .with('link', () => <Icon name="link" size={16} style={accessoryStyle} />)
+    .with('check', () => <Text>check</Text>) // <Icon name="check" size={16} style={accessoryStyle} />)
+    .with('link', () => <Text>link</Text>) // <Icon name="link" size={16} style={accessoryStyle} />)
     .with('switch', () => (
       <Switch
         ios_backgroundColor="#3e3e3e"

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { TextStyle, useColorScheme, ViewStyle } from 'react-native'
+import { Text, TextStyle, useColorScheme, ViewStyle } from 'react-native'
 import { styleType } from '@/utils/styles'
 import { Button } from './index'
 import { makeStyles } from 'react-native-swag-styles'
@@ -16,7 +16,8 @@ const Component: React.FC<ComponentProps> = ({ onPress }) => {
   const styles = useStyles()
   return (
     <Button style={styles.container} onPress={onPress}>
-      <Icon style={styles.icon} name="search" size={20} />
+      <Text>search</Text>
+      {/* <Icon style={styles.icon} name="search" size={20} /> */}
     </Button>
   )
 }

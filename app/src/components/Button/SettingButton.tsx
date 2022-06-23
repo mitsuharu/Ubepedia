@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react'
-import { TextStyle, useColorScheme, ViewStyle } from 'react-native'
+import React, { useCallback, useEffect } from 'react'
+import { Text, TextStyle, useColorScheme, ViewStyle } from 'react-native'
 import { styleType } from '@/utils/styles'
 import { Button } from './index'
 import { makeStyles } from 'react-native-swag-styles'
@@ -7,6 +7,8 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { COLOR } from '@/CONSTANTS/COLOR'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootParams } from '@/routes/root.params'
+
+// Icon.loadFont()
 
 type Props = {}
 type ComponentProps = Props & {
@@ -17,7 +19,8 @@ const Component: React.FC<ComponentProps> = ({ onPress }) => {
   const styles = useStyles()
   return (
     <Button style={styles.container} onPress={onPress}>
-      <Icon style={styles.icon} name="settings-sharp" size={20} />
+      <Text>settings</Text>
+      {/* <Icon style={styles.icon} name="settings-sharp" size={20} /> */}
     </Button>
   )
 }
