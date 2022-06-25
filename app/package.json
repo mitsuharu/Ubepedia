@@ -19,9 +19,9 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.16.1",
-    "@react-native-clipboard/clipboard": "^1.8.5",
-    "@react-native-community/netinfo": "^8.0.0",
+    "@react-native-async-storage/async-storage": "^1.17.7",
+    "@react-native-clipboard/clipboard": "^1.10.0",
+    "@react-native-community/netinfo": "^9.1.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
     "dayjs": "^1.10.7",
@@ -42,7 +42,7 @@
     "react-native-screens": "^3.11.1",
     "react-native-sqlite-storage": "^6.0.1",
     "react-native-swag-styles": "^0.2.2",
-    "react-native-toast-message": "^2.1.1",
+    "react-native-toast-message": "^2.1.5",
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^8.0.2",
     "redux": "^4.2.0",
@@ -53,7 +53,7 @@
     "typescript-fsa": "^3.0.0",
     "typescript-fsa-reducers": "^1.2.2",
     "typescript-fsa-redux-saga": "^2.0.0",
-    "url-parse": "^1.5.9",
+    "url-parse": "^1.5.10",
     "yarn": "^1.22.17"
   },
   "devDependencies": {

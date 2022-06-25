@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import {
+  DefaultSectionT,
   SectionList,
   SectionListData,
   SectionListRenderItem,
@@ -45,7 +46,7 @@ const Component: React.FC<ComponentProps> = ({ sections, onPress }) => {
   )
 
   const renderSectionHeader = useCallback(
-    ({ section: { title } }) => <HomeSectionHeader title={title} />,
+    ({ section }: { section: SectionListData<UbeDataType, DefaultSectionT> }) => <HomeSectionHeader title={section.title} />,
     [],
   )
 
