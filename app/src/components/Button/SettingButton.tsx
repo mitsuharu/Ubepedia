@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect } from 'react'
-import { Text, TextStyle, useColorScheme, ViewStyle } from 'react-native'
+import React, { useCallback } from 'react'
+import { TextStyle, useColorScheme, ViewStyle } from 'react-native'
 import { styleType } from '@/utils/styles'
 import { Button } from './index'
 import { makeStyles } from 'react-native-swag-styles'
@@ -19,8 +19,7 @@ const Component: React.FC<ComponentProps> = ({ onPress }) => {
   const styles = useStyles()
   return (
     <Button style={styles.container} onPress={onPress}>
-      <Text>settings</Text>
-      {/* <Icon style={styles.icon} name="settings-sharp" size={20} /> */}
+      <Icon style={styles.icon} name="settings-sharp" size={20} />
     </Button>
   )
 }

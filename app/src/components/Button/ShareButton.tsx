@@ -3,7 +3,6 @@ import {
   Platform,
   Share,
   ShareContent,
-  Text,
   TextStyle,
   useColorScheme,
   ViewStyle,
@@ -29,8 +28,7 @@ const Component: React.FC<ComponentProps> = ({ onPress }) => {
   const iconName = Platform.OS === 'ios' ? 'share-alternative' : 'share'
   return (
     <Button style={styles.container} onPress={onPress}>
-      <Text>share</Text>
-      {/* <Icon style={styles.icon} name={iconName} size={20} /> */}
+      <Icon style={styles.icon} name={iconName} size={20} />
     </Button>
   )
 }
