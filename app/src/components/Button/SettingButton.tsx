@@ -8,6 +8,8 @@ import { COLOR } from '@/CONSTANTS/COLOR'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootParams } from '@/routes/root.params'
 
+// Icon.loadFont()
+
 type Props = {}
 type ComponentProps = Props & {
   onPress: () => void
