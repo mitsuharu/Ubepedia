@@ -57,8 +57,6 @@ function createSearchOnDeviceEventChannel() {
 
 // 端末からの SearchOnDevice のレスポンスを受ける
 function* listenerSaga(): SagaIterator {
-  console.log(`listenerSaga`)
-
   const chan: EventChannel<unknown> = yield call(
     createSearchOnDeviceEventChannel,
   )
