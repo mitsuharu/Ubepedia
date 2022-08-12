@@ -2,16 +2,19 @@ import * as SearchWithSpotlight from 'react-native-search-with-spotlight'
 import { EventChannel, eventChannel, SagaIterator } from 'redux-saga'
 import { call, cancelled, fork, takeEvery } from 'redux-saga/effects'
 
-export function* searchOnDeviceSaga() {
-  yield call(isSupported)
+export function* searchWithSpotlightSaga() {
+  const result: boolean = yield call(isSupported)
+  if (!result) {
+    return
+  }
   yield call(addSearchableItems)
-  // yield call(listenerSaga)
+  yield call(listenerSaga)
 }
 
 function* isSupported() {
   try {
     const result: boolean = yield call(SearchWithSpotlight.isSupported)
-    console.log(`searchOnDeviceSaga#isSupported ${result}`)
+    console.log(`searchWithSpotlightSaga#isSupported ${result}`)
     return result
   } catch (e: any) {
     return false
@@ -31,10 +34,10 @@ function* addSearchableItems() {
         domain: 'sample',
       },
     ]
-    yield call(SearchWithSpotlight.addSearchableItems, items)
-    console.log(`searchOnDeviceSaga#addSearchableItems`)
+    yield fork(SearchWithSpotlight.addSearchableItems, items)
+    console.log(`searchWithSpotlightSaga#addSearchableItems`)
   } catch (e: any) {
-    console.warn(`searchOnDeviceSaga#addSearchableItems`, e)
+    console.warn(`searchWithSpotlightSaga#addSearchableItems`, e)
   }
 }
 
@@ -60,9 +63,9 @@ function* listenerSaga(): SagaIterator {
     createSearchOnDeviceEventChannel,
   )
   try {
-    // yield takeEvery(chan, launchViaSearchOnDeviceByResponseSaga)
+    yield takeEvery(chan, launchViaSearchOnDeviceByResponseSaga)
   } catch (e: any) {
-    console.warn(`searchOnDeviceSaga#listenerSaga`, e)
+    console.warn(`searchWithSpotlightSaga#listenerSaga`, e)
   } finally {
     if (yield cancelled()) {
       chan.close()

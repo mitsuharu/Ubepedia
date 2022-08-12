@@ -7,7 +7,7 @@ import { Persistor } from 'redux-persist/es/types'
 import {
   snackbarReducer,
   userSettingReducer,
-  searchOnDeviceReducer,
+  searchWithSpotlightReducer,
 } from './internal'
 import { reducer as networkReducer } from 'react-native-offline'
 
@@ -21,7 +21,7 @@ export function initializeRedux() {
     const reducer = combineReducers<RootState>({
       snackbar: snackbarReducer,
       userSetting: userSettingReducer,
-      searchOnDevice: searchOnDeviceReducer,
+      searchWithSpotlight: searchWithSpotlightReducer,
       network: networkReducer,
     })
 

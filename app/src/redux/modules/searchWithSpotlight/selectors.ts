@@ -1,7 +1,7 @@
 import { RootState } from '@/redux/RootState'
 
 export const selectIsValidated = (state: RootState) =>
-  state.searchOnDevice.isValidated
+  state.searchWithSpotlight.isValidated
 
 export const selectUpdatedAt = (state: RootState) =>
-  state.searchOnDevice.updatedAt
+  state.searchWithSpotlight.updatedAt

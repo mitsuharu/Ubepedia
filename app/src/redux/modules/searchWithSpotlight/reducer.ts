@@ -3,17 +3,17 @@ import dayjs from 'dayjs'
 import { persistReducer } from 'redux-persist'
 import { reducerWithInitialState } from 'typescript-fsa-reducers'
 import {
-  assignIsValidatedSearchOnDevice,
-  updatedSearchOnDevice,
+  assignIsValidatedSearchWithSpotlight,
+  updatedSearchWithSpotlight,
 } from './actions'
 import { initialState } from './state'
 
 const baseReducer = reducerWithInitialState(initialState)
-  .case(assignIsValidatedSearchOnDevice, (state, value) => ({
+  .case(assignIsValidatedSearchWithSpotlight, (state, value) => ({
     ...state,
     isValidated: value,
   }))
-  .case(updatedSearchOnDevice, (state) => ({
+  .case(updatedSearchWithSpotlight, (state) => ({
     ...state,
     updatedAt: dayjs().valueOf(),
   }))
@@ -21,7 +21,7 @@ const baseReducer = reducerWithInitialState(initialState)
 
 const reducer = persistReducer(
   {
-    key: 'ubepedia/searchOnDevice',
+    key: 'ubepedia/searchWithSpotlight',
     blacklist: undefined,
     whitelist: ['isValidated', 'updatedAt'],
     storage: AsyncStorage,
@@ -29,4 +29,4 @@ const reducer = persistReducer(
   baseReducer,
 )
 
-export { reducer as searchOnDeviceReducer }
+export { reducer as searchWithSpotlightReducer }
