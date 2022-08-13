@@ -1,13 +1,16 @@
+import { BaseModel } from '@/database/ube/model/BaseModel'
 import * as SearchWithSpotlight from 'react-native-search-with-spotlight'
 import { EventChannel, eventChannel, SagaIterator } from 'redux-saga'
 import { call, cancelled, fork, takeEvery } from 'redux-saga/effects'
+import { updatedSearchWithSpotlight } from './actions'
 
 export function* searchWithSpotlightSaga() {
   const result: boolean = yield call(isSupported)
   if (!result) {
     return
   }
-  yield call(addSearchableItems)
+
+  yield takeEvery(updatedSearchWithSpotlight, updatedSearchWithSpotlightSaga)
   yield call(listenerSaga)
 }
 
@@ -21,19 +24,30 @@ function* isSupported() {
   }
 }
 
-function* addSearchableItems() {
+function* updatedSearchWithSpotlightSaga({
+  payload,
+}: ReturnType<typeof updatedSearchWithSpotlight>) {
   try {
     yield call(SearchWithSpotlight.deleteAll)
-    const items: SearchWithSpotlight.SearchableItem[] = [
-      {
-        title: 'test',
-        id: 'test-2',
-        description: 'this is a sample for react-native-search-with-spotlight',
-        keywords: ['sample', 'spotlight', 'react-native-search-with-spotlight'],
-        imageUrl: null,
-        domain: 'sample',
-      },
-    ]
+
+    if (!payload) {
+      return
+    }
+    const { civicFacility, culturalProperty, sculpture } = payload
+
+    const items = [
+      ...civicFacility.items,
+      ...culturalProperty.items,
+      ...sculpture.items,
+    ].map<SearchWithSpotlight.SearchableItem>((it) => ({
+      title: it.name,
+      id: it.encodeKey(),
+      description: it.description ?? null,
+      keywords: [it.name, '宇部', 'ube'],
+      imageUrl: it.imageUrl ?? null,
+      domain: 'ubepedia',
+    }))
+
     yield fork(SearchWithSpotlight.addSearchableItems, items)
     console.log(`searchWithSpotlightSaga#addSearchableItems`)
   } catch (e: any) {
@@ -76,4 +90,10 @@ function* launchViaSearchOnDeviceByResponseSaga({
   query,
 }: SearchWithSpotlight.Response) {
   console.log(`id: ${id}, query: ${query}`)
+
+  if (!id) {
+    return
+  }
+
+  const key = BaseModel.decodeKey(id)
 }

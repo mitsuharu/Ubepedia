@@ -20,6 +20,7 @@ import {
 import { fetchCivicFacility } from './dao/CivicFacility'
 import { fetchCulturalProperty } from './dao/CulturalProperty'
 import { fetchSculpture } from './dao/Sculpture'
+import { updatedSearchWithSpotlight } from '@/redux/modules/searchWithSpotlight/actions'
 
 /**
  * saga などで直接触りたい時用（なければ廃止）
@@ -71,6 +72,47 @@ type Props = {
   children: React.ReactNode
 }
 
+const fetchUbeData = async ({
+  database,
+  filters: { keyword, categories, hasDisabledToilet },
+}: Pick<UbeDataState, 'database' | 'filters'>): Promise<UbeData | null> => {
+  try {
+    if (!database) {
+      return null
+    }
+
+    const enableCivicFacility = categories?.has('civicFacility') ?? true
+    const enableCulturalProperty = categories?.has('culturalProperty') ?? true
+    const enableSculpture = categories?.has('sculpture') ?? true
+
+    const civicFacilityItems = enableCivicFacility
+      ? await fetchCivicFacility({
+          database,
+          keyword,
+          hasDisabledToilet,
+        })
+      : []
+    const culturalPropertyItems = enableCulturalProperty
+      ? await fetchCulturalProperty({
+          database,
+          keyword,
+        })
+      : []
+    const sculptureItems = enableSculpture
+      ? await fetchSculpture({ database, keyword })
+      : []
+
+    return {
+      civicFacility: makeListData(civicFacilityItems),
+      culturalProperty: makeListData(culturalPropertyItems),
+      sculpture: makeListData(sculptureItems),
+    }
+  } catch (e: any) {
+    console.warn(`useUbeData#update`, e)
+    return null
+  }
+}
+
 export const UbeDataProvider: React.FC<Props> = ({ children }) => {
   const dispatch = useDispatch()
   const [database, setDatabase] = useState<SQLite.SQLiteDatabase>()
@@ -80,6 +122,16 @@ export const UbeDataProvider: React.FC<Props> = ({ children }) => {
     try {
       const db = await openUbeData()
       setDatabase(db)
+
+      const value = await fetchUbeData({
+        database: db,
+        filters: {
+          keyword: null,
+          categories: null,
+          hasDisabledToilet: false,
+        },
+      })
+      dispatch(updatedSearchWithSpotlight(value))
     } catch (e: any) {
       console.warn(`UbeDataProvider#updateDatabase`, e)
       dispatch(enqueueSnackbar({ message: 'データベースの取得に失敗しました' }))
@@ -111,54 +163,20 @@ export const useUbeFilters = () => {
 }
 
 export const useUbeData = (): UbeData => {
-  const {
-    database,
-    filters: { keyword, categories, hasDisabledToilet },
-  } = useContext(UbeDataStateContext)
+  const ubeDataState = useContext(UbeDataStateContext)
   const [results, setResults] = useState<UbeData>(INIT_UBE_DATA)
 
   const update = useCallback(async () => {
-    try {
-      if (database) {
-        const enableCivicFacility = categories?.has('civicFacility') ?? true
-        const enableCulturalProperty =
-          categories?.has('culturalProperty') ?? true
-        const enableSculpture = categories?.has('sculpture') ?? true
-
-        const civicFacilityItems = enableCivicFacility
-          ? await fetchCivicFacility({
-              database,
-              keyword,
-              hasDisabledToilet,
-            })
-          : []
-        const culturalPropertyItems = enableCulturalProperty
-          ? await fetchCulturalProperty({
-              database,
-              keyword,
-            })
-          : []
-        const sculptureItems = enableSculpture
-          ? await fetchSculpture({ database, keyword })
-          : []
-
-        const nextUbeData: UbeData = {
-          civicFacility: makeListData(civicFacilityItems),
-          culturalProperty: makeListData(culturalPropertyItems),
-          sculpture: makeListData(sculptureItems),
-        }
-
-        setResults(nextUbeData)
-      }
-    } catch (e: any) {
-      console.warn(`useUbeData#update`, e)
+    const value = await fetchUbeData(ubeDataState)
+    if (value) {
+      setResults(value)
     }
-  }, [categories, database, hasDisabledToilet, keyword])
+  }, [ubeDataState])
 
   useEffect(() => {
     update()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categories, database, hasDisabledToilet, keyword])
+  }, [ubeDataState])
 
   return results
 }

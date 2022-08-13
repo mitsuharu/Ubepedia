@@ -47,4 +47,11 @@ export class BaseModel {
     this.latitude = numberValue(obj, 'latitude')
     this.longitude = numberValue(obj, 'longitude')
   }
+
+  encodeKey = () => `${this.id}/${this.name}`
+
+  static decodeKey = (key: string) => {
+    const results = key.split('/')
+    return { id: Number(results[0]), name: results[1] }
+  }
 }
