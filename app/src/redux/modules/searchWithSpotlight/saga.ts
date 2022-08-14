@@ -1,17 +1,25 @@
+import { fetchUbeData } from '@/database/ube'
 import { BaseModel } from '@/database/ube/model/BaseModel'
+import { UbeData } from '@/database/ube/type'
 import * as SearchWithSpotlight from 'react-native-search-with-spotlight'
 import { EventChannel, eventChannel, SagaIterator } from 'redux-saga'
-import { call, cancelled, fork, takeEvery } from 'redux-saga/effects'
-import { updatedSearchWithSpotlight } from './actions'
+import { call, cancelled, fork, put, takeEvery } from 'redux-saga/effects'
+import {
+  assignIsValidatedSearchWithSpotlight,
+  updatedSearchWithSpotlight,
+} from './actions'
 
 export function* searchWithSpotlightSaga() {
-  const result: boolean = yield call(isSupported)
-  if (!result) {
-    return
-  }
-
-  yield takeEvery(updatedSearchWithSpotlight, updatedSearchWithSpotlightSaga)
-  yield call(listenerSaga)
+  // const result: boolean = yield call(isSupported)
+  // if (!result) {
+  //   return
+  // }
+  // yield takeEvery(
+  //   assignIsValidatedSearchWithSpotlight,
+  //   assignIsValidatedSearchWithSpotlightSaga,
+  // )
+  // yield takeEvery(updatedSearchWithSpotlight, updatedSearchWithSpotlightSaga)
+  // yield call(listenerSaga)
 }
 
 function* isSupported() {
@@ -24,17 +32,14 @@ function* isSupported() {
   }
 }
 
-function* updatedSearchWithSpotlightSaga({
-  payload,
-}: ReturnType<typeof updatedSearchWithSpotlight>) {
+function* addSearchableItemsSaga(ubeData: UbeData | null) {
   try {
     yield call(SearchWithSpotlight.deleteAll)
-
-    if (!payload) {
+    if (!ubeData) {
       return
     }
-    const { civicFacility, culturalProperty, sculpture } = payload
 
+    const { civicFacility, culturalProperty, sculpture } = ubeData
     const items = [
       ...civicFacility.items,
       ...culturalProperty.items,
@@ -53,6 +58,21 @@ function* updatedSearchWithSpotlightSaga({
   } catch (e: any) {
     console.warn(`searchWithSpotlightSaga#addSearchableItems`, e)
   }
+}
+
+function* assignIsValidatedSearchWithSpotlightSaga({
+  payload,
+}: ReturnType<typeof assignIsValidatedSearchWithSpotlight>) {
+  if (payload) {
+    yield put(updatedSearchWithSpotlight())
+  } else {
+    yield fork(SearchWithSpotlight.deleteAll)
+  }
+}
+
+function* updatedSearchWithSpotlightSaga() {
+  const ubeData: UbeData | null = yield call(fetchUbeData)
+  yield call(addSearchableItemsSaga, ubeData)
 }
 
 function createSearchOnDeviceEventChannel() {

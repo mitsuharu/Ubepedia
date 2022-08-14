@@ -8,7 +8,7 @@ import React, {
 import { copyFile, exists, DocumentDirectoryPath } from 'react-native-fs'
 import FileAsset from 'react-native-file-asset'
 import SQLite, { openDatabase } from 'react-native-sqlite-storage'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { enqueueSnackbar } from '@/redux/modules/snackbar/actions'
 import {
   Filters,
@@ -21,11 +21,12 @@ import { fetchCivicFacility } from './dao/CivicFacility'
 import { fetchCulturalProperty } from './dao/CulturalProperty'
 import { fetchSculpture } from './dao/Sculpture'
 import { updatedSearchWithSpotlight } from '@/redux/modules/searchWithSpotlight/actions'
+import { selectIsValidated } from '@/redux/modules/searchWithSpotlight/selectors'
 
 /**
- * saga などで直接触りたい時用（なければ廃止）
+ * saga などで直接触りたい時向け（実際は関数で）
  */
-export let ubeData: SQLite.SQLiteDatabase | undefined
+let ubeDatabase: SQLite.SQLiteDatabase | undefined
 
 const databaseName = 'ube'
 const databaseType = 'db'
@@ -34,7 +35,7 @@ const databaseFile = databaseName + '.' + databaseType
 /**
  * データベースを開く
  */
-const openUbeData = async (): Promise<SQLite.SQLiteDatabase> => {
+const openUbeDatabase = async (): Promise<SQLite.SQLiteDatabase> => {
   const assetPath = await FileAsset.loadFilePath('ube', 'db')
 
   const documentPath = DocumentDirectoryPath + '/' + databaseFile
@@ -43,7 +44,7 @@ const openUbeData = async (): Promise<SQLite.SQLiteDatabase> => {
     await copyFile(assetPath, documentPath)
   }
 
-  ubeData = openDatabase(
+  ubeDatabase = openDatabase(
     {
       name: databaseFile,
       location: 'default',
@@ -57,7 +58,7 @@ const openUbeData = async (): Promise<SQLite.SQLiteDatabase> => {
     },
   )
 
-  return ubeData
+  return ubeDatabase
 }
 
 type UbeDataState = {
@@ -66,17 +67,24 @@ type UbeDataState = {
   setFilters: (value: Filters) => void
 }
 
+export const defaultFilters: Filters = {
+  keyword: null,
+  categories: null,
+  hasDisabledToilet: false,
+}
+
 const UbeDataStateContext = createContext<UbeDataState>({} as UbeDataState)
 
 type Props = {
   children: React.ReactNode
 }
 
-const fetchUbeData = async ({
-  database,
-  filters: { keyword, categories, hasDisabledToilet },
-}: Pick<UbeDataState, 'database' | 'filters'>): Promise<UbeData | null> => {
+export const fetchUbeData = async (
+  database: SQLite.SQLiteDatabase | undefined = ubeDatabase,
+  { keyword, categories, hasDisabledToilet }: Filters = defaultFilters,
+): Promise<UbeData | null> => {
   try {
+    console.log(`fetchUbeData database: ${!!database}`)
     if (!database) {
       return null
     }
@@ -117,26 +125,21 @@ export const UbeDataProvider: React.FC<Props> = ({ children }) => {
   const dispatch = useDispatch()
   const [database, setDatabase] = useState<SQLite.SQLiteDatabase>()
   const [filters, setFilters] = useState<Filters>(INIT_FILTERS)
+  const isValidatedWithSpotlight = useSelector(selectIsValidated)
 
   const updateDatabase = useCallback(async () => {
     try {
-      const db = await openUbeData()
+      const db = await openUbeDatabase()
       setDatabase(db)
 
-      const value = await fetchUbeData({
-        database: db,
-        filters: {
-          keyword: null,
-          categories: null,
-          hasDisabledToilet: false,
-        },
-      })
-      dispatch(updatedSearchWithSpotlight(value))
+      if (isValidatedWithSpotlight) {
+        dispatch(updatedSearchWithSpotlight())
+      }
     } catch (e: any) {
       console.warn(`UbeDataProvider#updateDatabase`, e)
       dispatch(enqueueSnackbar({ message: 'データベースの取得に失敗しました' }))
     }
-  }, [dispatch])
+  }, [dispatch, isValidatedWithSpotlight])
 
   useEffect(() => {
     updateDatabase()
@@ -163,20 +166,20 @@ export const useUbeFilters = () => {
 }
 
 export const useUbeData = (): UbeData => {
-  const ubeDataState = useContext(UbeDataStateContext)
+  const { database, filters } = useContext(UbeDataStateContext)
   const [results, setResults] = useState<UbeData>(INIT_UBE_DATA)
 
   const update = useCallback(async () => {
-    const value = await fetchUbeData(ubeDataState)
+    const value = await fetchUbeData(database, filters)
     if (value) {
       setResults(value)
     }
-  }, [ubeDataState])
+  }, [database, filters])
 
   useEffect(() => {
     update()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ubeDataState])
+  }, [database, filters])
 
   return results
 }
