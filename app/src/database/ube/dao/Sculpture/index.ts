@@ -6,15 +6,20 @@ import { nonFalsy } from '@/utils/arrays'
 type Props = {
   database: SQLite.SQLiteDatabase
   keyword: string | null
+  hash: string | null
 }
 
 export const fetchSculpture = async ({
   database,
   keyword,
+  hash,
 }: Props): Promise<Sculpture[]> => {
   try {
     const selectFrom = `SELECT * FROM ${Sculpture.table}`
-    const wheres = [keyword && `name like '%${keyword}%'`].filter(nonFalsy)
+    const wheres = [
+      keyword && `name like '%${keyword}%'`,
+      hash && `hash like '${hash}'`,
+    ].filter(nonFalsy)
 
     const sqlStatement =
       selectFrom + (wheres.length > 0 ? ` WHERE ${wheres.join(`AND`)}` : '')

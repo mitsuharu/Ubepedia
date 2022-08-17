@@ -4,7 +4,7 @@ export class BaseModel {
   static table: string = ''
 
   /**
-   * データ id (必ずしもユニークではないので注意)
+   * データ id (必ずしもユニークではないので注意, ユニーク用途ならば hash を使う)
    */
   id: number
 
@@ -38,6 +38,11 @@ export class BaseModel {
    */
   longitude: number
 
+  /**
+   * ユニークなハッシュ値
+   */
+  hash: string
+
   constructor(obj: any) {
     this.id = numberValue(obj, 'id')
     this.name = stringValue(obj, 'name')
@@ -46,5 +51,13 @@ export class BaseModel {
     this.description = stringValue(obj, 'description')
     this.latitude = numberValue(obj, 'latitude')
     this.longitude = numberValue(obj, 'longitude')
+    this.hash = stringValue(obj, 'hash')
+  }
+
+  encodeKey = () => `${this.id}/${this.name}/${this.hash}`
+
+  static decodeKey = (key: string) => {
+    const results = key.split('/')
+    return { id: Number(results[0]), name: results[1], hash: results[2] }
   }
 }
