@@ -67,11 +67,7 @@ type UbeDataState = {
   setFilters: (value: Filters) => void
 }
 
-export const defaultFilters: Filters = {
-  keyword: null,
-  categories: null,
-  hasDisabledToilet: false,
-}
+export const defaultFilters: Filters = INIT_FILTERS
 
 const UbeDataStateContext = createContext<UbeDataState>({} as UbeDataState)
 
@@ -84,7 +80,7 @@ export const fetchUbeData = async (
 ): Promise<UbeData | null> => {
   try {
     const database = arg.database ?? ubeDatabase
-    const { keyword, categories, hasDisabledToilet } =
+    const { keyword, hash, categories, hasDisabledToilet } =
       arg.filters ?? defaultFilters
 
     console.log(`fetchUbeData database: ${!!database}`)
@@ -100,6 +96,7 @@ export const fetchUbeData = async (
       ? await fetchCivicFacility({
           database,
           keyword,
+          hash,
           hasDisabledToilet,
         })
       : []
@@ -107,10 +104,11 @@ export const fetchUbeData = async (
       ? await fetchCulturalProperty({
           database,
           keyword,
+          hash,
         })
       : []
     const sculptureItems = enableSculpture
-      ? await fetchSculpture({ database, keyword })
+      ? await fetchSculpture({ database, keyword, hash })
       : []
 
     return {
