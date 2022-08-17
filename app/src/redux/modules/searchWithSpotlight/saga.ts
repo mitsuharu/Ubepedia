@@ -9,6 +9,7 @@ import {
   updatedSearchWithSpotlight,
 } from './actions'
 import * as NavigationService from '@/utils/NavigationService'
+import { enqueueSnackbar } from '../snackbar/actions'
 
 export function* searchWithSpotlightSaga() {
   const result: boolean = yield call(isSupported)
@@ -137,5 +138,6 @@ function* launchViaSearchOnDeviceByResponseSaga({
     }
   } catch (e: any) {
     console.warn(`launchViaSearchOnDeviceByResponseSaga`, e)
+    yield put(enqueueSnackbar({ message: '失敗しました' }))
   }
 }
