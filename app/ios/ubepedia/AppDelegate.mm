@@ -6,6 +6,8 @@
 
 #import <React/RCTAppSetupUtils.h>
 
+#import <react-native-search-with-spotlight/SearchWithSpotlight.h>
+
 #if RCT_NEW_ARCH_ENABLED
 #import <React/CoreModulesPlugins.h>
 #import <React/RCTCxxBridgeDelegate.h>
@@ -128,3 +130,16 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 #endif
 
 @end
+
+
+@implementation AppDelegate (SearchWithSpotlight)
+
+- (BOOL)application:(UIApplication *)application 
+continueUserActivity:(NSUserActivity *)userActivity
+ restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+{
+  return [SearchWithSpotlight handle:userActivity];
+}
+
+@end
+

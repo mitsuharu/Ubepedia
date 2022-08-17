@@ -61,6 +61,8 @@ export const ubeDataName = (key: UbeDataKey) =>
 export type Filters = {
   keyword: string | null
 
+  hash: string | null
+
   categories: Set<UbeDataKey> | null
 
   /**
@@ -71,6 +73,7 @@ export type Filters = {
 
 export const INIT_FILTERS: Filters = {
   keyword: null,
+  hash: null,
   categories: null,
   hasDisabledToilet: false,
 }

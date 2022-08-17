@@ -6,18 +6,21 @@ import { nonFalsy } from '@/utils/arrays'
 type Props = {
   database: SQLite.SQLiteDatabase
   keyword: string | null
+  hash: string | null
   hasDisabledToilet: boolean
 }
 
 export const fetchCivicFacility = async ({
   database,
   keyword,
+  hash,
   hasDisabledToilet,
 }: Props): Promise<CivicFacility[]> => {
   try {
     const selectFrom = `SELECT * FROM ${CivicFacility.table}`
     const wheres = [
       keyword && `name like '%${keyword}%'`,
+      hash && `hash like '${hash}'`,
       !!hasDisabledToilet && `disabled_toilet like '%有%'`,
     ].filter(nonFalsy)
 

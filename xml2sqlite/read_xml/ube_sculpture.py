@@ -1,6 +1,7 @@
 import os
 import sqlite3
 from . import xml
+from . import hash
 
 ROOT_DIR: str = os.path.dirname(os.path.abspath(__file__))
 XML_DIR: str = "xml_files"
@@ -37,7 +38,8 @@ def insertDB(db: sqlite3.Connection):
             acquisition_method text,
             homepage text,
             depiction text,
-            remarks text
+            remarks text,
+            hash text
         )
     """
     db.execute(create_sql)
@@ -62,7 +64,8 @@ def insertDB(db: sqlite3.Connection):
                         xml.find_text(child, "acquisition_method"),
                         xml.find_text(child, "homepage"),
                         xml.find_text(child, "depiction"),
-                        xml.find_text(child, "remarks")
+                        xml.find_text(child, "remarks"),
+                        hash.convert_to_hash(child.get("id") + xml.find_text(child, "label"))
                         ))
 
     sql = """
@@ -84,8 +87,9 @@ def insertDB(db: sqlite3.Connection):
             acquisition_method,
             homepage,
             depiction,
-            remarks)
-         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            remarks,
+            hash)
+         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     """
     db.executemany(sql, records)
 
