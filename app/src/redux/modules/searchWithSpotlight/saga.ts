@@ -1,6 +1,6 @@
-import { fetchUbeData } from '@/database/ube'
+import { defaultFilters, fetchUbeData } from '@/database/ube'
 import { BaseModel } from '@/database/ube/model/BaseModel'
-import { UbeData } from '@/database/ube/type'
+import { UbeData, UbeDataType } from '@/database/ube/type'
 import * as SearchWithSpotlight from 'react-native-search-with-spotlight'
 import { EventChannel, eventChannel, SagaIterator } from 'redux-saga'
 import { call, cancelled, fork, put, takeEvery } from 'redux-saga/effects'
@@ -8,18 +8,19 @@ import {
   assignIsValidatedSearchWithSpotlight,
   updatedSearchWithSpotlight,
 } from './actions'
+import * as NavigationService from '@/utils/NavigationService'
 
 export function* searchWithSpotlightSaga() {
-  // const result: boolean = yield call(isSupported)
-  // if (!result) {
-  //   return
-  // }
-  // yield takeEvery(
-  //   assignIsValidatedSearchWithSpotlight,
-  //   assignIsValidatedSearchWithSpotlightSaga,
-  // )
-  // yield takeEvery(updatedSearchWithSpotlight, updatedSearchWithSpotlightSaga)
-  // yield call(listenerSaga)
+  const result: boolean = yield call(isSupported)
+  if (!result) {
+    return
+  }
+  yield takeEvery(
+    assignIsValidatedSearchWithSpotlight,
+    assignIsValidatedSearchWithSpotlightSaga,
+  )
+  yield takeEvery(updatedSearchWithSpotlight, updatedSearchWithSpotlightSaga)
+  yield call(listenerSaga)
 }
 
 function* isSupported() {
@@ -71,7 +72,7 @@ function* assignIsValidatedSearchWithSpotlightSaga({
 }
 
 function* updatedSearchWithSpotlightSaga() {
-  const ubeData: UbeData | null = yield call(fetchUbeData)
+  const ubeData: UbeData | null = yield call(fetchUbeData, {})
   yield call(addSearchableItemsSaga, ubeData)
 }
 
@@ -115,5 +116,26 @@ function* launchViaSearchOnDeviceByResponseSaga({
     return
   }
 
-  const key = BaseModel.decodeKey(id)
+  try {
+    const key = BaseModel.decodeKey(id)
+
+    const ubeData: UbeData | null = yield call(fetchUbeData, {
+      filters: { ...defaultFilters, hash: key.hash },
+    })
+
+    if (ubeData) {
+      const { civicFacility, culturalProperty, sculpture } = ubeData
+      const item: UbeDataType | null =
+        civicFacility.items[0] ??
+        culturalProperty.items[0] ??
+        sculpture.items[0] ??
+        null
+
+      if (item) {
+        yield call(NavigationService.navigate, 'Detail', { item })
+      }
+    }
+  } catch (e: any) {
+    console.warn(`launchViaSearchOnDeviceByResponseSaga`, e)
+  }
 }
