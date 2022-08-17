@@ -1,6 +1,7 @@
 import os
 import sqlite3
 from . import xml
+from . import hash
 
 ROOT_DIR: str = os.path.dirname(os.path.abspath(__file__))
 XML_DIR: str = "xml_files"
@@ -42,7 +43,8 @@ def insertDB(db: sqlite3.Connection):
             reservation text,
             homepage text,
             depiction text,
-            description text
+            description text,
+            hash text
         )
     """
     db.execute(create_sql)
@@ -72,7 +74,8 @@ def insertDB(db: sqlite3.Connection):
                         xml.find_text(child, "reservation"),
                         xml.find_text(child, "homepage"),
                         xml.find_text(child, "depiction"),
-                        xml.find_text(child, "depiction")
+                        xml.find_text(child, "depiction"),
+                        hash.convert_to_hash(child.get("id") + xml.find_text(child, "label"))
                         ))
 
     sql = """
@@ -80,8 +83,8 @@ def insertDB(db: sqlite3.Connection):
          (id, name, category, latitude, longitude, postal_code, address,
          phone, fax, email, start_time, end_time, time_notes, week_closure_day,
          closure_day, closure_day_notes, parking, parking_fee, disabled_toilet,
-         reservation, homepage, depiction, description) 
-         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+         reservation, homepage, depiction, description, hash) 
+         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     """
     db.executemany(sql, records)
 

@@ -1,6 +1,7 @@
 import os
 import sqlite3
 from . import xml
+from . import hash
 
 ROOT_DIR: str = os.path.dirname(os.path.abspath(__file__))
 XML_DIR: str = "xml_files"
@@ -31,7 +32,8 @@ def insertDB(db: sqlite3.Connection):
             administrator text,
             place text,
             production_age text,
-            depiction text
+            depiction text,
+            hash text
         )
     """
     db.execute(create_sql)
@@ -50,15 +52,16 @@ def insertDB(db: sqlite3.Connection):
                         xml.find_text(child, "administrator"),
                         xml.find_text(child, "place"),
                         xml.find_text(child, "production_age"),
-                        xml.find_text(child, "depiction")
+                        xml.find_text(child, "depiction"),
+                        hash.convert_to_hash(child.get("id") + xml.find_text(child, "label"))
                         ))
 
     sql = """
         INSERT INTO cultural_property
          (id, name, latitude, longitude, description,
          category, sub_category, designated_date,
-         administrator, place, production_age, depiction)
-         VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
+         administrator, place, production_age, depiction, hash)
+         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
     """
     db.executemany(sql, records)
 
