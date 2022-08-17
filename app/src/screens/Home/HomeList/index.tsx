@@ -46,7 +46,11 @@ const Component: React.FC<ComponentProps> = ({ sections, onPress }) => {
   )
 
   const renderSectionHeader = useCallback(
-    ({ section}: { section: SectionListData<UbeDataType, DefaultSectionT> }) => <HomeSectionHeader title={section.title} />,
+    ({
+      section,
+    }: {
+      section: SectionListData<UbeDataType, DefaultSectionT>
+    }) => <HomeSectionHeader title={section.title} />,
     [],
   )
 

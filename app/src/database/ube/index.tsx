@@ -80,10 +80,13 @@ type Props = {
 }
 
 export const fetchUbeData = async (
-  database: SQLite.SQLiteDatabase | undefined = ubeDatabase,
-  { keyword, categories, hasDisabledToilet }: Filters = defaultFilters,
+  arg: Partial<Pick<UbeDataState, 'database' | 'filters'>>,
 ): Promise<UbeData | null> => {
   try {
+    const database = arg.database ?? ubeDatabase
+    const { keyword, categories, hasDisabledToilet } =
+      arg.filters ?? defaultFilters
+
     console.log(`fetchUbeData database: ${!!database}`)
     if (!database) {
       return null
@@ -170,7 +173,7 @@ export const useUbeData = (): UbeData => {
   const [results, setResults] = useState<UbeData>(INIT_UBE_DATA)
 
   const update = useCallback(async () => {
-    const value = await fetchUbeData(database, filters)
+    const value = await fetchUbeData({ database, filters })
     if (value) {
       setResults(value)
     }
