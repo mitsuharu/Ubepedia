@@ -1,4 +1,9 @@
-import { applyMiddleware, combineReducers, createStore, Store } from 'redux'
+import {
+  applyMiddleware,
+  combineReducers,
+  legacy_createStore as createStore,
+  Store,
+} from 'redux'
 import { persistStore } from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
 import { RootState } from '@/redux/RootState'
