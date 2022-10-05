@@ -24,7 +24,6 @@
     "@react-native-community/netinfo": "^9.1.0",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
-    "@reduxjs/toolkit": "^1.8.5",
     "dayjs": "^1.11.3",
     "patch-package": "^6.4.7",
     "postinstall-postinstall": "^2.1.0",
