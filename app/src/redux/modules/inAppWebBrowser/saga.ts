@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { openWeb } from './actions'
+import { openWeb } from './slice'
 import { enqueueSnackbar } from '@/redux/modules/snackbar/actions'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 

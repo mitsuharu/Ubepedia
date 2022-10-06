@@ -1,7 +1,7 @@
 import { Section } from '@/components/List'
 import { Cell } from '@/components/List/Cell'
 import { UbeDataType } from '@/database/ube/type'
-import { openWeb } from '@/redux/modules/inAppWebBrowser/actions'
+import { openWeb } from '@/redux/modules/inAppWebBrowser/slice'
 import React, { useCallback } from 'react'
 import { Falsy } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'

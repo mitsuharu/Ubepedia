@@ -6,7 +6,7 @@ import { copyToClipboard } from '@/redux/modules/clipboard/actions'
 import { useNavigation } from '@react-navigation/native'
 import { UbeDataType } from '@/database/ube/type'
 import { isValidHttpUrl } from '@/utils/strings'
-import { openWeb as dispatchOpenWeb } from '@/redux/modules/inAppWebBrowser/actions'
+import { openWeb as dispatchOpenWeb } from '@/redux/modules/inAppWebBrowser/slice'
 
 type Props = Omit<CellProps, 'onLongPress'> & {
   navigateMap?: UbeDataType
