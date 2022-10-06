@@ -5,5 +5,4 @@ export * from './modules/searchWithSpotlight/saga'
 
 // reducer
 export * from './modules/snackbar/reducer'
-export * from './modules/userSetting/reducer'
 export * from './modules/searchWithSpotlight/reducer'

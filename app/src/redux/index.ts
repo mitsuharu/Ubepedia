@@ -1,16 +1,14 @@
 import { Store } from 'redux'
-import { persistStore } from 'redux-persist'
+import { PersistConfig, persistReducer, persistStore } from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
 import { RootState } from '@/redux/RootState'
 import { rootSaga } from '@/redux/saga'
 import { Persistor } from 'redux-persist/es/types'
-import {
-  snackbarReducer,
-  userSettingReducer,
-  searchWithSpotlightReducer,
-} from './internal'
+import { snackbarReducer, searchWithSpotlightReducer } from './internal'
 import { reducer as networkReducer } from 'react-native-offline'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import { userSettingReducer } from './modules/userSetting/slice'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 let store: Store
 let persistor: Persistor
@@ -19,6 +17,14 @@ export function initializeRedux() {
   console.log(`initializeRedux store: ${!!store}, persistor: ${!!persistor}`)
 
   if (store == null || persistor == null) {
+    const config: PersistConfig<RootState> = {
+      key: 'root',
+      version: 1,
+      storage: AsyncStorage,
+      whitelist: ['userSetting'],
+      blacklist: [],
+    }
+
     const reducer = combineReducers<RootState>({
       snackbar: snackbarReducer,
       userSetting: userSettingReducer,
@@ -33,7 +39,7 @@ export function initializeRedux() {
     })
 
     store = configureStore({
-      reducer: reducer,
+      reducer: persistReducer(config, reducer),
       middleware: (getDefaultMiddleware) => [
         ...getDefaultMiddleware(),
         sagaMiddleware,

@@ -1,7 +1,7 @@
 import { Section, Cell } from '@/components/List'
 import { assignIsValidatedSearchWithSpotlight } from '@/redux/modules/searchWithSpotlight/actions'
 import { selectIsValidated } from '@/redux/modules/searchWithSpotlight/selectors'
-import { toggleCanCopyToClipboardOnLongPress } from '@/redux/modules/userSetting/actions'
+import { toggleCanCopyToClipboardOnLongPress } from '@/redux/modules/userSetting/slice'
 import { selectCanCopyToClipboardOnLongPress } from '@/redux/modules/userSetting/selectors'
 import React, { useCallback } from 'react'
 import { Platform } from 'react-native'
