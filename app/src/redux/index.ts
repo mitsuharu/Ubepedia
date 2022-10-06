@@ -1,9 +1,4 @@
-import {
-  applyMiddleware,
-  combineReducers,
-  legacy_createStore as createStore,
-  Store,
-} from 'redux'
+import { combineReducers, Store } from 'redux'
 import { persistStore } from 'redux-persist'
 import createSagaMiddleware from 'redux-saga'
 import { RootState } from '@/redux/RootState'
@@ -15,6 +10,7 @@ import {
   searchWithSpotlightReducer,
 } from './internal'
 import { reducer as networkReducer } from 'react-native-offline'
+import { configureStore } from '@reduxjs/toolkit'
 
 let store: Store
 let persistor: Persistor
@@ -36,11 +32,14 @@ export function initializeRedux() {
       },
     })
 
-    const middlewares = [sagaMiddleware]
-
-    const enhancer = applyMiddleware(...middlewares)
-
-    store = createStore(reducer, enhancer)
+    store = configureStore({
+      reducer: reducer,
+      middleware: (getDefaultMiddleware) => [
+        ...getDefaultMiddleware(),
+        sagaMiddleware,
+      ],
+      devTools: false,
+    })
 
     persistor = persistStore(store, null, () => {
       console.log('initializeRedux sagaMiddleware will run')
