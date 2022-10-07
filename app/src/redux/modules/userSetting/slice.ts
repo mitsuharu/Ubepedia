@@ -1,4 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PersistConfig, persistReducer } from 'redux-persist'
 
 export type MainType = 'list' | 'map'
 
@@ -12,6 +14,12 @@ export type UserSettingState = {
    * 長押しでテキストのコピーを行う
    */
   canCopyToClipboardOnLongPress: boolean
+}
+
+const config: PersistConfig<UserSettingState> = {
+  key: 'userSetting',
+  version: 1,
+  storage: AsyncStorage,
 }
 
 const initialState: UserSettingState = {
@@ -40,4 +48,8 @@ export const {
   assignCanCopyToClipboardOnLongPress,
   toggleCanCopyToClipboardOnLongPress,
 } = userSettingSlice.actions
-export const userSettingReducer = userSettingSlice.reducer
+
+export const userSettingReducer = persistReducer(
+  config,
+  userSettingSlice.reducer,
+)
