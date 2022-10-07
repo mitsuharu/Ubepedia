@@ -1,6 +1,5 @@
-import { dequeueSnackbar } from '@/redux/modules/snackbar/actions'
+import { dequeueSnackbar, SnackbarItem } from '@/redux/modules/snackbar/slice'
 import { selectSnackbarItem } from '@/redux/modules/snackbar/selectors'
-import { SnackbarItem } from '@/redux/modules/snackbar/state'
 import { styleType } from '@/utils/styles'
 import React, { useCallback } from 'react'
 import { StyleSheet } from 'react-native'

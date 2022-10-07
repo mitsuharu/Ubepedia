@@ -1,7 +1,6 @@
 import { Section, Cell } from '@/components/List'
-import { assignMainType } from '@/redux/modules/userSetting/actions'
+import { assignMainType, MainType } from '@/redux/modules/userSetting/slice'
 import { selectMainType } from '@/redux/modules/userSetting/selectors'
-import { MainType } from '@/redux/modules/userSetting/state'
 import React, { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 

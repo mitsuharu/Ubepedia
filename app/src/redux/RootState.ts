@@ -1,7 +1,7 @@
-import { UserSettingState } from './modules/userSetting/state'
 import { reducer as networkReducer } from 'react-native-offline'
-import { SnackbarState } from './modules/snackbar/state'
-import { SearchWithSpotlightState } from './modules/searchWithSpotlight/state'
+import { SnackbarState } from './modules/snackbar/slice'
+import { SearchWithSpotlightState } from './modules/searchWithSpotlight/slice'
+import { UserSettingState } from './modules/userSetting/slice'
 
 export interface RootState {
   snackbar: SnackbarState

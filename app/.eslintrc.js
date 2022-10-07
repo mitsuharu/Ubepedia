@@ -35,7 +35,7 @@ module.exports = {
     "react-native/sort-styles": "off",
     "no-continue": "warn",
     "prefer-destructuring": "warn",
-    "no-param-reassign": "warn",
+    "no-param-reassign": "off",
     "require-yield": "warn",
     "curly": ["error", "all"],
     "no-underscore-dangle": "off",

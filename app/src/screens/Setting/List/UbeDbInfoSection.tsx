@@ -1,6 +1,6 @@
 import { Section, Cell } from '@/components/List'
 import { COLOR } from '@/CONSTANTS/COLOR'
-import { openWeb } from '@/redux/modules/inAppWebBrowser/actions'
+import { openWeb } from '@/redux/modules/inAppWebBrowser/slice'
 import { styleType } from '@/utils/styles'
 import { getUbeDbInfos, UbeDbInfo } from '@/utils/ubeDbInfos'
 import React, { useCallback } from 'react'

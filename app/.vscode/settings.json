@@ -15,6 +15,7 @@
       "ubepedia",
       "persistor",
       "pressable",
+      "reduxjs",
     ],
   }
   
