@@ -1,5 +1,5 @@
 import { Section, Cell } from '@/components/List'
-import { assignIsValidatedSearchWithSpotlight } from '@/redux/modules/searchWithSpotlight/actions'
+import { assignIsValidatedSearchWithSpotlight } from '@/redux/modules/searchWithSpotlight/slice'
 import { selectIsValidated } from '@/redux/modules/searchWithSpotlight/selectors'
 import { toggleCanCopyToClipboardOnLongPress } from '@/redux/modules/userSetting/slice'
 import { selectCanCopyToClipboardOnLongPress } from '@/redux/modules/userSetting/selectors'

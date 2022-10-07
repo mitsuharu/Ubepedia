@@ -17,7 +17,7 @@ export type UserSettingState = {
 }
 
 const config: PersistConfig<UserSettingState> = {
-  key: 'userSetting',
+  key: 'USER_SETTING',
   version: 1,
   storage: AsyncStorage,
 }

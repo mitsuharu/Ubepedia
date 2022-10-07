@@ -20,7 +20,7 @@ import {
 import { fetchCivicFacility } from './dao/CivicFacility'
 import { fetchCulturalProperty } from './dao/CulturalProperty'
 import { fetchSculpture } from './dao/Sculpture'
-import { updatedSearchWithSpotlight } from '@/redux/modules/searchWithSpotlight/actions'
+import { updatedSearchWithSpotlight } from '@/redux/modules/searchWithSpotlight/slice'
 import { selectIsValidated } from '@/redux/modules/searchWithSpotlight/selectors'
 
 /**
