@@ -1,11 +1,9 @@
 import { all, fork } from 'redux-saga/effects'
-import {
-  clipboardSaga,
-  inAppBrowserSaga,
-  searchWithSpotlightSaga,
-} from './internal'
 import { networkSaga } from 'react-native-offline'
 import { ConnectivityArgs } from 'react-native-offline/dist/src/types'
+import { searchWithSpotlightSaga } from './modules/searchWithSpotlight/saga'
+import { clipboardSaga } from './modules/clipboard/saga'
+import { inAppBrowserSaga } from './modules/inAppWebBrowser/saga'
 
 export function* rootSaga() {
   console.log('rootSaga start')
