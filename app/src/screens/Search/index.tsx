@@ -55,6 +55,7 @@ const Component: React.FC<ComponentProps> = ({ keyword, filters, onPress }) => {
           title="障害者トイレがある公共施設を検索"
           onPress={() =>
             onPress({
+              ...INIT_FILTERS,
               keyword: null,
               categories: new Set(['civicFacility']),
               hasDisabledToilet: true,

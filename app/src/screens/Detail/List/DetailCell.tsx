@@ -2,11 +2,11 @@ import React, { useCallback, useMemo } from 'react'
 import { Cell, Props as CellProps } from '@/components/List/Cell'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectCanCopyToClipboardOnLongPress } from '@/redux/modules/userSetting/selectors'
-import { copyToClipboard } from '@/redux/modules/clipboard/actions'
+import { copyToClipboard } from '@/redux/modules/clipboard/slice'
 import { useNavigation } from '@react-navigation/native'
 import { UbeDataType } from '@/database/ube/type'
 import { isValidHttpUrl } from '@/utils/strings'
-import { openWeb as dispatchOpenWeb } from '@/redux/modules/inAppWebBrowser/actions'
+import { openWeb as dispatchOpenWeb } from '@/redux/modules/inAppWebBrowser/slice'
 
 type Props = Omit<CellProps, 'onLongPress'> & {
   navigateMap?: UbeDataType
