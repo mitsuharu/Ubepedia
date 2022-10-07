@@ -1,5 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects'
-import { copyToClipboard } from './actions'
+import { copyToClipboard } from './slice'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { enqueueSnackbar } from '@/redux/modules/snackbar/actions'
 
