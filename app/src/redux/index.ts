@@ -4,11 +4,11 @@ import createSagaMiddleware from 'redux-saga'
 import { RootState } from '@/redux/RootState'
 import { rootSaga } from '@/redux/saga'
 import { Persistor } from 'redux-persist/es/types'
-import { snackbarReducer } from './internal'
 import { reducer as networkReducer } from 'react-native-offline'
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { userSettingReducer } from './modules/userSetting/slice'
 import { searchWithSpotlightReducer } from './modules/searchWithSpotlight/slice'
+import { snackbarReducer } from './modules/snackbar/slice'
 
 let store: Store
 let persistor: Persistor

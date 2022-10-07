@@ -9,7 +9,7 @@ import {
   updatedSearchWithSpotlight,
 } from './slice'
 import * as NavigationService from '@/utils/NavigationService'
-import { enqueueSnackbar } from '../snackbar/actions'
+import { enqueueSnackbar } from '@/redux/modules/snackbar/slice'
 
 export function* searchWithSpotlightSaga() {
   const result: boolean = yield call(isSupported)

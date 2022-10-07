@@ -13,7 +13,7 @@ import { Button } from './index'
 import { makeStyles } from 'react-native-swag-styles'
 import Icon from 'react-native-vector-icons/Entypo'
 import { COLOR } from '@/CONSTANTS/COLOR'
-import { enqueueSnackbar } from '@/redux/modules/snackbar/actions'
+import { enqueueSnackbar } from '@/redux/modules/snackbar/slice'
 
 type Props = {
   title: string

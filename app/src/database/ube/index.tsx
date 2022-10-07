@@ -9,7 +9,7 @@ import { copyFile, exists, DocumentDirectoryPath } from 'react-native-fs'
 import FileAsset from 'react-native-file-asset'
 import SQLite, { openDatabase } from 'react-native-sqlite-storage'
 import { useDispatch, useSelector } from 'react-redux'
-import { enqueueSnackbar } from '@/redux/modules/snackbar/actions'
+import { enqueueSnackbar } from '@/redux/modules/snackbar/slice'
 import {
   Filters,
   INIT_FILTERS,

@@ -1,7 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects'
 import { copyToClipboard } from './slice'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { enqueueSnackbar } from '@/redux/modules/snackbar/actions'
+import { enqueueSnackbar } from '@/redux/modules/snackbar/slice'
 
 export function* clipboardSaga() {
   yield takeEvery(copyToClipboard, copyToClipboardSaga)
