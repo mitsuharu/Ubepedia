@@ -59,7 +59,7 @@
     "yarn": "^1.22.17"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
+    "@babel/core": "^7.20.12",
     "@babel/plugin-proposal-decorators": "^7.16.7",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^3.0.1",
