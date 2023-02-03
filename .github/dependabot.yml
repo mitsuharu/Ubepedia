@@ -1,23 +1,16 @@
 version: 2
-registries:
-  npm-registry-npm-pkg-github-com:
-    type: npm-registry
-    url: https://npm.pkg.github.com
-    token: "${{secrets.NPM_REGISTRY_NPM_PKG_GITHUB_COM_TOKEN}}"
-
 updates:
-  - package-ecosystem: npm
+  - package-ecosystem: "npm"
     directory: "/app"
-    schedule:
-      interval: daily
+    target-branch: "master"
     open-pull-requests-limit: 10
     commit-message:
-      prefix: "[skip ci]"
-    registries:
-      - npm-registry-npm-pkg-github-com
-  - package-ecosystem: github-actions
+      prefix: "[skip ci] "
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "github-actions"
     directory: "/"
-    schedule: 
-      interval: monthly
+    schedule:
+      interval: "monthly"
     commit-message:
-      prefix: "[skip ci]"
+      prefix: "[skip ci] "
