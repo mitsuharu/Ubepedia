@@ -6591,10 +6591,10 @@ react-native-maps@^0.31.1:
     "@types/geojson" "^7946.0.7"
     deprecated-react-native-prop-types "^2.3.0"
 
-react-native-offline@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-offline/-/react-native-offline-6.0.0.tgz#d28f747117903c232f58055bb55d21decbe612a9"
-  integrity sha512-H51kmfa9KreRk5kVdbh6RNmTm9eNBIAqAObu/VexZVlKDBR2aFBPp5Qk5AHzLEj9wBKykfTaydiIF8hxdc4E/w==
+react-native-offline@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-offline/-/react-native-offline-6.0.1.tgz#57f4a23d44b6f4a29d9b32ec5bfc8a1a18785770"
+  integrity sha512-gxZU5gf7ztA4HngYkU9fnOK+kfa6dtOpTtUDpwsA9+lxYvIqeSA/dES4v9c875J+fF0d3SihgTQtUFLF6LTLRg==
   dependencies:
     lodash "^4.17.11"
     react-redux "^7.0.0"
@@ -6823,14 +6823,7 @@ redux-thunk@^2.4.1:
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.4.1.tgz#0dd8042cf47868f4b29699941de03c9301a75714"
   integrity sha512-OOYGNY5Jy2TWvTL1KgAlVy6dcx3siPJ1wTq741EPyUKfn6W6nChdICjZwCd0p8AZBs5kWpZlbkXW2nE/zjUa+Q==
 
-redux@^4.0.0, redux@^4.0.1, redux@^4.0.4, redux@^4.0.5:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/redux/-/redux-4.1.2.tgz#140f35426d99bb4729af760afcf79eaaac407104"
-  integrity sha512-SH8PglcebESbd/shgf6mii6EIoRM0zrQyjcuQ+ojmfxjTtE0z9Y8pa62iA/OJ58qjP6j27uyW4kUF4jl/jd6sw==
-  dependencies:
-    "@babel/runtime" "^7.9.2"
-
-redux@^4.1.2, redux@^4.2.0:
+redux@^4.0.0, redux@^4.0.1, redux@^4.0.4, redux@^4.0.5, redux@^4.1.2, redux@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.2.0.tgz#46f10d6e29b6666df758780437651eeb2b969f13"
   integrity sha512-oSBmcKKIuIR4ME29/AeNUnl5L+hvBq7OaJWzaptTQJAntaPvxIJqfnjbaEiCzzaIz+XmVILfqAM3Ob0aXLPfjA==
