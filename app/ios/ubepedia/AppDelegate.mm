@@ -1,6 +1,7 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
+#import <react-native-search-with-spotlight/SearchWithSpotlight.h>
 
 @implementation AppDelegate
 
