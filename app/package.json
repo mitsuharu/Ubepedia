@@ -55,8 +55,7 @@
     "typescript-fsa": "^3.0.0",
     "typescript-fsa-reducers": "^1.2.2",
     "typescript-fsa-redux-saga": "^2.0.0",
-    "url-parse": "^1.5.10",
-    "yarn": "^1.22.17"
+    "url-parse": "^1.5.10"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
