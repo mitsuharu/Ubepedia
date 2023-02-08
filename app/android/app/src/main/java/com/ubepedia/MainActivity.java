@@ -24,20 +24,12 @@ public class MainActivity extends ReactActivity {
   @Override
   protected ReactActivityDelegate createReactActivityDelegate() {
     return new DefaultReactActivityDelegate(
-      this,
-      getMainComponentName(),
-      // If you opted-in for the New Architecture, we enable the Fabric Renderer.
-      DefaultNewArchitectureEntryPoint.getFabricEnabled(), // fabricEnabled
-      // If you opted-in for the New Architecture, we enable Concurrent React (i.e. React 18).
-      DefaultNewArchitectureEntryPoint.getConcurrentReactEnabled() // concurrentRootEnabled
-      );
-  }
-  
-  /**
-   * https://reactnavigation.org/docs/getting-started/
-   */
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(null);
+        this,
+        getMainComponentName(),
+        // If you opted-in for the New Architecture, we enable the Fabric Renderer.
+        DefaultNewArchitectureEntryPoint.getFabricEnabled(), // fabricEnabled
+        // If you opted-in for the New Architecture, we enable Concurrent React (i.e. React 18).
+        DefaultNewArchitectureEntryPoint.getConcurrentReactEnabled() // concurrentRootEnabled
+        );
   }
 }

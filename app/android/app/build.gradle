@@ -7,7 +7,6 @@ import com.android.build.OutputFile
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
  */
-
 react {
     /* Folders */
     //   The root of your project, i.e. where "package.json" lives. Default is '..'
@@ -76,7 +75,6 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
-
 /**
  * Private function to get the list of Native Architectures you want to build.
  * This reads the value from reactNativeArchitectures in your gradle.properties
@@ -100,6 +98,7 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     splits {
         abi {
             reset()
@@ -163,9 +162,6 @@ dependencies {
     } else {
         implementation jscFlavor
     }
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    implementation "androidx.core:core-ktx:1.3.2"
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
@@ -173,4 +169,3 @@ apply from: file("../../node_modules/@react-native-community/cli-platform-androi
 // react-native-vector-icons
 // https://github.com/oblador/react-native-vector-icons
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
-
