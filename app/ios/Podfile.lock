@@ -345,7 +345,7 @@ PODS:
     - React-Core
   - react-native-maps (0.31.1):
     - React-Core
-  - react-native-netinfo (9.1.0):
+  - react-native-netinfo (9.3.7):
     - React-Core
   - react-native-safe-area-context (4.5.0):
     - RCT-Folly
@@ -353,7 +353,7 @@ PODS:
     - RCTTypeSafety
     - React-Core
     - ReactCommon/turbomodule/core
-  - react-native-search-with-spotlight (0.1.1):
+  - react-native-search-with-spotlight (0.1.3):
     - AlamofireImage (~> 4.2)
     - React-Core
   - react-native-sqlite-storage (6.0.1):
@@ -442,17 +442,17 @@ PODS:
     - React-jsi (= 0.71.2)
     - React-logger (= 0.71.2)
     - React-perflogger (= 0.71.2)
-  - RNCAsyncStorage (1.17.7):
+  - RNCAsyncStorage (1.17.11):
     - React-Core
-  - RNCClipboard (1.10.0):
+  - RNCClipboard (1.11.1):
     - React-Core
-  - RNFastImage (8.5.11):
+  - RNFastImage (8.6.3):
     - React-Core
     - SDWebImage (~> 5.11.1)
     - SDWebImageWebPCoder (~> 0.8.4)
   - RNFS (2.20.0):
     - React-Core
-  - RNInAppBrowser (3.6.3):
+  - RNInAppBrowser (3.7.0):
     - React-Core
   - RNScreens (3.19.0):
     - React-Core
@@ -702,9 +702,9 @@ SPEC CHECKSUMS:
   React-logger: 97987f46779d8dd24656474ad0c43a5b459f31d6
   react-native-file-asset: d3d79689a2c8a92ec545b8134570d6145e5b5548
   react-native-maps: 8b8bfada2c86205a7f5a07dd1f92f29b33ea83aa
-  react-native-netinfo: 994c55f16653b46e044018c3624478e5b79eb917
+  react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-safe-area-context: 39c2d8be3328df5d437ac1700f4f3a4f75716acc
-  react-native-search-with-spotlight: 0b69afaf29c0fdf18d8b258dbc311418c25d087b
+  react-native-search-with-spotlight: ebc5892816592a16356063e6f2cfdb732ce02933
   react-native-sqlite-storage: f6d515e1c446d1e6d026aa5352908a25d4de3261
   React-perflogger: c7ccda3d1d1da837f7ff4e54e816022a6803ee87
   React-RCTActionSheet: 01c125aebbad462a24228f68c584c7a921d6c28e
@@ -719,11 +719,11 @@ SPEC CHECKSUMS:
   React-RCTVibration: 0af3babdeee1b2d052811a2f86977d1e1c81ebd1
   React-runtimeexecutor: 4bf9a9086d27f74065fce1dddac274aa95216952
   ReactCommon: f697c0ac52e999aa818e43e2b6f277787c735e2d
-  RNCAsyncStorage: d81ee5c3db1060afd49ea7045ad460eff82d2b7d
-  RNCClipboard: f1736c75ab85b627a4d57587edb4b60999c4dd80
-  RNFastImage: 1f2cab428712a4baaf78d6169eaec7f622556dd7
+  RNCAsyncStorage: 8616bd5a58af409453ea4e1b246521bb76578d60
+  RNCClipboard: 2834e1c4af68697089cdd455ee4a4cdd198fa7dd
+  RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
-  RNInAppBrowser: 3ff3a3b8f458aaf25aaee879d057352862edf357
+  RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNScreens: ea4cd3a853063cda19a4e3c28d2e52180c80f4eb
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d

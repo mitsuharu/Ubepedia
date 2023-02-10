@@ -5,9 +5,12 @@ import { ColorSchemeName } from 'react-native'
 export type Theme = typeof DefaultTheme
 type Colors = Pick<Theme, 'colors'>['colors']
 
+// なぜか切り出さないで使うと `TypeError: Cannot read property 'colors' of undefined`
+const getThemeColors = (colorScheme: ColorSchemeName) =>
+  colorScheme === 'dark' ? DarkTheme.colors : DefaultTheme.colors
+
 const makeColors = (colorScheme: ColorSchemeName): Colors => {
-  const themeColors =
-    colorScheme === 'dark' ? DarkTheme.colors : DefaultTheme.colors
+  const themeColors = getThemeColors(colorScheme)
   return {
     ...themeColors,
     primary: COLOR(colorScheme).TEXT.SECONDARY,
