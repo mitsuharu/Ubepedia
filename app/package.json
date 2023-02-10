@@ -19,8 +19,8 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.17.7",
-    "@react-native-clipboard/clipboard": "^1.10.0",
+    "@react-native-async-storage/async-storage": "^1.17.11",
+    "@react-native-clipboard/clipboard": "^1.11.1",
     "@react-native-community/netinfo": "^9.1.0",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/native-stack": "^6.6.2",
@@ -38,7 +38,7 @@
     "react-native-maps": "^0.31.1",
     "react-native-offline": "^6.0.0",
     "react-native-open-maps": "^0.4.0",
-    "react-native-paper": "^4.12.1",
+    "react-native-paper": "^5.2.0",
     "react-native-safe-area-context": "^4.5.0",
     "react-native-screens": "^3.19.0",
     "react-native-search-with-spotlight": "^0.1.1",
@@ -64,7 +64,7 @@
     "@types/jest": "^29.2.1",
     "@types/react": "^18.0.24",
     "@types/react-native-sqlite-storage": "^5.0.2",
-    "@types/react-native-vector-icons": "^6.4.10",
+    "@types/react-native-vector-icons": "^6.4.13",
     "@types/react-redux": "^7.1.24",
     "@types/react-test-renderer": "^18.0.0",
     "@types/redux-mock-store": "^1.0.3",
