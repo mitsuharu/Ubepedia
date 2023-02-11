@@ -1,7 +1,6 @@
 import { CivicFacility } from './model/CivicFacility'
 import { CulturalProperty } from './model/CulturalProperty'
 import { Sculpture } from './model/Sculpture'
-import { match } from 'ts-pattern'
 
 export type UbeDataType = CivicFacility | CulturalProperty | Sculpture
 
@@ -51,12 +50,16 @@ export const INIT_UBE_DATA: UbeData = {
   sculpture: makeInitListData<Sculpture>(),
 }
 
-export const ubeDataName = (key: UbeDataKey) =>
-  match(key)
-    .with('civicFacility', () => '公共施設')
-    .with('culturalProperty', () => '文化財')
-    .with('sculpture', () => '彫刻')
-    .exhaustive()
+export const ubeDataName = (key: UbeDataKey) => {
+  switch (key) {
+    case 'civicFacility':
+      return '公共施設'
+    case 'culturalProperty':
+      return '文化財'
+    case 'sculpture':
+      return '彫刻'
+  }
+}
 
 export type Filters = {
   keyword: string | null

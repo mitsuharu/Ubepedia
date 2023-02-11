@@ -93,9 +93,8 @@ function createSearchOnDeviceEventChannel() {
 
 // 端末からの SearchOnDevice のレスポンスを受ける
 function* listenerSaga(): SagaIterator {
-  const chan: EventChannel<unknown> = yield call(
-    createSearchOnDeviceEventChannel,
-  )
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const chan: EventChannel<any> = yield call(createSearchOnDeviceEventChannel)
   try {
     yield takeEvery(chan, launchViaSearchOnDeviceByResponseSaga)
   } catch (e: any) {
