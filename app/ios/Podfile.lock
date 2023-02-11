@@ -343,7 +343,7 @@ PODS:
     - glog
   - react-native-file-asset (0.1.2):
     - React-Core
-  - react-native-maps (0.31.1):
+  - react-native-maps (1.4.0):
     - React-Core
   - react-native-netinfo (9.3.7):
     - React-Core
@@ -701,7 +701,7 @@ SPEC CHECKSUMS:
   React-jsinspector: ea8101acf525ec08b2d87ddf0637d45f8e3b4148
   React-logger: 97987f46779d8dd24656474ad0c43a5b459f31d6
   react-native-file-asset: d3d79689a2c8a92ec545b8134570d6145e5b5548
-  react-native-maps: 8b8bfada2c86205a7f5a07dd1f92f29b33ea83aa
+  react-native-maps: 7135a33610202745d08fdf151ce6b0d01952a99c
   react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-safe-area-context: 39c2d8be3328df5d437ac1700f4f3a4f75716acc
   react-native-search-with-spotlight: ebc5892816592a16356063e6f2cfdb732ce02933
