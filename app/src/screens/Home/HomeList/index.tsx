@@ -20,7 +20,6 @@ import {
   ubeDataName,
   UbeDataType,
 } from '@/database/ube/type'
-import { match } from 'ts-pattern'
 import { ItemSeparator } from '@/components/List'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -82,21 +81,22 @@ const Container: React.FC<Props> = (props) => {
     const nextSections = ubeDataKeys.map<SectionListData<UbeDataType>>(
       (key) => {
         const { civicFacility, culturalProperty, sculpture } = ubeData
-        const data = match(key)
-          .with('civicFacility', () => civicFacility.items)
-          .with('culturalProperty', () => culturalProperty.items)
-          .with('sculpture', () => sculpture.items)
-          .otherwise(() => [])
-
-        const total = match(key)
-          .with('civicFacility', () => civicFacility.total)
-          .with('culturalProperty', () => culturalProperty.total)
-          .with('sculpture', () => sculpture.total)
-          .otherwise(() => 0)
-
-        return {
-          title: ubeDataName(key) + ` (${total})`,
-          data: data,
+        switch (key) {
+          case 'civicFacility':
+            return {
+              title: ubeDataName(key) + ` (${civicFacility.total})`,
+              data: civicFacility.items,
+            }
+          case 'culturalProperty':
+            return {
+              title: ubeDataName(key) + ` (${culturalProperty.total})`,
+              data: culturalProperty.items,
+            }
+          case 'sculpture':
+            return {
+              title: ubeDataName(key) + ` (${sculpture.total})`,
+              data: sculpture.items,
+            }
         }
       },
     )
