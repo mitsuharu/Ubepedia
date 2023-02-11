@@ -8,9 +8,12 @@ type ChainedWhen<T, R> = {
   otherwise: <A>(fn: () => A) => R | A
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const match = <T, R>(val: any): ChainedWhen<T, R> => ({
-  on: <A>(pred: (v: T) => boolean, fn: () => A) => match<T, R | A>(val),
-  otherwise: <A>(fn: () => A): A | R => val,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  on: <A>(_pred: (v: T) => boolean, _fn: () => A) => match<T, R | A>(val),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  otherwise: <A>(_fn: () => A): A | R => val,
 })
 
 const chain = <T, R>(val: T): ChainedWhen<T, R> => ({
